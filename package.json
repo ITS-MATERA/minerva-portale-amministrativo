@@ -15,7 +15,7 @@
     "@sap/ux-ui5-tooling": "1"
   },
   "scripts": {
-    "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#portaleamministrativo-display\"",
+    "start": "fiori run --open \"index.html?sap-client=101&sap-ui-xx-viewCache=false\"",
     "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#portaleamministrativo-display\"",
     "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
     "deploy": "fiori verify",

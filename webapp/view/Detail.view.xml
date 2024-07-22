@@ -1,0 +1,56 @@
+<mvc:View controllerName="portaleamministrativo.controller.Detail"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+  xmlns:f="sap.f"
+  xmlns:my="portaleamministrativo.controls"
+  xmlns:l="sap.ui.layout">
+  <f:DynamicPage showFooter="true">
+    <f:content>
+      <l:Grid>
+        <my:Input label="{i18n>labelField1}"
+          editable="{Item>/Edit}"
+          required="true">
+          <my:layoutData>
+            <l:GridData span="XL3 L4 M6"/>
+          </my:layoutData>
+        </my:Input>
+        <my:Input label="{i18n>labelField2}"
+          editable="{Item>/Edit}">
+          <my:layoutData>
+            <l:GridData span="XL3 L4 M6"
+              linebreak="true"/>
+          </my:layoutData>
+        </my:Input>
+        <my:Input label="{i18n>labelField3}"
+          editable="{Item>/Edit}">
+          <my:layoutData>
+            <l:GridData span="XL3 L4 M6"
+              linebreak="true"/>
+          </my:layoutData>
+        </my:Input>
+        <VBox>
+          <Label text="{i18n>labelField4}"/>
+          <TextArea width="100%"
+            rows="5"
+            editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL12 L12 M12"
+              linebreak="true"/>
+          </layoutData>
+        </VBox>
+      </l:Grid>
+    </f:content>
+    <f:footer>
+      <OverflowToolbar>
+        <Button type="Back"
+          text="{i18n>labelBack}"
+          press="onBack" />
+        <ToolbarSpacer />
+        <Button type="Emphasized"
+          text="{i18n>labelSend}"
+          press="onSend" />
+      </OverflowToolbar>
+    </f:footer>
+  </f:DynamicPage>
+</mvc:View>
