@@ -12,7 +12,10 @@ sap.ui.define(["sap/m/Input", "sap/m/Label"], function (Input, Label) {
           type: "string",
           defaultValue: "",
         },
-        required: { type: "boolean", defaultValue: false },
+        required: {
+          type: "boolean",
+          defaultValue: false,
+        },
       },
       aggregations: {
         _label: { type: "sap.m.Label", multiple: false, visibility: "hidden" },
@@ -39,14 +42,24 @@ sap.ui.define(["sap/m/Input", "sap/m/Label"], function (Input, Label) {
       return this.getProperty("required");
     },
 
+    setLabel: function (sValue) {
+      this.setProperty("label", sValue);
+      return this;
+    },
+
+    setRequired: function (sValue) {
+      this.setProperty("required", sValue);
+      return this;
+    },
+
     _createLabel: function (oRm, oInput) {
       if (!oInput.getAggregation("_label").getText() && oInput.getLabel()) {
-        oInput.getAggregation("_label").setVisible(oInput.getLabel() ? true : false);
-        oInput.getAggregation("_label").setText(oInput.getLabel());
-        oInput.getAggregation("_label").setRequired(oInput.getRequired());
-
         oRm.renderControl(oInput.getAggregation("_label"));
       }
+
+      oInput.getAggregation("_label").setRequired(oInput.getRequired());
+      oInput.getAggregation("_label").setVisible(oInput.getLabel() ? true : false);
+      oInput.getAggregation("_label").setText(oInput.getLabel());
     },
   });
 });
