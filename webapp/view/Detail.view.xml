@@ -8,29 +8,44 @@
   <f:DynamicPage showFooter="true">
     <f:content>
       <l:Grid>
-        <my:Input label="{i18n>labelField1}"
-          editable="{Item>/Edit}"
-          required="true">
-          <my:layoutData>
-            <l:GridData span="XL3 L4 M6"/>
-          </my:layoutData>
-        </my:Input>
-        <my:Input label="{i18n>labelField2}"
-          editable="{Item>/Edit}">
-          <my:layoutData>
-            <l:GridData span="XL3 L4 M6"
-              linebreak="true"/>
-          </my:layoutData>
-        </my:Input>
-        <my:Input label="{i18n>labelField3}"
-          editable="{Item>/Edit}">
-          <my:layoutData>
-            <l:GridData span="XL3 L4 M6"
-              linebreak="true"/>
-          </my:layoutData>
-        </my:Input>
         <VBox>
-          <Label text="{i18n>labelField4}"/>
+          <Label text="{i18n>labelObject}"
+            required="true"/>
+          <Select width="100%"
+            editable="{Item>/Edit}">
+            <c:Item />
+          </Select>
+          <layoutData>
+            <l:GridData span="XL3 L4 M6"
+              linebreak="true"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelBukrs}"/>
+          <Select width="100%"
+            editable="{Item>/Edit}">
+            <c:Item />
+          </Select>
+          <layoutData>
+            <l:GridData span="XL3 L4 M6"
+              indent="XL1"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelPriority}"
+            required="true"/>
+          <Select width="100%"
+            editable="{Item>/Edit}">
+            <c:Item />
+          </Select>
+          <layoutData>
+            <l:GridData span="XL3 L4 M6"
+              linebreak="true"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelProblemDescription}"
+            required="true"/>
           <TextArea width="100%"
             rows="5"
             editable="{Item>/Edit}"/>
@@ -39,6 +54,12 @@
               linebreak="true"/>
           </layoutData>
         </VBox>
+        <Button text="{i18n>labelAttachFile}">
+          <layoutData>
+            <l:GridData span="XL2 L3 M4"
+              linebreak="true"/>
+          </layoutData>
+        </Button>
       </l:Grid>
     </f:content>
     <f:footer>
@@ -50,6 +71,7 @@
         <Button type="Emphasized"
           text="{i18n>labelSend}"
           press="onSend" />
+
       </OverflowToolbar>
     </f:footer>
   </f:DynamicPage>

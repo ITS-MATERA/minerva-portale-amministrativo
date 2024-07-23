@@ -4,10 +4,6 @@ sap.ui.define(["sap/m/Input", "sap/m/Label"], function (Input, Label) {
   return Input.extend("portaleamministrativo.controls.Input", {
     metadata: {
       properties: {
-        value: {
-          type: "string",
-          defaultValue: "",
-        },
         label: {
           type: "string",
           defaultValue: "",
