@@ -2,33 +2,38 @@
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:f="sap.f"
-	xmlns:my="portaleamministrativo.controls"
 	xmlns:l="sap.ui.layout"
-	xmlns:ui="sap.ui.table">
+	xmlns:ui="sap.ui.table"
+	xmlns:c="sap.ui.core">
 	<f:DynamicPage showFooter="true">
 		<f:header>
 			<f:DynamicPageHeader pinnable="false">
 				<l:Grid>
-					<my:Input label="{i18n>labelFilter1}">
-						<my:layoutData>
-							<l:GridData span="XL3 L6 M6 S12" />
-						</my:layoutData>
-					</my:Input>
-					<my:Input label="{i18n>labelFilter2}">
-						<my:layoutData>
-							<l:GridData span="XL3 L6 M6 S12" />
-						</my:layoutData>
-					</my:Input>
-					<my:Input label="{i18n>labelFilter3}">
-						<my:layoutData>
-							<l:GridData span="XL3 L6 M6 S12" />
-						</my:layoutData>
-					</my:Input>
-					<my:Input label="{i18n>labelFilter4}">
-						<my:layoutData>
-							<l:GridData span="XL3 L6 M6 S12" />
-						</my:layoutData>
-					</my:Input>
+					<VBox>
+						<Label text="{i18n>labelState}" />
+						<Select width="100%">
+							<c:Item />
+						</Select>
+						<layoutData>
+							<l:GridData span="XL3 L4 M6" />
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>labelOpeningDateFrom}" />
+						<DatePicker placeholder=" " />
+						<layoutData>
+							<l:GridData span="XL3 L4 M6" />
+						</layoutData>
+					</VBox>
+					<VBox>
+						<Label text="{i18n>labelObject}" />
+						<Select width="100%">
+							<c:Item />
+						</Select>
+						<layoutData>
+							<l:GridData span="XL3 L4 M6" />
+						</layoutData>
+					</VBox>
 				</l:Grid>
 			</f:DynamicPageHeader>
 		</f:header>
@@ -48,12 +53,68 @@
 						width=""
 						filterProperty=""
 						sortProperty="">
-						<Label text="{i18n>labelColumn1}" />
+						<Label text="{i18n>labelTicket}" />
 						<ui:template>
-							<Text text="{Items>Column1}" />
+							<Text text="{Items>Ticket}" />
 						</ui:template>
 					</ui:Column>
-
+					<ui:Column autoResizable="true"
+						width=""
+						filterProperty=""
+						sortProperty="">
+						<Label text="{i18n>labelObject}" />
+						<ui:template>
+							<Text text="{Items>Object}" />
+						</ui:template>
+					</ui:Column>
+					<ui:Column autoResizable="true"
+						width=""
+						filterProperty=""
+						sortProperty="">
+						<Label text="{i18n>labelState}" />
+						<ui:template>
+							<Text text="{Items>State}" />
+						</ui:template>
+					</ui:Column>
+					<ui:Column autoResizable="true"
+						width=""
+						filterProperty=""
+						sortProperty="">
+						<Label text="{i18n>labelCreationDate}" />
+						<ui:template>
+							<Text text="{
+								path: 'Items>CreationDate',
+								type: 'sap.ui.model.type.Date',
+								formatOptions: {
+									pattern: 'dd.MM.yyyy'
+								}
+							}" />
+						</ui:template>
+					</ui:Column>
+					<ui:Column autoResizable="true"
+						width=""
+						filterProperty=""
+						sortProperty="">
+						<Label text="{i18n>labelClosingDate}" />
+						<ui:template>
+							<Text text="{
+								path: 'Items>ClosingDate',
+								type: 'sap.ui.model.type.Date',
+								formatOptions: {
+									pattern: 'dd.MM.yyyy'
+								}
+							}" />
+						</ui:template>
+					</ui:Column>
+					<ui:Column autoResizable="true"
+						width=""
+						filterProperty=""
+						sortProperty="">
+						<Label text="{i18n>labelPriority}" />
+						<ui:template>
+							<Text text="{Items>Priority}" />
+						</ui:template>
+					</ui:Column>
 				</ui:columns>
 				<ui:footer>
 					<OverflowToolbar style="Clear">

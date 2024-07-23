@@ -3,7 +3,6 @@
   xmlns="sap.m"
   xmlns:c="sap.ui.core"
   xmlns:f="sap.f"
-  xmlns:my="portaleamministrativo.controls"
   xmlns:l="sap.ui.layout">
   <f:DynamicPage showFooter="true">
     <f:content>
