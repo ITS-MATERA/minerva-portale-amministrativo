@@ -5,41 +5,328 @@
   xmlns:f="sap.f"
   xmlns:l="sap.ui.layout">
   <f:DynamicPage showFooter="true">
+    <f:header>
+      <f:DynamicPageHeader pinnable="false">
+        <f:content>
+          <VBox>
+            <l:Grid>
+              <Label text="{i18n>labelSurname}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6" />
+                </layoutData>
+              </Label>
+              <FlexBox>
+                <Input editable="{Item>/Edit}">
+                  <layoutData>
+                    <FlexItemData growFactor="100" />
+                  </layoutData>
+                </Input>
+                <Button icon="sap-icon://search"
+                  type="Transparent">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Button>
+                <layoutData>
+                  <l:GridData span="XL2 L3 M6" />
+                </layoutData>
+              </FlexBox>
+              <Label text="{i18n>labelCid}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6" />
+                </layoutData>
+              </Label>
+              <Input editable="{Item>/Edit}">
+                <layoutData>
+                  <l:GridData span="XL2 L3 M6" />
+                </layoutData>
+              </Input>
+              <Label text="{i18n>labelName}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6" />
+                </layoutData>
+              </Label>
+              <Input editable="{Item>/Edit}">
+                <layoutData>
+                  <l:GridData span="XL2 L3 M6" />
+                </layoutData>
+              </Input>
+              <Label text="{i18n>labelPhone}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6"
+                    linebreak="true"/>
+                </layoutData>
+              </Label>
+              <Input editable="{Item>/Edit}">
+                <layoutData>
+                  <l:GridData span="XL2 L3 M6" />
+                </layoutData>
+              </Input>
+              <Label text="{i18n>labelCustomer}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6" />
+                </layoutData>
+              </Label>
+              <Input editable="{Item>/Edit}">
+                <layoutData>
+                  <l:GridData span="XL2 L3 M6" />
+                </layoutData>
+              </Input>
+              <Label text="{i18n>labelSite}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6" />
+                </layoutData>
+              </Label>
+              <Input editable="{Item>/Edit}">
+                <layoutData>
+                  <l:GridData span="XL2 L3 M6" />
+                </layoutData>
+              </Input>
+            </l:Grid>
+          </VBox>
+          <Toolbar height="1px"/>
+          <VBox class="sapUiSmallMarginTop">
+            <l:Grid>
+              <Label text="{i18n>labelCaller}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6" />
+                </layoutData>
+              </Label>
+              <FlexBox>
+                <Input editable="{Item>/Edit}">
+                  <layoutData>
+                    <FlexItemData growFactor="100" />
+                  </layoutData>
+                </Input>
+                <Button icon="sap-icon://search"
+                  type="Transparent">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Button>
+                <layoutData>
+                  <l:GridData span="XL3 L3 M6" />
+                </layoutData>
+              </FlexBox>
+              <Label text="{i18n>labelPhone}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6"
+                    linebreak="true"/>
+                </layoutData>
+              </Label>
+              <Input editable="{Item>/Edit}">
+                <layoutData>
+                  <l:GridData span="XL2 L3 M6" />
+                </layoutData>
+              </Input>
+              <Label text="{i18n>labelEmail}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6" />
+                </layoutData>
+              </Label>
+              <FlexBox>
+                <Input editable="{Item>/Edit}">
+                  <layoutData>
+                    <FlexItemData growFactor="100" />
+                  </layoutData>
+                </Input>
+                <Button icon="sap-icon://menu2">
+                  <layoutData>
+                    <FlexItemData growFactor="1" />
+                  </layoutData>
+                </Button>
+                <layoutData>
+                  <l:GridData span="XL2 L3 M6" />
+                </layoutData>
+              </FlexBox>
+              <Label text="{i18n>labelAutoMail}"
+                class="sapUiTinyMarginTop">
+                <layoutData>
+                  <l:GridData span="XL1 L3 M6" />
+                </layoutData>
+              </Label>
+              <CheckBox editable="{Item>/Edit}">
+                <layoutData>
+                  <l:GridData span="XL1 L1 M1 S1" />
+                </layoutData>
+              </CheckBox>
+            </l:Grid>
+          </VBox>
+        </f:content>
+      </f:DynamicPageHeader>
+    </f:header>
     <f:content>
       <l:Grid>
         <VBox>
-          <Label text="{i18n>labelObject}"
+          <Label text="{i18n>labelApplication}"
             required="true"/>
           <Select width="100%"
-            editable="{Item>/Edit}">
-            <c:Item />
-          </Select>
+            items="{
+            path: 'Select>/Application',
+            templateShareable: false
+          }"
+            editable="{Item>/Edit}"
+            forceSelection="false"
+            change="onApplicationChange">
+            <c:Item key="{Select>Key}"
+              text="{Select>Text}"/>
+          </Select >
           <layoutData>
-            <l:GridData span="XL3 L4 M6"
+            <l:GridData span="XL4 L4 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelDisasterRec}"/>
+          <Input editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL1 L3 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelTender}"/>
+          <Input editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL1 L3 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelAppCode}"/>
+          <Input editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL1 L3 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelCustomer}"/>
+          <Input editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL3 L3 M6"
               linebreak="true"/>
           </layoutData>
         </VBox>
         <VBox>
-          <Label text="{i18n>labelBukrs}"/>
+          <Label text="{i18n>labelItilClassification}"/>
           <Select width="100%"
+            items="{
+            path: 'Select>/ItilClassification',
+            templateShareable: false
+          }"
             editable="{Item>/Edit}">
-            <c:Item />
-          </Select>
+            <c:Item key="{Select>Key}"
+              text="{Select>Text}"/>
+          </Select >
           <layoutData>
-            <l:GridData span="XL3 L4 M6"
-              indent="XL1"/>
+            <l:GridData span="XL2 L3 M6"/>
           </layoutData>
         </VBox>
         <VBox>
-          <Label text="{i18n>labelPriority}"
-            required="true"/>
+          <Label text="{i18n>labelConduction}"/>
           <Select width="100%"
+            items="{
+            path: 'Select>/Conduction',
+            templateShareable: false
+          }"
             editable="{Item>/Edit}">
-            <c:Item />
-          </Select>
+            <c:Item key="{Select>Key}"
+              text="{Select>Text}"/>
+          </Select >
           <layoutData>
-            <l:GridData span="XL3 L4 M6"
+            <l:GridData span="XL2 L3 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelAssignedGroup}"/>
+          <Select width="100%"
+            editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL3 L3 M6"
               linebreak="true"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelEnvironment}"/>
+          <Select width="100%"
+            items="{
+            path: 'Select>/Environment',
+            templateShareable: false
+          }"
+            editable="{Item>/Edit}">
+            <c:Item key="{Select>Key}"
+              text="{Select>Text}"/>
+          </Select >
+          <layoutData>
+            <l:GridData span="XL2 L3 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelRequestType}"/>
+          <Select width="100%"
+            items="{
+            path: 'Select>/RequestType',
+            templateShareable: false
+          }"
+            editable="{Item>/Edit}">
+            <c:Item key="{Select>Key}"
+              text="{Select>Text}"/>
+          </Select >
+          <layoutData>
+            <l:GridData span="XL2 L3 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelEffortGG}"/>
+          <Input editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL1 L3 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelAS}"/>
+          <Select width="100%"
+            editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL1 L3 M6"
+              linebreak="true"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelType}"/>
+          <Select width="100%"
+            items="{
+            path: 'Select>/Type',
+            templateShareable: false
+          }"
+            editable="{Item>/Edit}">
+            <c:Item key="{Select>Key}"
+              text="{Select>Text}"/>
+          </Select >
+          <layoutData>
+            <l:GridData span="XL2 L3 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelClassification}"/>
+          <Select width="100%"
+            editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL3 L3 M6"/>
+          </layoutData>
+        </VBox>
+        <VBox>
+          <Label text="{i18n>labelDetail}"/>
+          <Select width="100%"
+            editable="{Item>/Edit}"/>
+          <layoutData>
+            <l:GridData span="XL2 L3 M6"/>
           </layoutData>
         </VBox>
         <VBox>
