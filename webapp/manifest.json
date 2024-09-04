@@ -78,7 +78,7 @@
       },
       "routes": [
         {
-          "name": "RouteHome",
+          "name": "Home",
           "pattern": ":?query:",
           "target": ["TargetHome"]
         },
@@ -111,5 +111,9 @@
       "async": true,
       "id": "App"
     }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "portaleamministrativo"
   }
 }

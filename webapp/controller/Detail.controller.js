@@ -39,13 +39,13 @@ sap.ui.define(
       },
 
       onBack: function () {
-        this.getRouter().navTo("RouteHome");
+        this.getRouter().navTo("Home");
       },
 
       onSend: function () {
         MessageBox.success(this.getResourceBundle().getText("msgTicketSended"), {
           onClose: function () {
-            this.getRouter().navTo("RouteHome");
+            this.getRouter().navTo("Home");
           }.bind(this),
         });
       },

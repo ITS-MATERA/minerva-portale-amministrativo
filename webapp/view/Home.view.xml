@@ -4,7 +4,8 @@
 	xmlns:f="sap.f"
 	xmlns:l="sap.ui.layout"
 	xmlns:ui="sap.ui.table"
-	xmlns:c="sap.ui.core">
+	xmlns:c="sap.ui.core"
+	xmlns:my="portaleamministrativo.controls">
 	<f:DynamicPage showFooter="true">
 		<f:header>
 			<f:DynamicPageHeader pinnable="false">
@@ -117,19 +118,11 @@
 					</ui:Column>
 				</ui:columns>
 				<ui:footer>
-					<OverflowToolbar style="Clear">
-						<ToolbarSpacer />
-						<ToggleButton icon="sap-icon://slim-arrow-left"
-							tooltip="{i18n>labelBack}"
-							enabled="{Paginator>/BackEnabled}"
-							press="onPaginatorBack" />
-						<Label text="{Paginator>/Start} - {Paginator>/End}" />
-						<ToggleButton icon="sap-icon://slim-arrow-right"
-							enabled="{Paginator>/NextEnabled}"
-							press="onPaginatorNext"
-							tooltip="{i18n>labelNext}" />
-						<ToolbarSpacer />
-					</OverflowToolbar>
+					<my:Paginator id="paginator"
+						top="{Tickets>/Top}"
+						skip="{Tickets>/Skip}"
+						records="{Tickets>/Records}"
+						press="onPaginatorChange" />
 				</ui:footer>
 			</ui:Table>
 		</f:content>
