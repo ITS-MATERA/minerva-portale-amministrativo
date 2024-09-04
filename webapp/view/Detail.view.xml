@@ -49,7 +49,7 @@
                   <l:GridData span="XL1 L3 M6" />
                 </layoutData>
               </Label>
-              <Input editable="{Item>/Edit}">
+              <Input editable="false">
                 <layoutData>
                   <l:GridData span="XL2 L3 M6" />
                 </layoutData>
@@ -186,28 +186,28 @@
         </VBox>
         <VBox>
           <Label text="{i18n>labelDisasterRec}"/>
-          <Input editable="{Item>/Edit}"/>
+          <Input editable="false"/>
           <layoutData>
             <l:GridData span="XL1 L3 M6"/>
           </layoutData>
         </VBox>
         <VBox>
           <Label text="{i18n>labelTender}"/>
-          <Input editable="{Item>/Edit}"/>
+          <Input editable="false"/>
           <layoutData>
             <l:GridData span="XL1 L3 M6"/>
           </layoutData>
         </VBox>
         <VBox>
           <Label text="{i18n>labelAppCode}"/>
-          <Input editable="{Item>/Edit}"/>
+          <Input editable="false"/>
           <layoutData>
             <l:GridData span="XL1 L3 M6"/>
           </layoutData>
         </VBox>
         <VBox>
           <Label text="{i18n>labelCustomer}"/>
-          <Input editable="{Item>/Edit}"/>
+          <Input editable="false"/>
           <layoutData>
             <l:GridData span="XL3 L3 M6"
               linebreak="true"/>
@@ -235,7 +235,7 @@
             path: 'Select>/Conduction',
             templateShareable: false
           }"
-            editable="{Item>/Edit}">
+            editable="false">
             <c:Item key="{Select>Key}"
               text="{Select>Text}"/>
           </Select >
@@ -246,7 +246,7 @@
         <VBox>
           <Label text="{i18n>labelAssignedGroup}"/>
           <Select width="100%"
-            editable="{Item>/Edit}"/>
+            editable="false"/>
           <layoutData>
             <l:GridData span="XL3 L3 M6"
               linebreak="true"/>
@@ -292,7 +292,7 @@
         <VBox>
           <Label text="{i18n>labelAS}"/>
           <Select width="100%"
-            editable="{Item>/Edit}"/>
+            editable="false"/>
           <layoutData>
             <l:GridData span="XL1 L3 M6"
               linebreak="true"/>
@@ -305,7 +305,7 @@
             path: 'Select>/Type',
             templateShareable: false
           }"
-            editable="{Item>/Edit}">
+            editable="false">
             <c:Item key="{Select>Key}"
               text="{Select>Text}"/>
           </Select >
@@ -316,7 +316,7 @@
         <VBox>
           <Label text="{i18n>labelClassification}"/>
           <Select width="100%"
-            editable="{Item>/Edit}"/>
+            editable="false"/>
           <layoutData>
             <l:GridData span="XL3 L3 M6"/>
           </layoutData>
@@ -324,7 +324,7 @@
         <VBox>
           <Label text="{i18n>labelDetail}"/>
           <Select width="100%"
-            editable="{Item>/Edit}"/>
+            editable="false"/>
           <layoutData>
             <l:GridData span="XL2 L3 M6"/>
           </layoutData>
