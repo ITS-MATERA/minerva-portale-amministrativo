@@ -19,6 +19,9 @@ server:
           - path: /service-now
             url: https://fstechdev.service-now.com
             destination: fstech-service-now
+          - path: /mds-centralizzato
+            url: http://mds:44300
+            destination: MDS_CENTRALIZZATO_100
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

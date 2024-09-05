@@ -3,6 +3,13 @@
   "authenticationMethod": "route",
   "routes": [
     {
+      "source": "^/mds-centralizzato/(.*)$",
+      "target": "/$1",
+      "destination": "MDS_CENTRALIZZATO_100",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
+    {
       "source": "^/service-now/(.*)$",
       "target": "/$1",
       "destination": "fstech-service-now",
