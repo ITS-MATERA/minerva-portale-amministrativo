@@ -20,8 +20,9 @@ server:
             url: https://fstechdev.service-now.com
             pathPrefix: /
             destination: fstech-service-now
-          - path: /mds-centralizzato
+          - path: /sap
             url: http://mds:44300
+            client: "100"
             destination: MDS_CENTRALIZZATO_100
     - name: fiori-tools-appreload
       afterMiddleware: compression

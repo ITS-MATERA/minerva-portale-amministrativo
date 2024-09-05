@@ -10,7 +10,7 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       }
 
       var oSettings = {
-        url: this.getUrl(self, sMethod),
+        url: this._getUrl(self, sMethod),
         method: "GET",
         timeout: 0,
         headers: {
@@ -37,7 +37,30 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       });
     },
 
-    getUrl: function (self, sMethod) {
+    getAttachment: function (self, sFileId) {
+      var sMethod = "api/now/attachment/" + sFileId + "/file";
+
+      var oSettings = {
+        url: this._getUrl(self, sMethod),
+        method: "GET",
+        timeout: 0,
+      };
+
+      BusyIndicator.show(0);
+      return new Promise(async function (resolve, reject) {
+        $.ajax(oSettings)
+          .done(function (response, status, header) {
+            BusyIndicator.hide();
+            console.log(response);
+          })
+          .fail(function (error) {
+            BusyIndicator.hide();
+            console.log(error);
+          });
+      });
+    },
+
+    _getUrl: function (self, sMethod) {
       var sAppId = self.getOwnerComponent().getMetadata().getManifest()["sap.app"].id;
       var sUrl;
       var sLocation = window.location;
@@ -59,29 +82,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       sUrl = sUrl.replace("index.html", "");
       sUrl = sUrl + "service-now" + "/" + sMethod;
       return sUrl;
-    },
-
-    getAttachment: function (self, sFileId) {
-      var sMethod = "api/now/attachment/" + sFileId + "/file";
-
-      var oSettings = {
-        url: this.getUrl(self, sMethod),
-        method: "GET",
-        timeout: 0,
-      };
-
-      BusyIndicator.show(0);
-      return new Promise(async function (resolve, reject) {
-        $.ajax(oSettings)
-          .done(function (response, status, header) {
-            BusyIndicator.hide();
-            console.log(response);
-          })
-          .fail(function (error) {
-            BusyIndicator.hide();
-            console.log(error);
-          });
-      });
     },
   });
 });

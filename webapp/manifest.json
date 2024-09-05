@@ -14,6 +14,17 @@
       "id": "@sap/generator-fiori:basic",
       "version": "1.14.1",
       "toolsId": "63443d75-769a-48e0-9b59-a1e7424bb94c"
+    },
+    "dataSources": {
+      "ZMDG_ADMIN_PORTAL_SRV": {
+        "uri": "/sap/opu/odata/sap/ZMDG_ADMIN_PORTAL_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -57,6 +68,11 @@
         "settings": {
           "bundleName": "portaleamministrativo.i18n.i18n"
         }
+      },
+      "ZMDG_ADMIN_PORTAL_SRV": {
+        "dataSource": "ZMDG_ADMIN_PORTAL_SRV",
+        "preload": true,
+        "settings": {}
       }
     },
     "resources": {

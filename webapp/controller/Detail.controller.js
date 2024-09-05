@@ -49,7 +49,21 @@ sap.ui.define(
 
         var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oArguments.Number);
 
+        console.log(oTicket);
+
+        var oSupplier = await this.getEntity(
+          "/GeneralDataSet",
+          "ZMDG_ADMIN_PORTAL_SRV",
+          { ID: oTicket.results[0]?.accountId },
+          {},
+          true,
+          "BankDetailSet,CompanyDataSet"
+        );
+
+        console.log(oSupplier.data);
+
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
+        this.setModel(new JSONModel(oSupplier.data), "Supplier");
       },
 
       onBack: function () {
