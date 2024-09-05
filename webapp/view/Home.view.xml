@@ -67,8 +67,8 @@
 					<ui:columns>
 						<ui:Column autoResizable="true"
 							width="12rem"
-							filterProperty=""
-							sortProperty="">
+							filterProperty="account"
+							sortProperty="account">
 							<Label text="{i18n>labelAccount}" />
 							<ui:template>
 								<Text text="{Tickets>account}" />
@@ -76,17 +76,15 @@
 						</ui:Column>
 						<ui:Column autoResizable="true"
 							width="17rem"
-							filterProperty=""
-							sortProperty="">
+							filterProperty="category"
+							sortProperty="category">
 							<Label text="{i18n>labelCategory}" />
 							<ui:template>
 								<Text text="{Tickets>category}" />
 							</ui:template>
 						</ui:Column>
 						<ui:Column autoResizable="true"
-							width="12rem"
-							filterProperty=""
-							sortProperty="">
+							width="12rem">
 							<Label text="{i18n>labelComments}" />
 							<ui:template>
 								<Button icon="sap-icon://group"
@@ -97,8 +95,8 @@
 						</ui:Column>
 						<ui:Column autoResizable="true"
 							width="10rem"
-							filterProperty=""
-							sortProperty="">
+							filterProperty="contact"
+							sortProperty="contact">
 							<Label text="{i18n>labelContact}" />
 							<ui:template>
 								<Text text="{Tickets>contact}" />
@@ -107,8 +105,8 @@
 
 						<ui:Column autoResizable="true"
 							width="7rem"
-							filterProperty=""
-							sortProperty="">
+							filterProperty="number"
+							sortProperty="number">
 							<Label text="{i18n>labelNumber}" />
 							<ui:template>
 								<Text text="{Tickets>number}" />
@@ -116,17 +114,15 @@
 						</ui:Column>
 						<ui:Column autoResizable="true"
 							width="7rem"
-							filterProperty=""
-							sortProperty="">
+							filterProperty="priority"
+							sortProperty="priority">
 							<Label text="{i18n>labelPriority}" />
 							<ui:template>
 								<Text text="{Tickets>priority}" />
 							</ui:template>
 						</ui:Column>
 						<ui:Column autoResizable="true"
-							width="30rem"
-							filterProperty=""
-							sortProperty="">
+							width="30rem">
 							<Label text="{i18n>labelShortDescription}" />
 							<ui:template>
 								<Text text="{Tickets>short_description}" />
@@ -134,17 +130,15 @@
 						</ui:Column>
 						<ui:Column autoResizable="true"
 							width="7rem"
-							filterProperty=""
-							sortProperty="">
+							filterProperty="state"
+							sortProperty="state">
 							<Label text="{i18n>labelSate}" />
 							<ui:template>
 								<Text text="{Tickets>state}" />
 							</ui:template>
 						</ui:Column>
 						<ui:Column autoResizable="true"
-							width="40rem"
-							filterProperty=""
-							sortProperty="">
+							width="40rem">
 							<Label text="{i18n>labelDescription}" />
 							<ui:template>
 								<Text text="{Ticktes>description}" />
