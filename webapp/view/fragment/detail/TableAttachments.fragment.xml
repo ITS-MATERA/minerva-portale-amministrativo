@@ -8,6 +8,9 @@
     <ui:extension>
       <OverflowToolbar style="Clear">
         <Title text="{i18n>labelAttachments}"/>
+        <ToolbarSpacer />
+        <Button text="{i18n>labelAttachFile}"
+          type="Ghost"/>
       </OverflowToolbar>
     </ui:extension>
     <ui:rowMode>

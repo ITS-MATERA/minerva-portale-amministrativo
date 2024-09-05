@@ -35,6 +35,8 @@ sap.ui.define(
 
       _onObjectMatched: async function (oEvent) {
         var oArguments = oEvent.getParameter("arguments");
+        this.setModel(new JSONModel({}), "Ticket");
+        this.setModel(new JSONModel({}), "Supplier");
 
         this.setModel(
           new JSONModel({
@@ -51,19 +53,21 @@ sap.ui.define(
 
         console.log(oTicket);
 
-        var oSupplier = await this.getEntity(
-          "/GeneralDataSet",
-          "ZMDG_ADMIN_PORTAL_SRV",
-          { ID: oTicket.results[0]?.accountId },
-          {},
-          true,
-          "BankDetailSet,CompanyDataSet"
-        );
+        if (oTicket?.results[0]?.accountId) {
+          var oSupplier = await this.getEntity(
+            "/GeneralDataSet",
+            "ZMDG_ADMIN_PORTAL_SRV",
+            { ID: oTicket.results[0]?.accountId },
+            {},
+            true,
+            "BankDetailSet,CompanyDataSet"
+          );
 
-        console.log(oSupplier.data);
+          this.setModel(new JSONModel(oSupplier.data), "Supplier");
+          console.log(oSupplier.data);
+        }
 
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
-        this.setModel(new JSONModel(oSupplier.data), "Supplier");
       },
 
       onBack: function () {

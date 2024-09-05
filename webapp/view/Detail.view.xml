@@ -4,7 +4,8 @@
   xmlns:c="sap.ui.core"
   xmlns:f="sap.f"
   xmlns:l="sap.ui.layout">
-  <f:DynamicPage showFooter="true">
+  <f:DynamicPage showFooter="true"
+    class="sapUiNoContentPadding">
     <f:header>
       <f:DynamicPageHeader pinnable="false">
         <f:content>
@@ -168,196 +169,20 @@
       </f:DynamicPageHeader>
     </f:header>
     <f:content>
-      <l:Grid>
-        <VBox>
-          <Label text="{i18n>labelApplication}"
-            required="true"/>
-          <Select width="100%"
-            items="{
-            path: 'Select>/Application',
-            templateShareable: false
-          }"
-            editable="{Item>/Edit}"
-            forceSelection="false"
-            change="onApplicationChange">
-            <c:Item key="{Select>Key}"
-              text="{Select>Text}"/>
-          </Select >
-          <layoutData>
-            <l:GridData span="XL4 L4 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelDisasterRec}"/>
-          <Input editable="false"/>
-          <layoutData>
-            <l:GridData span="XL1 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelTender}"/>
-          <Input editable="false"/>
-          <layoutData>
-            <l:GridData span="XL1 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelAppCode}"/>
-          <Input editable="false"/>
-          <layoutData>
-            <l:GridData span="XL1 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelCustomer}"/>
-          <Input editable="false"/>
-          <layoutData>
-            <l:GridData span="XL3 L3 M6"
-              linebreak="true"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelItilClassification}"/>
-          <Select width="100%"
-            items="{
-            path: 'Select>/ItilClassification',
-            templateShareable: false
-          }"
-            editable="{Item>/Edit}">
-            <c:Item key="{Select>Key}"
-              text="{Select>Text}"/>
-          </Select >
-          <layoutData>
-            <l:GridData span="XL2 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelConduction}"/>
-          <Select width="100%"
-            items="{
-            path: 'Select>/Conduction',
-            templateShareable: false
-          }"
-            editable="false">
-            <c:Item key="{Select>Key}"
-              text="{Select>Text}"/>
-          </Select >
-          <layoutData>
-            <l:GridData span="XL2 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelAssignedGroup}"/>
-          <Select width="100%"
-            editable="false"/>
-          <layoutData>
-            <l:GridData span="XL3 L3 M6"
-              linebreak="true"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelEnvironment}"/>
-          <Select width="100%"
-            items="{
-            path: 'Select>/Environment',
-            templateShareable: false
-          }"
-            editable="{Item>/Edit}">
-            <c:Item key="{Select>Key}"
-              text="{Select>Text}"/>
-          </Select >
-          <layoutData>
-            <l:GridData span="XL2 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelRequestType}"/>
-          <Select width="100%"
-            items="{
-            path: 'Select>/RequestType',
-            templateShareable: false
-          }"
-            editable="{Item>/Edit}">
-            <c:Item key="{Select>Key}"
-              text="{Select>Text}"/>
-          </Select >
-          <layoutData>
-            <l:GridData span="XL2 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelEffortGG}"/>
-          <Input editable="{Item>/Edit}"/>
-          <layoutData>
-            <l:GridData span="XL1 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelAS}"/>
-          <Select width="100%"
-            editable="false"/>
-          <layoutData>
-            <l:GridData span="XL1 L3 M6"
-              linebreak="true"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelType}"/>
-          <Select width="100%"
-            items="{
-            path: 'Select>/Type',
-            templateShareable: false
-          }"
-            editable="false">
-            <c:Item key="{Select>Key}"
-              text="{Select>Text}"/>
-          </Select >
-          <layoutData>
-            <l:GridData span="XL2 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelClassification}"/>
-          <Select width="100%"
-            editable="false"/>
-          <layoutData>
-            <l:GridData span="XL3 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelDetail}"/>
-          <Select width="100%"
-            editable="false"/>
-          <layoutData>
-            <l:GridData span="XL2 L3 M6"/>
-          </layoutData>
-        </VBox>
-        <VBox>
-          <Label text="{i18n>labelProblemDescription}"
-            required="true"/>
-          <TextArea width="100%"
-            rows="5"
-            editable="{Item>/Edit}"/>
-          <layoutData>
-            <l:GridData span="XL12 L12 M12"
-              linebreak="true"/>
-          </layoutData>
-        </VBox>
-        <Button text="{i18n>labelAttachFile}">
-          <layoutData>
-            <l:GridData span="XL2 L3 M4"
-              linebreak="true"/>
-          </layoutData>
-        </Button>
-        <VBox>
-          <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments"
-            type="XML" />
-          <layoutData>
-            <l:GridData span="XL12 L12 M12"/>
-          </layoutData>
-        </VBox>
-
-      </l:Grid>
+      <IconTabBar>
+        <items>
+          <IconTabFilter key="info"
+            text="{i18n>labelInfo}">
+            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Info"
+              type="XML" />
+          </IconTabFilter>
+          <IconTabFilter key="attachments"
+            text="{i18n>labelAttachments}">
+            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments"
+              type="XML" />
+          </IconTabFilter>
+        </items>
+      </IconTabBar>
     </f:content>
     <f:footer>
       <OverflowToolbar>
