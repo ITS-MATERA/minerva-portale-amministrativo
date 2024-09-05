@@ -84,7 +84,7 @@
         },
         {
           "name": "Detail",
-          "pattern": "Detail/:Id:",
+          "pattern": "Detail/:Number:",
           "target": ["Detail"]
         }
       ],

@@ -1,9 +1,15 @@
 sap.ui.define(
-  ["./BaseController", "sap/ui/model/json/JSONModel", "sap/m/MessageBox"],
-  function (BaseController, JSONModel, MessageBox) {
+  [
+    "./BaseController",
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageBox",
+    "portaleamministrativo/externalServices/serviceNow/library",
+  ],
+  function (BaseController, JSONModel, MessageBox, serviceNow) {
     "use strict";
 
     return BaseController.extend("portaleamministrativo.controller.Detail", {
+      serviceNow: new serviceNow(),
       onInit: function () {
         this.getRouter().getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
 
@@ -27,15 +33,23 @@ sap.ui.define(
         this.setModel(new JSONModel(oModelSelect), "Select");
       },
 
-      _onObjectMatched: function (oEvent) {
+      _onObjectMatched: async function (oEvent) {
         var oArguments = oEvent.getParameter("arguments");
 
         this.setModel(
           new JSONModel({
-            Edit: oArguments.Id ? false : true,
+            Edit: oArguments.Number ? false : true,
           }),
           "Item"
         );
+
+        if (!oArguments.Number) {
+          return;
+        }
+
+        var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oArguments.Number);
+
+        console.log(oTicket);
       },
 
       onBack: function () {
