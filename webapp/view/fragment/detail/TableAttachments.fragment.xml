@@ -21,7 +21,9 @@
         width="">
         <Label text="{i18n>labelId}" />
         <ui:template>
-          <Text text="{Ticket>file_id}" />
+          <Link text="{Ticket>file_id}"
+            press="onAttachmentPress"
+            app:fileId="{Ticket>file_id}"/>
         </ui:template>
       </ui:Column>
       <ui:Column autoResizable="true"

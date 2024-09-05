@@ -50,10 +50,6 @@ sap.ui.define(
         var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oArguments.Number);
 
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
-
-        console.log(this.getModel("Ticket").getData());
-
-        console.log(oTicket);
       },
 
       onBack: function () {
@@ -74,6 +70,12 @@ sap.ui.define(
         if (sKey === "FATT-BLO" || sKey === "ENTR-MER" || sKey === "QUES-NAT") {
           MessageBox.warning(this.getResourceBundle().getText("msgContactContracualReferent"));
         }
+      },
+
+      onAttachmentPress: function (oEvent) {
+        var sFileId = oEvent.getSource().data("fileId");
+
+        this.serviceNow.getAttachment(this, sFileId);
       },
     });
   }

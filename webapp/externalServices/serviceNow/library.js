@@ -60,5 +60,28 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       sUrl = sUrl + "service-now" + "/" + sMethod;
       return sUrl;
     },
+
+    getAttachment: function (self, sFileId) {
+      var sMethod = "api/now/attachment/" + sFileId + "/file";
+
+      var oSettings = {
+        url: this.getUrl(self, sMethod),
+        method: "GET",
+        timeout: 0,
+      };
+
+      BusyIndicator.show(0);
+      return new Promise(async function (resolve, reject) {
+        $.ajax(oSettings)
+          .done(function (response, status, header) {
+            BusyIndicator.hide();
+            console.log(response);
+          })
+          .fail(function (error) {
+            BusyIndicator.hide();
+            console.log(error);
+          });
+      });
+    },
   });
 });
