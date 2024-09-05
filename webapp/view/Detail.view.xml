@@ -346,6 +346,14 @@
               linebreak="true"/>
           </layoutData>
         </Button>
+        <VBox>
+          <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments"
+            type="XML" />
+          <layoutData>
+            <l:GridData span="XL12 L12 M12"/>
+          </layoutData>
+        </VBox>
+
       </l:Grid>
     </f:content>
     <f:footer>

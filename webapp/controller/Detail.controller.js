@@ -49,6 +49,10 @@ sap.ui.define(
 
         var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oArguments.Number);
 
+        this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
+
+        console.log(this.getModel("Ticket").getData());
+
         console.log(oTicket);
       },
 

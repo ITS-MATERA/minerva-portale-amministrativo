@@ -1,0 +1,38 @@
+<c:FragmentDefinition xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+  xmlns:rowmodes="sap.ui.table.rowmodes"
+  xmlns:ui="sap.ui.table"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+  <ui:Table rows="{Ticket>/attachments}"
+    selectionMode="None">
+    <ui:extension>
+      <OverflowToolbar style="Clear">
+        <Title text="{i18n>labelAttachments}"/>
+      </OverflowToolbar>
+    </ui:extension>
+    <ui:rowMode>
+      <rowmodes:Auto/>
+    </ui:rowMode>
+    <ui:layoutData>
+      <FlexItemData growFactor="1" />
+    </ui:layoutData>
+    <ui:columns>
+      <ui:Column autoResizable="true"
+        width="">
+        <Label text="{i18n>labelId}" />
+        <ui:template>
+          <Text text="{Ticket>file_id}" />
+        </ui:template>
+      </ui:Column>
+      <ui:Column autoResizable="true"
+        width="">
+        <Label text="{i18n>labelName}" />
+        <ui:template>
+          <Text text="{Ticket>file_name}" />
+        </ui:template>
+      </ui:Column>
+
+    </ui:columns>
+
+  </ui:Table>
+</c:FragmentDefinition>

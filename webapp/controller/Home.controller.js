@@ -14,6 +14,8 @@ sap.ui.define(
     return BaseController.extend("portaleamministrativo.controller.Home", {
       serviceNow: new serviceNow(),
       onInit: function () {
+        this._sQuery = "";
+
         var oModelFilters = {
           Account: "",
           Contact: "",
@@ -26,8 +28,7 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function (oEvent) {
-        var oTickets = await this.serviceNow.getTickets(this);
-        this._sQuery = "";
+        var oTickets = await this.serviceNow.getTickets(this, "0", this._sQuery);
 
         var oModelTickets = {
           Top: 200,
@@ -96,7 +97,7 @@ sap.ui.define(
 
         oModelTickets.setProperty("/List", oTickets.results);
         oModelTickets.setProperty("/Records", oTickets.count);
-        oModelTickets.setProperty("/Skip", "0");
+        oModelTickets.setProperty("/Skip", 0);
       },
     });
   }
