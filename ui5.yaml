@@ -18,6 +18,7 @@ server:
         backend:
           - path: /service-now
             url: https://fstechdev.service-now.com
+            pathPrefix: /
             destination: fstech-service-now
     - name: fiori-tools-appreload
       afterMiddleware: compression
