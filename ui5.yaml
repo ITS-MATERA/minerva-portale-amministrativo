@@ -20,6 +20,9 @@ server:
             url: https://fstechdev.service-now.com
             pathPrefix: /
             destination: fstech-service-now
+          - path: /service-tech
+            url: https://innovatesapp-s-r-l--ia-dev-faretra-faretra-srv.cfapps.eu10.hana.ondemand.com/
+            destination: Informazioni_Utili_Data
           - path: /sap
             url: http://mds:44300
             client: "100"
