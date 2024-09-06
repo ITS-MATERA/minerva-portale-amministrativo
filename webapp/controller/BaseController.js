@@ -1,6 +1,6 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/core/BusyIndicator", "sap/m/MessageBox"],
-  function (Controller, BusyIndicator, MessageBox) {
+  ["sap/ui/core/mvc/Controller", "sap/ui/core/BusyIndicator", "sap/m/MessageBox", "sap/ui/core/Fragment"],
+  function (Controller, BusyIndicator, MessageBox, Fragment) {
     "use strict";
 
     return Controller.extend("portaleamministrativo.controller.BaseController", {
@@ -145,6 +145,23 @@ sap.ui.define(
         }
 
         return { severity: oMessage.severity, message: oMessage.message };
+      },
+
+      loadFragment: function (sViewName) {
+        var self = this;
+        var oView = this.getView();
+
+        var oFragment = Fragment.load({
+          id: oView.getId(),
+          name: sViewName,
+          controller: this,
+        }).then(function (oFragment) {
+          oFragment.setModel(self.getModel("i18n"), "i18n");
+          oView.addDependent(oFragment);
+          return oFragment;
+        });
+
+        return oFragment;
       },
 
       // fnGetEntitySet: async function (sService, sEntity, oExpand = {}, aFilter = [], nSkip = 0, nTop = 0) {

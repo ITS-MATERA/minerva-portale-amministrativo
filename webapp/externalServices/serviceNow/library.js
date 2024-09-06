@@ -37,7 +37,7 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       });
     },
 
-    downloadAttachment: function (self, sFileId, sFileName) {
+    downloadFile: function (self, sFileId, sFileName) {
       var sMethod = "sys_attachment.do?sys_id=" + sFileId;
 
       var oA = document.createElement("a");
@@ -48,6 +48,40 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       document.body.appendChild(oA);
       oA.click();
       document.body.removeChild(oA);
+    },
+
+    uploadFile: function (self, sTicketId, oFile) {
+      var oForm = new FormData();
+
+      oForm.append("table_name", "x_fsts2_btp_fornit_btp_fornitori_case");
+      oForm.append("table_sys_id", sTicketId);
+      oForm.append("uploadFile", oFile, oFile.name);
+
+      var settings = {
+        url: this._getUrl(self, "api/now/attachment/upload"),
+        method: "POST",
+        timeout: 0,
+        headers: {
+          Accept: "application/json",
+        },
+        processData: false,
+        mimeType: "multipart/oForm-data",
+        contentType: false,
+        data: oForm,
+      };
+
+      // BusyIndicator.show(0);
+      return new Promise(async function (resolve, reject) {
+        $.ajax(settings)
+          .done(function (response) {
+            // BusyIndicator.hide();
+            resolve(true);
+          })
+          .fail(function (error) {
+            // BusyIndicator.hide();
+            reject(false);
+          });
+      });
     },
 
     _getUrl: function (self, sMethod) {

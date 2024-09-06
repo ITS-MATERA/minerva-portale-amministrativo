@@ -2,46 +2,67 @@
   xmlns:c="sap.ui.core"
   xmlns:rowmodes="sap.ui.table.rowmodes"
   xmlns:ui="sap.ui.table"
-  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  xmlns:l="sap.ui.layout">
   <VBox>
-    <ui:Table rows="{Ticket>/attachments}"
-      selectionMode="None">
-      <ui:extension>
-        <OverflowToolbar style="Clear">
-          <Title text="{i18n>labelAttachments} ({= ${Ticket>/attachments}.length})"/>
-          <ToolbarSpacer />
-          <Button text="{i18n>labelAttachFile}"
-            type="Ghost"/>
-        </OverflowToolbar>
-      </ui:extension>
-      <ui:rowMode>
-        <rowmodes:Fixed rowCount="20"/>
-      </ui:rowMode>
-      <ui:layoutData>
-        <FlexItemData growFactor="1" />
-      </ui:layoutData>
-      <ui:columns>
-        <ui:Column autoResizable="true"
-          width="20rem">
-          <Label text="{i18n>labelId}" />
-          <ui:template>
-            <Link text="{Ticket>file_id}"
-              press="onAttachmentPress"
-              app:fileId="{Ticket>file_id}"
-              app:fileName="{Ticket>file_name}"/>
-          </ui:template>
-        </ui:Column>
-        <ui:Column autoResizable="true"
-          width="">
-          <Label text="{i18n>labelName}" />
-          <ui:template>
-            <Text text="{Ticket>file_name}" />
-          </ui:template>
-        </ui:Column>
-
-      </ui:columns>
-
-    </ui:Table>
+    <l:Grid>
+      <VBox>
+        <ui:Table rows="{Ticket>/attachments}"
+          selectionMode="None"
+          class="removeLineColumn">
+          <ui:extension>
+            <OverflowToolbar style="Clear">
+              <Title text="{i18n>labelAttachments} ({= ${Ticket>/attachments}.length})"/>
+              <ToolbarSpacer />
+              <Button text="{i18n>labelAttachFile}"
+                type="Ghost"
+                press="onAttachManager"
+                app:button="Open" />
+            </OverflowToolbar>
+          </ui:extension>
+          <ui:rowMode>
+            <rowmodes:Fixed rowCount="20"/>
+          </ui:rowMode>
+          <ui:layoutData>
+            <FlexItemData growFactor="1" />
+          </ui:layoutData>
+          <ui:columns>
+            <ui:Column autoResizable="true"
+              width="">
+              <Label text="{i18n>labelName}" />
+              <ui:template>
+                <Text text="{Ticket>file_name}" />
+              </ui:template>
+            </ui:Column>
+            <ui:Column autoResizable="true"
+              width="3rem">
+              <ui:template>
+                <Button icon="sap-icon://download"
+                  type="Transparent"
+                  press="onAttachManager"
+                  app:fileId="{Ticket>file_id}"
+                  app:fileName="{Ticket>file_name}"
+                  enabled="{= !!${Ticket>file_url} }"
+                  app:button="Download"/>
+              </ui:template>
+            </ui:Column>
+            <ui:Column autoResizable="true"
+              width="3rem">
+              <ui:template>
+                <Button icon="sap-icon://delete"
+                  type="Transparent"
+                  app:id="{Ticket>id}"
+                  app:button="Delete"
+                  press="onAttachManager" />
+              </ui:template>
+            </ui:Column>
+          </ui:columns>
+        </ui:Table>
+        <layoutData>
+          <l:GridData span="XL4 L6 M12" />
+        </layoutData>
+      </VBox >
+    </l:Grid>
   </VBox>
 
 </c:FragmentDefinition>

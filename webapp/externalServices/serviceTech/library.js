@@ -37,7 +37,7 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       });
     },
 
-    // downloadAttachment: function (self, sFileId) {
+    // downloadFile: function (self, sFileId) {
     //   var sMethod = "api/now/attachment/" + sFileId + "/file";
 
     //   var oSettings = {

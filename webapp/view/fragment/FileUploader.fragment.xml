@@ -1,0 +1,30 @@
+<c:FragmentDefinition xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+  xmlns:l="sap.ui.layout"
+  xmlns:u="sap.ui.unified"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+  <Dialog contentWidth="25%"
+    contentHeight="15%"
+    title="{i18n>labelAttachFile}">
+    <content>
+      <l:Grid defaultSpan="XL12 L12 M12 S12">
+        <u:FileUploader id="fileUploader"
+          name="myFileUpload"
+          uploadUrl="upload/"
+          tooltip="{i18n>labelUploadFile}"
+          width="100%"/>
+        <Button text="{i18n>labelUploadFile}"
+          press="onAttachManager"
+          app:button="Upload"/>
+      </l:Grid>
+    </content>
+    <footer>
+      <OverflowToolbar style="Clear">
+        <ToolbarSpacer />
+        <Button text="{i18n>labelClose}"
+          press="onAttachManager"
+          app:button="Close" />
+      </OverflowToolbar>
+    </footer>
+  </Dialog>
+</c:FragmentDefinition>
