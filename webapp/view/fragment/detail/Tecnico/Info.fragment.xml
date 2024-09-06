@@ -120,8 +120,7 @@
     </VBox>
     <VBox>
       <Label text="{i18n>labelEffortGG}"/>
-      <Input editable="{Item>/Edit}"
-        type="Password"/>
+      <Input editable="{Item>/Edit}"/>
       <layoutData>
         <l:GridData span="XL1 L3 M6"/>
       </layoutData>

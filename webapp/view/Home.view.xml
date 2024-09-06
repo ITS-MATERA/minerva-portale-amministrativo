@@ -141,7 +141,7 @@
 							width="40rem">
 							<Label text="{i18n>labelDescription}" />
 							<ui:template>
-								<Text text="{Ticktes>description}" />
+								<Text text="{Tickets>description}" />
 							</ui:template>
 						</ui:Column>
 					</ui:columns>

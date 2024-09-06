@@ -1,0 +1,81 @@
+<c:FragmentDefinition xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:l="sap.ui.layout">
+	<l:Grid>
+		<VBox>
+			<Label text="{i18n>labelAccount}"/>
+			<Input value="{Ticket>/account}"
+				editable="{Item>/Edit}"/>
+			<layoutData>
+				<l:GridData span="XL3 L4 M6"/>
+			</layoutData>
+		</VBox>
+		<VBox>
+			<Label text="{i18n>labelCategory}"/>
+			<Input value="{Ticket>/category}"
+				editable="{Item>/Edit}"/>
+			<layoutData>
+				<l:GridData span="XL3 L4 M6"/>
+			</layoutData>
+		</VBox>
+		<VBox>
+			<Label text="{i18n>labelContact}"/>
+			<Input value="{Ticket>/contact}"
+				editable="{Item>/Edit}"/>
+			<layoutData>
+				<l:GridData span="XL3 L4 M6"/>
+			</layoutData>
+		</VBox>
+		<VBox>
+			<Label text="{i18n>labelNumber}"/>
+			<Input value="{Ticket>/number}"
+				editable="{Item>/Edit}"/>
+			<layoutData>
+				<l:GridData span="XL2 L3 M4"
+					linebreak="true"/>
+			</layoutData>
+		</VBox>
+		<VBox>
+			<Label text="{i18n>labelPriority}"/>
+			<Input value="{Ticket>/priority}"
+				editable="{Item>/Edit}"/>
+			<layoutData>
+				<l:GridData span="XL2 L3 M4"/>
+			</layoutData>
+		</VBox>
+
+		<VBox>
+			<Label text="{i18n>labelState}"/>
+			<Input value="{Ticket>/state}"
+				editable="{Item>/Edit}"/>
+			<layoutData>
+				<l:GridData span="XL2 L3 M4"/>
+			</layoutData>
+		</VBox>
+		<VBox>
+			<Label text="{i18n>labelShortDescription}"/>
+			<Input value="{Ticket>/short_description}"
+				editable="{Item>/Edit}"/>
+			<layoutData>
+				<l:GridData span="XL6 L12 M12"
+					linebreak="true"/>
+			</layoutData>
+		</VBox>
+		<VBox>
+			<Label text="{i18n>labelDescription}"/>
+			<TextArea width="100%"
+				rows="3"
+				value="{Ticket>/description}"
+				editable="{Item>/Edit}"/>
+			<layoutData>
+				<l:GridData span="XL9 L12 M12"
+					linebreak="true"/>
+			</layoutData>
+		</VBox>
+
+
+
+
+
+	</l:Grid>
+</c:FragmentDefinition>
