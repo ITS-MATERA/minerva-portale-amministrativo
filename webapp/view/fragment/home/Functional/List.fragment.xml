@@ -2,7 +2,8 @@
   xmlns:c="sap.ui.core"
   xmlns:rowmodes="sap.ui.table.rowmodes"
   xmlns:ui="sap.ui.table"
-  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  xmlns:my="portaleamministrativo.controls">
   <VBox height="100%">
     <ui:Table rows="{Tickets>/List}"
       selectionMode="None"

@@ -70,15 +70,12 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
         data: oForm,
       };
 
-      // BusyIndicator.show(0);
       return new Promise(async function (resolve, reject) {
         $.ajax(settings)
           .done(function (response) {
-            // BusyIndicator.hide();
             resolve(true);
           })
           .fail(function (error) {
-            // BusyIndicator.hide();
             reject(false);
           });
       });

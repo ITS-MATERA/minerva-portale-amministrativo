@@ -2,158 +2,38 @@
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:f="sap.f"
-	xmlns:l="sap.ui.layout"
-	xmlns:ui="sap.ui.table"
-	xmlns:c="sap.ui.core"
-	xmlns:my="portaleamministrativo.controls"
-	xmlns:rowmodes="sap.ui.table.rowmodes"
-	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	xmlns:c="sap.ui.core">
 	<f:DynamicPage showFooter="true">
-		<f:header>
-			<f:DynamicPageHeader pinnable="false">
-				<l:Grid>
-					<VBox>
-						<Label text="{i18n>labelAccount}" />
-						<Input value="{TicketFilters>/Account}"/>
-						<layoutData>
-							<l:GridData span="XL3 L4 M6" />
-						</layoutData>
-					</VBox>
-					<VBox>
-						<Label text="{i18n>labelContact}" />
-						<Input value="{TicketFilters>/Contact}"/>
-						<layoutData>
-							<l:GridData span="XL3 L4 M6" />
-						</layoutData>
-					</VBox>
-					<VBox>
-						<Label text="{i18n>labelNumber}" />
-						<Input value="{TicketFilters>/Number}"/>
-						<layoutData>
-							<l:GridData span="XL3 L4 M6" />
-						</layoutData>
-					</VBox>
-					<VBox>
-						<Label />
-						<Button text="{i18n>labelStart}"
-							press="onStart"/>
-						<layoutData>
-							<l:GridData span="XL3 L4 M6" />
-						</layoutData>
-					</VBox>
-
-				</l:Grid>
-			</f:DynamicPageHeader>
-		</f:header>
-		<f:content>
-			<VBox height="100%">
-				<ui:Table rows="{Tickets>/List}"
-					selectionMode="None"
-					rowActionCount="1">
-					<ui:rowMode>
-						<rowmodes:Auto rowContentHeight="50"/>
-					</ui:rowMode>
-					<ui:layoutData>
-						<FlexItemData growFactor="1" />
-					</ui:layoutData>
-					<ui:rowActionTemplate>
-						<ui:RowAction>
-							<ui:RowActionItem type="Navigation"
-								icon="sap-icon://display"
-								press="onDetail"
-								app:number="{Tickets>number}" />
-						</ui:RowAction>
-					</ui:rowActionTemplate>
-					<ui:columns>
-						<ui:Column autoResizable="true"
-							width="12rem"
-							filterProperty="account"
-							sortProperty="account">
-							<Label text="{i18n>labelAccount}" />
-							<ui:template>
-								<Text text="{Tickets>account}" />
-							</ui:template>
-						</ui:Column>
-						<ui:Column autoResizable="true"
-							width="17rem"
-							filterProperty="category"
-							sortProperty="category">
-							<Label text="{i18n>labelCategory}" />
-							<ui:template>
-								<Text text="{Tickets>category}" />
-							</ui:template>
-						</ui:Column>
-						<ui:Column autoResizable="true"
-							width="12rem">
-							<Label text="{i18n>labelComments}" />
-							<ui:template>
-								<Button icon="sap-icon://group"
-									app:comments="{Tickets>comments}"
-									press="onComments"
-									visible="{= ${Tickets>comments} ? true : false}"/>
-							</ui:template>
-						</ui:Column>
-						<ui:Column autoResizable="true"
-							width="10rem"
-							filterProperty="contact"
-							sortProperty="contact">
-							<Label text="{i18n>labelContact}" />
-							<ui:template>
-								<Text text="{Tickets>contact}" />
-							</ui:template>
-						</ui:Column>
-
-						<ui:Column autoResizable="true"
-							width="7rem"
-							filterProperty="number"
-							sortProperty="number">
-							<Label text="{i18n>labelNumber}" />
-							<ui:template>
-								<Text text="{Tickets>number}" />
-							</ui:template>
-						</ui:Column>
-						<ui:Column autoResizable="true"
-							width="7rem"
-							filterProperty="priority"
-							sortProperty="priority">
-							<Label text="{i18n>labelPriority}" />
-							<ui:template>
-								<Text text="{Tickets>priority}" />
-							</ui:template>
-						</ui:Column>
-						<ui:Column autoResizable="true"
-							width="30rem">
-							<Label text="{i18n>labelShortDescription}" />
-							<ui:template>
-								<Text text="{Tickets>short_description}" />
-							</ui:template>
-						</ui:Column>
-						<ui:Column autoResizable="true"
-							width="7rem"
-							filterProperty="state"
-							sortProperty="state">
-							<Label text="{i18n>labelSate}" />
-							<ui:template>
-								<Text text="{Tickets>state}" />
-							</ui:template>
-						</ui:Column>
-						<ui:Column autoResizable="true"
-							width="40rem">
-							<Label text="{i18n>labelDescription}" />
-							<ui:template>
-								<Text text="{Tickets>description}" />
-							</ui:template>
-						</ui:Column>
-					</ui:columns>
-					<ui:footer>
-						<my:Paginator id="paginator"
-							top="{Tickets>/Top}"
-							skip="{Tickets>/Skip}"
-							records="{Tickets>/Records}"
-							press="onPaginatorChange" />
-					</ui:footer>
-				</ui:Table>
-			</VBox>
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>labelHome}"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:content >
+			<IconTabBar stretchContentHeight="true">
+				<items >
+					<IconTabFilter key="functional"
+						text="{i18n>labelFunctional}">
+						<VBox height="100%">
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Functional.Filters"
+								type="XML" />
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Functional.List"
+								type="XML" />
+						</VBox>
+					</IconTabFilter>
+					<IconTabFilter key="technician"
+						text="{i18n>labelTechnician}">
+						<VBox height="100%">
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Technician.Filters"
+								type="XML" />
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Technician.List"
+								type="XML" />
+						</VBox>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
 		</f:content>
 		<f:footer>
 			<OverflowToolbar>

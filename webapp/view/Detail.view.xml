@@ -17,9 +17,9 @@
         <items>
           <IconTabFilter key="info"
             text="{i18n>labelInfo}">
-            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Funzionale.Header"
+            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Functional.Header"
               type="XML" />
-            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Funzionale.Info"
+            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Functional.Info"
               type="XML" />
           </IconTabFilter>
           <IconTabFilter key="attachments"

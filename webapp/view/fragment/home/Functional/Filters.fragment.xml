@@ -1,0 +1,36 @@
+<c:FragmentDefinition xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+  xmlns:l="sap.ui.layout">
+  <l:Grid>
+    <VBox>
+      <Label text="{i18n>labelAccount}" />
+      <Input value="{TicketFilters>/Account}"/>
+      <layoutData>
+        <l:GridData span="XL3 L4 M6" />
+      </layoutData>
+    </VBox>
+    <VBox>
+      <Label text="{i18n>labelContact}" />
+      <Input value="{TicketFilters>/Contact}"/>
+      <layoutData>
+        <l:GridData span="XL3 L4 M6" />
+      </layoutData>
+    </VBox>
+    <VBox>
+      <Label text="{i18n>labelNumber}" />
+      <Input value="{TicketFilters>/Number}"/>
+      <layoutData>
+        <l:GridData span="XL3 L4 M6" />
+      </layoutData>
+    </VBox>
+    <VBox>
+      <Label />
+      <Button text="{i18n>labelStart}"
+        press="onStart"/>
+      <layoutData>
+        <l:GridData span="XL3 L4 M6" />
+      </layoutData>
+    </VBox>
+
+  </l:Grid>
+</c:FragmentDefinition>

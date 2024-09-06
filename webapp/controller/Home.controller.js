@@ -40,7 +40,7 @@ sap.ui.define(
           List: oTickets.results,
         };
 
-        this.byId("paginator").setVisible(!!oTickets.count);
+        this.byId("tblPaginatorFun").setVisible(!!oTickets.count);
 
         this.setModel(new JSONModel(oModelTickets), "Tickets");
 
