@@ -3,16 +3,19 @@ sap.ui.define(
     "./BaseController",
     "sap/ui/model/json/JSONModel",
     "portaleamministrativo/externalServices/serviceNow/library",
+    "portaleamministrativo/externalServices/serviceTech/library",
     "sap/m/library",
   ],
 
-  function (BaseController, JSONModel, serviceNow, sapMLib) {
+  function (BaseController, JSONModel, serviceNow, serviceTech, sapMLib) {
     "use strict";
 
     const { Text, Button, DialogType, Dialog } = sapMLib;
 
     return BaseController.extend("portaleamministrativo.controller.Home", {
       serviceNow: new serviceNow(),
+      serviceTech: new serviceTech(),
+
       onInit: function () {
         this._sQuery = "";
 
@@ -41,7 +44,7 @@ sap.ui.define(
 
         this.setModel(new JSONModel(oModelTickets), "Tickets");
 
-        console.log(await this.fnGetEntitySet("service-tech", "Ticket"));
+        await this.serviceTech.getTickets(this);
       },
 
       onDetail: function (oEvent) {

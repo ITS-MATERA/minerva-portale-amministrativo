@@ -22,6 +22,7 @@ server:
             destination: fstech-service-now
           - path: /service-tech
             url: https://fsh-dev-minervaacq-minerva-portale-amministrativo-srv.cfapps.eu10-004.hana.ondemand.com
+            pathPrefix: /
             destination: Informazioni_Utili_Data
           - path: /sap
             url: http://mds:44300

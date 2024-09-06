@@ -24,10 +24,10 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
           .done(function (response, status, header) {
             BusyIndicator.hide();
             console.log(response);
-            resolve({
-              results: response.result,
-              count: parseInt(header.getAllResponseHeaders().split("x-total-count: ")[1].split("\r")[0]),
-            });
+            // resolve({
+            //   results: response.result,
+            //   count: parseInt(header.getAllResponseHeaders().split("x-total-count: ")[1].split("\r")[0]),
+            // });
           })
           .fail(function (error) {
             BusyIndicator.hide();

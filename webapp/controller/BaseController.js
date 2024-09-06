@@ -147,33 +147,33 @@ sap.ui.define(
         return { severity: oMessage.severity, message: oMessage.message };
       },
 
-      fnGetEntitySet: async function (sService, sEntity, oExpand = {}, aFilter = [], nSkip = 0, nTop = 0) {
-        var self = this,
-          oModel = sService === "" ? self.getModel() : self.getModel(sService),
-          oBind = oModel
-            .bindList("/" + sEntity, null, [], [], {
-              $expand: self._fnSetExpandObj(oExpand),
-            })
-            .filter(aFilter),
-          oContext = await oBind.requestContexts(nSkip, nTop);
-        return oContext.map((x) => x.getObject());
-      },
+      // fnGetEntitySet: async function (sService, sEntity, oExpand = {}, aFilter = [], nSkip = 0, nTop = 0) {
+      //   var self = this,
+      //     oModel = sService === "" ? self.getModel() : self.getModel(sService),
+      //     oBind = oModel
+      //       .bindList("/" + sEntity, null, [], [], {
+      //         $expand: self._fnSetExpandObj(oExpand),
+      //       })
+      //       .filter(aFilter),
+      //     oContext = await oBind.requestContexts(nSkip, nTop);
+      //   return oContext.map((x) => x.getObject());
+      // },
 
-      fnObjHasProperty: function (oElement) {
-        if (typeof oElement === "object") for (var el in oElement) if (oElement.hasOwnProperty(el)) return true;
-        return false;
-      },
-      _fnSetExpandObj: function (oExpand) {
-        var self = this,
-          oNewExpand = {};
-        for (var el in oExpand) {
-          if (oExpand.hasOwnProperty(el)) {
-            if (self.fnObjHasProperty(oExpand[el])) oNewExpand[el] = { $expand: self._fnSetExpandObj(oExpand[el]) };
-            else oNewExpand[el] = {};
-          }
-        }
-        return oNewExpand;
-      },
+      // fnObjHasProperty: function (oElement) {
+      //   if (typeof oElement === "object") for (var el in oElement) if (oElement.hasOwnProperty(el)) return true;
+      //   return false;
+      // },
+      // _fnSetExpandObj: function (oExpand) {
+      //   var self = this,
+      //     oNewExpand = {};
+      //   for (var el in oExpand) {
+      //     if (oExpand.hasOwnProperty(el)) {
+      //       if (self.fnObjHasProperty(oExpand[el])) oNewExpand[el] = { $expand: self._fnSetExpandObj(oExpand[el]) };
+      //       else oNewExpand[el] = {};
+      //     }
+      //   }
+      //   return oNewExpand;
+      // },
     });
   }
 );
