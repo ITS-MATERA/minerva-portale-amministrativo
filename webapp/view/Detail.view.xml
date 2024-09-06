@@ -5,13 +5,13 @@
   xmlns:f="sap.f">
   <f:DynamicPage showFooter="true"
     class="sapUiNoContentPadding">
-    <f:header>
-      <f:DynamicPageHeader pinnable="false">
-        <f:content>
-          <!-- <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Funzionale.Header" type="XML" /> -->
-        </f:content>
-      </f:DynamicPageHeader>
-    </f:header>
+    <f:title>
+      <f:DynamicPageTitle>
+        <f:heading>
+          <Title text="{i18n>labelTicket}"/>
+        </f:heading>
+      </f:DynamicPageTitle>
+    </f:title>
     <f:content>
       <IconTabBar>
         <items>
@@ -29,8 +29,7 @@
           </IconTabFilter>
           <IconTabFilter key="comments"
             text="{i18n>labelComments}">
-            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments"
-              type="XML" />
+            <Text text="{Ticket>/comments}"/>
           </IconTabFilter>
         </items>
       </IconTabBar>

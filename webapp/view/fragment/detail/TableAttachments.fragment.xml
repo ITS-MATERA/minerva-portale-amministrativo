@@ -7,7 +7,7 @@
     selectionMode="None">
     <ui:extension>
       <OverflowToolbar style="Clear">
-        <Title text="{i18n>labelAttachments}"/>
+        <Title text="{i18n>labelAttachments} ({= ${Ticket>/attachments}.length})"/>
         <ToolbarSpacer />
         <Button text="{i18n>labelAttachFile}"
           type="Ghost"/>
