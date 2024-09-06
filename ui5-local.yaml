@@ -29,6 +29,10 @@ server:
       afterMiddleware: compression
       configuration:
         ignoreCertError: true # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        backend:
+          - path: /service-tech
+            url: https://innovatesapp-s-r-l--ia-dev-faretra-faretra-srv.cfapps.eu10.hana.ondemand.com/
+            destination: Informazioni_Utili_Data
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:

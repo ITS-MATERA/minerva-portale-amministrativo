@@ -40,6 +40,8 @@ sap.ui.define(
         this.byId("paginator").setVisible(!!oTickets.count);
 
         this.setModel(new JSONModel(oModelTickets), "Tickets");
+
+        console.log(await this.fnGetEntitySet("service-tech", "Ticket"));
       },
 
       onDetail: function (oEvent) {

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="LogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Registrazione_Utenti" EntityType="LogService.Registrazione_Utenti">
+                    <NavigationPropertyBinding Path="stato" Target="Stati"/>
+                </EntitySet>
+                <EntitySet Name="Stati" EntityType="LogService.Stati"/>
+                <EntitySet Name="Stati_Richieste" EntityType="LogService.Stati_Richieste"/>
+                <EntitySet Name="Stati_Sottoutenze" EntityType="LogService.Stati_Sottoutenze"/>
+                <EntitySet Name="Sottoutenze" EntityType="LogService.Sottoutenze">
+                    <NavigationPropertyBinding Path="stato_sottoutenza" Target="Stati_Sottoutenze"/>
+                </EntitySet>
+                <EntitySet Name="Avvisi_News" EntityType="LogService.Avvisi_News"/>
+                <EntitySet Name="Richieste_Modifica_Dichiarazioni" EntityType="LogService.Richieste_Modifica_Dichiarazioni">
+                    <NavigationPropertyBinding Path="stato_richiesta" Target="Stati_Richieste"/>
+                </EntitySet>
+                <EntitySet Name="Richieste_Modifica_Anagrafica" EntityType="LogService.Richieste_Modifica_Anagrafica">
+                    <NavigationPropertyBinding Path="stato_richiesta" Target="Stati_Richieste"/>
+                </EntitySet>
+                <EntitySet Name="Richieste_Modifica_Appoggi_Bancari" EntityType="LogService.Richieste_Modifica_Appoggi_Bancari">
+                    <NavigationPropertyBinding Path="stato_richiesta" Target="Stati_Richieste"/>
+                </EntitySet>
+                <EntitySet Name="Ticket" EntityType="LogService.Ticket"/>
+                <EntitySet Name="Docs" EntityType="LogService.Docs"/>
+                <EntitySet Name="Dichiarazioni" EntityType="LogService.Dichiarazioni">
+                    <NavigationPropertyBinding Path="User" Target="Registrazione_Utenti"/>
+                </EntitySet>
+                <EntitySet Name="Richieste" EntityType="LogService.Richieste"/>
+            </EntityContainer>
+            <EntityType Name="Registrazione_Utenti">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Codice_BP" Type="Edm.String"/>
+                <Property Name="PEC" Type="Edm.String"/>
+                <Property Name="Email" Type="Edm.String"/>
+                <Property Name="Utente_Principale" Type="Edm.Boolean"/>
+                <Property Name="Libero_Professionista" Type="Edm.Boolean"/>
+                <Property Name="Esente_Fatturazione_Elettronica" Type="Edm.Boolean"/>
+                <Property Name="PIVA" Type="Edm.String"/>
+                <Property Name="Ragione_Sociale" Type="Edm.String"/>
+                <Property Name="Autodichiarazione" Type="Edm.String"/>
+                <Property Name="Modulo_Adesione_Portale" Type="Edm.String"/>
+                <Property Name="Data_Richiesta" Type="Edm.DateTimeOffset"/>
+                <Property Name="Data_Approvazione" Type="Edm.DateTimeOffset"/>
+                <NavigationProperty Name="stato" Type="LogService.Stati">
+                    <ReferentialConstraint Property="stato_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="stato_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Stati">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Stati_Richieste">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Stati_Sottoutenze">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="DESC" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Sottoutenze">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Codice_BP" Type="Edm.String"/>
+                <Property Name="ID_Ruolo" Type="Edm.Int32"/>
+                <Property Name="Desc_Ruolo" Type="Edm.String"/>
+                <Property Name="Nome" Type="Edm.String"/>
+                <Property Name="Cognome" Type="Edm.String"/>
+                <Property Name="Email" Type="Edm.String"/>
+                <Property Name="Telefono" Type="Edm.String"/>
+                <NavigationProperty Name="stato_sottoutenza" Type="LogService.Stati_Sottoutenze">
+                    <ReferentialConstraint Property="stato_sottoutenza_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="stato_sottoutenza_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Avvisi_News">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Tipo" Type="Edm.String"/>
+                <Property Name="ID_Note" Type="Edm.String"/>
+                <Property Name="Desc_Note" Type="Edm.String"/>
+                <Property Name="Data" Type="Edm.DateTimeOffset"/>
+            </EntityType>
+            <EntityType Name="Richieste_Modifica_Dichiarazioni">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Codice_BP" Type="Edm.String"/>
+                <Property Name="Info" Type="Edm.String"/>
+                <NavigationProperty Name="stato_richiesta" Type="LogService.Stati_Richieste">
+                    <ReferentialConstraint Property="stato_richiesta_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="stato_richiesta_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Richieste_Modifica_Anagrafica">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Codice_BP" Type="Edm.String"/>
+                <Property Name="Info" Type="Edm.String"/>
+                <NavigationProperty Name="stato_richiesta" Type="LogService.Stati_Richieste">
+                    <ReferentialConstraint Property="stato_richiesta_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="stato_richiesta_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Richieste_Modifica_Appoggi_Bancari">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Codice_BP" Type="Edm.String"/>
+                <Property Name="Info" Type="Edm.String"/>
+                <NavigationProperty Name="stato_richiesta" Type="LogService.Stati_Richieste">
+                    <ReferentialConstraint Property="stato_richiesta_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="stato_richiesta_ID" Type="Edm.Int32"/>
+            </EntityType>
+            <EntityType Name="Ticket">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Codice_BP" Type="Edm.String"/>
+                <Property Name="Cognome" Type="Edm.String"/>
+                <Property Name="Nome" Type="Edm.String"/>
+                <Property Name="Email" Type="Edm.String"/>
+                <Property Name="Telefono" Type="Edm.String"/>
+                <Property Name="Classificazione" Type="Edm.String"/>
+                <Property Name="Dettaglio" Type="Edm.String"/>
+                <Property Name="Descrizione_Problema" Type="Edm.String"/>
+                <Property Name="Risposta" Type="Edm.String"/>
+                <Property Name="Allegato_1" Type="Edm.String"/>
+                <Property Name="Allegato_2" Type="Edm.String"/>
+                <Property Name="ID_Stato" Type="Edm.Int32"/>
+                <Property Name="Desc_Stato" Type="Edm.String"/>
+                <Property Name="Data_Apertura" Type="Edm.Date"/>
+                <Property Name="Data_Chiusura" Type="Edm.Date"/>
+            </EntityType>
+            <EntityType Name="Docs">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Documento" Type="Edm.String"/>
+                <Property Name="Ruolo" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Dichiarazioni">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <NavigationProperty Name="User" Type="LogService.Registrazione_Utenti">
+                    <ReferentialConstraint Property="User_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="User_ID" Type="Edm.Guid"/>
+                <Property Name="Checkbox" Type="Edm.Boolean"/>
+                <Property Name="Documento" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="Richieste">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="Stato" Type="Edm.String"/>
+                <Property Name="Note" Type="Edm.String"/>
+            </EntityType>
+            <Annotations Target="LogService.Registrazione_Utenti/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="LogService.Registrazione_Utenti/stato_ID">
+                <Annotation Term="Validation.Minimum" Int="1"/>
+                <Annotation Term="Validation.Maximum" Int="3"/>
+            </Annotations>
+            <Annotations Target="LogService.Sottoutenze/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="LogService.Sottoutenze/stato_sottoutenza_ID">
+                <Annotation Term="Validation.Minimum" Int="1"/>
+                <Annotation Term="Validation.Maximum" Int="4"/>
+            </Annotations>
+            <Annotations Target="LogService.Avvisi_News/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="LogService.Richieste_Modifica_Dichiarazioni/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="LogService.Richieste_Modifica_Dichiarazioni/stato_richiesta_ID">
+                <Annotation Term="Validation.Minimum" Int="1"/>
+                <Annotation Term="Validation.Maximum" Int="3"/>
+            </Annotations>
+            <Annotations Target="LogService.Richieste_Modifica_Anagrafica/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="LogService.Richieste_Modifica_Anagrafica/stato_richiesta_ID">
+                <Annotation Term="Validation.Minimum" Int="1"/>
+                <Annotation Term="Validation.Maximum" Int="3"/>
+            </Annotations>
+            <Annotations Target="LogService.Richieste_Modifica_Appoggi_Bancari/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="LogService.Richieste_Modifica_Appoggi_Bancari/stato_richiesta_ID">
+                <Annotation Term="Validation.Minimum" Int="1"/>
+                <Annotation Term="Validation.Maximum" Int="3"/>
+            </Annotations>
+            <Annotations Target="LogService.Ticket/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="LogService.Dichiarazioni/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+            <Annotations Target="LogService.Richieste/ID">
+                <Annotation Term="Core.ComputedDefaultValue" Bool="true"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

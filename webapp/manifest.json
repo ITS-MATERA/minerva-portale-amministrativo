@@ -24,6 +24,15 @@
           "localUri": "localService/metadata.xml",
           "odataVersion": "2.0"
         }
+      },
+      "service-tech": {
+        "uri": "/odata/v4/log/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/service-tech/metadata.xml",
+          "odataVersion": "4.0"
+        }
       }
     }
   },
@@ -73,6 +82,16 @@
         "dataSource": "ZMDG_ADMIN_PORTAL_SRV",
         "preload": true,
         "settings": {}
+      },
+      "service-tech": {
+        "dataSource": "service-tech",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
       }
     },
     "resources": {
