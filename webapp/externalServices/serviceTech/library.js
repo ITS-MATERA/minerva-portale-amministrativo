@@ -3,11 +3,7 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
 
   return ManagedObject.extend("portaleamministrativo.externalServices.serviceTech.library", {
     getTickets: function (self, sOffset = "0", sQuery) {
-      var sMethod = "odata/v4/log/Ticket";
-
-      // if (sQuery) {
-      //   sMethod = "api/sn_customerservice/case/btp_fornitori_get?sysparm_query=" + sQuery;
-      // }
+      var sMethod = "odata/v4/log/Ticket?$expand=stato_ticket";
 
       var oSettings = {
         url: this._getUrl(self, sMethod),
@@ -23,11 +19,9 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
         $.ajax(oSettings)
           .done(function (response, status, header) {
             BusyIndicator.hide();
-            console.log(response);
-            // resolve({
-            //   results: response.result,
-            //   count: parseInt(header.getAllResponseHeaders().split("x-total-count: ")[1].split("\r")[0]),
-            // });
+            resolve({
+              results: response.value,
+            });
           })
           .fail(function (error) {
             BusyIndicator.hide();
@@ -37,28 +31,32 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       });
     },
 
-    // downloadFile: function (self, sFileId) {
-    //   var sMethod = "api/now/attachment/" + sFileId + "/file";
+    getCount: function (self) {
+      var sMethod = "odata/v4/log/Ticket_Count";
 
-    //   var oSettings = {
-    //     url: this._getUrl(self, sMethod),
-    //     method: "GET",
-    //     timeout: 0,
-    //   };
+      var oSettings = {
+        url: this._getUrl(self, sMethod),
+        method: "GET",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
-    //   BusyIndicator.show(0);
-    //   return new Promise(async function (resolve, reject) {
-    //     $.ajax(oSettings)
-    //       .done(function (response, status, header) {
-    //         BusyIndicator.hide();
-    //         console.log(response);
-    //       })
-    //       .fail(function (error) {
-    //         BusyIndicator.hide();
-    //         console.log(error);
-    //       });
-    //   });
-    // },
+      BusyIndicator.show(0);
+      return new Promise(async function (resolve, reject) {
+        $.ajax(oSettings)
+          .done(function (response, status, header) {
+            BusyIndicator.hide();
+            resolve(response.value[0]?.Totale_Ticket);
+          })
+          .fail(function (error) {
+            BusyIndicator.hide();
+            reject(null);
+            console.log(error);
+          });
+      });
+    },
 
     _getUrl: function (self, sMethod) {
       var sAppId = self.getOwnerComponent().getMetadata().getManifest()["sap.app"].id;

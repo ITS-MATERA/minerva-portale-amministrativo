@@ -31,6 +31,7 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function (oEvent) {
+        //Gestione Ticket Funzionali
         var oTickets = await this.serviceNow.getTickets(this, "0", this._sQuery);
 
         var oModelTickets = {
@@ -44,7 +45,19 @@ sap.ui.define(
 
         this.setModel(new JSONModel(oModelTickets), "Tickets");
 
-        await this.serviceTech.getTickets(this);
+        //Gestione Ticket Tecnici
+        var oTicketTech = await this.serviceTech.getTickets(this);
+
+        var oModelTicketTech = {
+          Top: 200,
+          Skip: 0,
+          Records: await this.serviceTech.getCount(this),
+          List: oTicketTech.results,
+        };
+
+        console.log(oTicketTech.results);
+
+        this.setModel(new JSONModel(oModelTicketTech), "TicketsTech");
       },
 
       onDetail: function (oEvent) {

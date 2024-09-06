@@ -35,40 +35,42 @@ sap.ui.define(
         },
       },
 
-      init: function () {
+      init: function (a) {
         OverflowToolbar.prototype.init.call(this);
 
-        this.addContent(new ToolbarSpacer("beginSpacer"));
+        var sId = this._getId(this);
+
+        this.addContent(new ToolbarSpacer(sId + "beginSpacer"));
         this.addContent(
-          new Button("firstButton", {
+          new Button(sId + "firstButton", {
             icon: "sap-icon://close-command-field",
             tooltip: "{i18n>labelFirst}",
             press: this._onFirst.bind(this),
           })
         );
         this.addContent(
-          new Button("backButton", {
+          new Button(sId + "backButton", {
             icon: "sap-icon://slim-arrow-left",
             tooltip: "{i18n>labelBack}",
             press: this._onBack.bind(this),
           })
         );
-        this.addContent(new Label("label"));
+        this.addContent(new Label(sId + "label"));
         this.addContent(
-          new Button("nextButton", {
+          new Button(sId + "nextButton", {
             icon: "sap-icon://slim-arrow-right",
             tooltip: "{i18n>labelNext}",
             press: this._onNext.bind(this),
           })
         );
         this.addContent(
-          new Button("lastButton", {
+          new Button(sId + "lastButton", {
             icon: "sap-icon://open-command-field",
             tooltip: "{i18n>labelLast}",
             press: this._onLast.bind(this),
           })
         );
-        this.addContent(new ToolbarSpacer("endSpacer"));
+        this.addContent(new ToolbarSpacer(sId + "endSpacer"));
       },
 
       renderer: function (oRm, oToolbar) {
@@ -118,7 +120,7 @@ sap.ui.define(
       },
 
       _setLabel: function () {
-        var oLabel = this.getContent().filter((x) => x.getId() === "label")[0];
+        var oLabel = this.getContent().filter((x) => x.getId() === this._getId(this) + "label")[0];
         var sLabel = "";
 
         if (this.getPages()) {
@@ -140,18 +142,18 @@ sap.ui.define(
       },
 
       _setBackEnabled: function () {
-        var oButton = this.getContent().filter((x) => x.getId() === "backButton")[0];
+        var oButton = this.getContent().filter((x) => x.getId() === this._getId(this) + "backButton")[0];
         oButton.setEnabled(this.getSkip() > 0);
 
-        oButton = this.getContent().filter((x) => x.getId() === "firstButton")[0];
+        oButton = this.getContent().filter((x) => x.getId() === this._getId(this) + "firstButton")[0];
         oButton.setEnabled(this.getSkip() > 0);
       },
 
       _setNextEnabled: function () {
-        var oButton = this.getContent().filter((x) => x.getId() === "nextButton")[0];
+        var oButton = this.getContent().filter((x) => x.getId() === this._getId(this) + "nextButton")[0];
         oButton.setEnabled(this.getTop() + this.getSkip() < this.getRecords());
 
-        oButton = this.getContent().filter((x) => x.getId() === "lastButton")[0];
+        oButton = this.getContent().filter((x) => x.getId() === this._getId(this) + "lastButton")[0];
         oButton.setEnabled(this.getTop() + this.getSkip() < this.getRecords());
       },
 
@@ -176,8 +178,8 @@ sap.ui.define(
       },
 
       _setToolbarAlign: function () {
-        var oBeginSpacer = this.getContent().filter((x) => x.getId() === "beginSpacer")[0];
-        var oEndSpacer = this.getContent().filter((x) => x.getId() === "endSpacer")[0];
+        var oBeginSpacer = this.getContent().filter((x) => x.getId() === this._getId(this) + "beginSpacer")[0];
+        var oEndSpacer = this.getContent().filter((x) => x.getId() === this._getId(this) + "endSpacer")[0];
 
         switch (this.getAlign()) {
           case "Begin":
@@ -193,6 +195,10 @@ sap.ui.define(
             oEndSpacer.setVisible(false);
             break;
         }
+      },
+
+      _getId: function (self) {
+        return self.getId().split("-").pop();
       },
     });
   }

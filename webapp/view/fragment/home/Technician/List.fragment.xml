@@ -1,3 +1,135 @@
 <c:FragmentDefinition xmlns="sap.m"
-  xmlns:c="sap.ui.core">
+  xmlns:c="sap.ui.core"
+  xmlns:rowmodes="sap.ui.table.rowmodes"
+  xmlns:ui="sap.ui.table"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  xmlns:my="portaleamministrativo.controls">
+  <VBox height="100%">
+    <ui:Table rows="{TicketsTech>/List}"
+      selectionMode="None"
+      rowActionCount="1">
+      <ui:rowMode>
+        <rowmodes:Auto rowContentHeight="50"/>
+      </ui:rowMode>
+      <ui:layoutData>
+        <FlexItemData growFactor="1" />
+      </ui:layoutData>
+      <ui:rowActionTemplate>
+        <ui:RowAction>
+          <ui:RowActionItem type="Navigation"
+            icon="sap-icon://display"
+            press="onDetail"
+            app:number="{TicketsTech>number}" />
+        </ui:RowAction>
+      </ui:rowActionTemplate>
+      <ui:columns>
+        <ui:Column autoResizable="true"
+          width="10rem"
+          filterProperty="Codice_BP"
+          sortProperty="Codice_BP">
+          <Label text="{i18n>labelCodiceBP}" />
+          <ui:template>
+            <Text text="{TicketsTech>Codice_BP}" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="10rem"
+          filterProperty="Classificazione"
+          sortProperty="Classificazione">
+          <Label text="{i18n>labelClassification}" />
+          <ui:template>
+            <Text text="{TicketsTech>Classificazione}" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="10rem"
+          filterProperty="Dettaglio"
+          sortProperty="Dettaglio">
+          <Label text="{i18n>labelDetail}" />
+          <ui:template>
+            <Text text="{TicketsTech>Dettaglio}" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="10rem"
+          filterProperty="Cognome"
+          sortProperty="Cognome">
+          <Label text="{i18n>labelSurname}" />
+          <ui:template>
+            <Text text="{TicketsTech>Cognome}" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="10rem"
+          filterProperty="Nome"
+          sortProperty="Nome">
+          <Label text="{i18n>labelName}" />
+          <ui:template>
+            <Text text="{TicketsTech>Nome}" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="10rem">
+          <Label text="{i18n>labelEmail}" />
+          <ui:template>
+            <Text text="{TicketsTech>Email}" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="10rem">
+          <Label text="{i18n>labelPhone}" />
+          <ui:template>
+            <Text text="{TicketsTech>Telefono}" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="10rem">
+          <Label text="{i18n>labelState}" />
+          <ui:template>
+            <Text text="{TicketsTech>stato_ticket/DESC}" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="10rem">
+          <Label text="{i18n>labelDataApertura}" />
+          <ui:template>
+            <Text text="{
+                  path: 'TicketsTech>Data_Apertura',
+                  type: 'sap.ui.model.type.Date',
+                  formatOptions: {
+                    pattern: 'dd.MM.yyyy'
+                  }
+                }" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="10rem">
+          <Label text="{i18n>labelDataChiusura}" />
+          <ui:template>
+            <Text text="{
+                  path: 'TicketsTech>Data_Chiusura',
+                  type: 'sap.ui.model.type.Date',
+                  formatOptions: {
+                    pattern: 'dd.MM.yyyy'
+                  }
+                }" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="40rem">
+          <Label text="{i18n>labelDescription}" />
+          <ui:template>
+            <Text text="{TicketsTech>Descrizione_Problema}" />
+          </ui:template>
+        </ui:Column>
+      </ui:columns>
+      <ui:footer>
+        <my:Paginator id="tblPaginatorTec"
+          top="{TicketsTech>/Top}"
+          skip="{TicketsTech>/Skip}"
+          records="{TicketsTech>/Records}"
+          press="onPaginatorChange" />
+      </ui:footer>
+    </ui:Table>
+  </VBox>
 </c:FragmentDefinition>
