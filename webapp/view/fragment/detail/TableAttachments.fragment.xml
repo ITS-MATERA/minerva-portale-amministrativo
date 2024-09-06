@@ -3,41 +3,45 @@
   xmlns:rowmodes="sap.ui.table.rowmodes"
   xmlns:ui="sap.ui.table"
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
-  <ui:Table rows="{Ticket>/attachments}"
-    selectionMode="None">
-    <ui:extension>
-      <OverflowToolbar style="Clear">
-        <Title text="{i18n>labelAttachments} ({= ${Ticket>/attachments}.length})"/>
-        <ToolbarSpacer />
-        <Button text="{i18n>labelAttachFile}"
-          type="Ghost"/>
-      </OverflowToolbar>
-    </ui:extension>
-    <ui:rowMode>
-      <rowmodes:Auto/>
-    </ui:rowMode>
-    <ui:layoutData>
-      <FlexItemData growFactor="1" />
-    </ui:layoutData>
-    <ui:columns>
-      <ui:Column autoResizable="true"
-        width="">
-        <Label text="{i18n>labelId}" />
-        <ui:template>
-          <Link text="{Ticket>file_id}"
-            press="onAttachmentPress"
-            app:fileId="{Ticket>file_id}"/>
-        </ui:template>
-      </ui:Column>
-      <ui:Column autoResizable="true"
-        width="">
-        <Label text="{i18n>labelName}" />
-        <ui:template>
-          <Text text="{Ticket>file_name}" />
-        </ui:template>
-      </ui:Column>
+  <VBox>
+    <ui:Table rows="{Ticket>/attachments}"
+      selectionMode="None">
+      <ui:extension>
+        <OverflowToolbar style="Clear">
+          <Title text="{i18n>labelAttachments} ({= ${Ticket>/attachments}.length})"/>
+          <ToolbarSpacer />
+          <Button text="{i18n>labelAttachFile}"
+            type="Ghost"/>
+        </OverflowToolbar>
+      </ui:extension>
+      <ui:rowMode>
+        <rowmodes:Fixed rowCount="20"/>
+      </ui:rowMode>
+      <ui:layoutData>
+        <FlexItemData growFactor="1" />
+      </ui:layoutData>
+      <ui:columns>
+        <ui:Column autoResizable="true"
+          width="20rem">
+          <Label text="{i18n>labelId}" />
+          <ui:template>
+            <Link text="{Ticket>file_id}"
+              press="onAttachmentPress"
+              app:fileId="{Ticket>file_id}"
+              app:fileName="{Ticket>file_name}"/>
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true"
+          width="">
+          <Label text="{i18n>labelName}" />
+          <ui:template>
+            <Text text="{Ticket>file_name}" />
+          </ui:template>
+        </ui:Column>
 
-    </ui:columns>
+      </ui:columns>
 
-  </ui:Table>
+    </ui:Table>
+  </VBox>
+
 </c:FragmentDefinition>

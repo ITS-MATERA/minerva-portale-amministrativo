@@ -37,27 +37,17 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       });
     },
 
-    getAttachment: function (self, sFileId) {
-      var sMethod = "api/now/attachment/" + sFileId + "/file";
+    downloadAttachment: function (self, sFileId, sFileName) {
+      var sMethod = "sys_attachment.do?sys_id=" + sFileId;
 
-      var oSettings = {
-        url: this._getUrl(self, sMethod),
-        method: "GET",
-        timeout: 0,
-      };
+      var oA = document.createElement("a");
 
-      BusyIndicator.show(0);
-      return new Promise(async function (resolve, reject) {
-        $.ajax(oSettings)
-          .done(function (response, status, header) {
-            BusyIndicator.hide();
-            console.log(response);
-          })
-          .fail(function (error) {
-            BusyIndicator.hide();
-            console.log(error);
-          });
-      });
+      oA.href = this._getUrl(self, sMethod);
+      oA.download = sFileName;
+
+      document.body.appendChild(oA);
+      oA.click();
+      document.body.removeChild(oA);
     },
 
     _getUrl: function (self, sMethod) {

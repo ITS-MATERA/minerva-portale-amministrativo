@@ -92,8 +92,9 @@ sap.ui.define(
 
       onAttachmentPress: function (oEvent) {
         var sFileId = oEvent.getSource().data("fileId");
+        var sFileName = oEvent.getSource().data("fileName");
 
-        this.serviceNow.getAttachment(this, sFileId);
+        this.serviceNow.downloadAttachment(this, sFileId, sFileName);
       },
     });
   }
