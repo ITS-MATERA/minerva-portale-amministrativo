@@ -27,6 +27,11 @@
             <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments"
               type="XML" />
           </IconTabFilter>
+          <IconTabFilter key="comments"
+            text="{i18n>labelComments}">
+            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments"
+              type="XML" />
+          </IconTabFilter>
         </items>
       </IconTabBar>
     </f:content>
