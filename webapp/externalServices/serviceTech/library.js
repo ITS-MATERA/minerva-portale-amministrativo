@@ -58,6 +58,10 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       });
     },
 
+    send: function (self, oTicket) {
+      //TODO: implementazione della logica
+    },
+
     _getUrl: function (self, sMethod) {
       var sAppId = self.getOwnerComponent().getMetadata().getManifest()["sap.app"].id;
       var sUrl;
