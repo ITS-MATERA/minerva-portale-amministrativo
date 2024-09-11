@@ -4,14 +4,16 @@ sap.ui.define(
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
     "portaleamministrativo/externalServices/serviceNow/library",
+    "portaleamministrativo/externalServices/serviceTech/library",
     "sap/ui/core/BusyIndicator",
     "portaleamministrativo/model/constants",
   ],
-  function (BaseController, JSONModel, MessageBox, serviceNow, BusyIndicator, constants) {
+  function (BaseController, JSONModel, MessageBox, serviceNow, serviceTech, BusyIndicator, constants ) {
     "use strict";
 
     return BaseController.extend("portaleamministrativo.controller.NewTicket", {
       serviceNow: new serviceNow(),
+      serviceTech: new serviceTech(),
       onInit: function () {
         this.getRouter().getRoute("NewTicket").attachPatternMatched(this._onObjectMatched, this);
 
@@ -73,7 +75,8 @@ sap.ui.define(
           contact_surname: null,
           attachments: [],
           config:{
-            sendEnabled:false
+            sendEnabled:false,
+            ticketType:null
           }
 
         };
@@ -130,47 +133,80 @@ sap.ui.define(
           return false;
         }
 
+        var sType = self.getModel("Ticket").getProperty("/config/ticketType");    
+        var oTicketWithouAttachments = self.copyWithoutRef(oTicket);  
         BusyIndicator.show(0);
         console.log(oTicket); //TODO:Da canc
-        var oTicketWithouAttachments = self.copyWithoutRef(oTicket);
         delete oTicketWithouAttachments.attachments;
-        delete oTicketWithouAttachments.config;
-
-        await self.serviceNow.send(self, oTicketWithouAttachments).then(
-          async (response) => {
-            //TODO:da decommentare
-            // oTicket.sys_id = response.sys_id;
-            // console.log(response);
-            // await Promise.all(
-            //     oTicket.attachments?.map(
-            //       async function (x) {
-            //         self.serviceNow.uploadFile(self, oTicket.sys_id, x.file);
-            //       }.bind(this)
-            //     )
-            //   );
-            BusyIndicator.hide();
-            MessageBox.success(self.getResourceBundle().getText("msgTicketSended"), {
-              onClose: function () {
-                self.getRouter().navTo("Home");
-              }.bind(self),
-            });
-          },
-          (error) => {
-            BusyIndicator.hide();
-            console.log(error);
-            var errorText = error.responseJSON?.error?.detail;
-            MessageBox.error(
-              !errorText ? self.getResourceBundle().getText("msgGenericErrorOnSednServiceNow") : errorText
-            );
-            return false;
-          }
-        );
+        delete oTicketWithouAttachments.config;   
+        
+        if(sType === constants.TABBAR_TECHNICIAN_KEY){
+          await self.serviceTech.send(self, oTicketWithouAttachments).then(
+            async (response) => {
+              //TODO:da decommentare e da creare per serviceTech
+              // oTicket.sys_id = response.sys_id;
+              // console.log(response);
+              // await Promise.all(
+              //     oTicket.attachments?.map(
+              //       async function (x) {
+              //         self.serviceNow.uploadFile(self, oTicket.sys_id, x.file);
+              //       }.bind(this)
+              //     )
+              //   );
+              BusyIndicator.hide();
+              MessageBox.success(self.getResourceBundle().getText("msgTicketSended"), {
+                onClose: function () {
+                  self.getRouter().navTo("Home");
+                }.bind(self),
+              });
+            },
+            (error) => {
+              BusyIndicator.hide();
+              console.log(error);
+              var errorText = error.responseJSON?.error?.detail;
+              MessageBox.error(
+                !errorText ? self.getResourceBundle().getText("msgGenericErrorOnSednServiceNow") : errorText
+              );
+              return false;
+            }
+          );
+        } else {
+          await self.serviceNow.send(self, oTicketWithouAttachments).then(
+            async (response) => {
+              //TODO:da decommentare
+              // oTicket.sys_id = response.sys_id;
+              // console.log(response);
+              // await Promise.all(
+              //     oTicket.attachments?.map(
+              //       async function (x) {
+              //         self.serviceNow.uploadFile(self, oTicket.sys_id, x.file);
+              //       }.bind(this)
+              //     )
+              //   );
+              BusyIndicator.hide();
+              MessageBox.success(self.getResourceBundle().getText("msgTicketSended"), {
+                onClose: function () {
+                  self.getRouter().navTo("Home");
+                }.bind(self),
+              });
+            },
+            (error) => {
+              BusyIndicator.hide();
+              console.log(error);
+              var errorText = error.responseJSON?.error?.detail;
+              MessageBox.error(
+                !errorText ? self.getResourceBundle().getText("msgGenericErrorOnSednServiceNow") : errorText
+              );
+              return false;
+            }
+          );
+        }
       },
 
       onCategorySelect: function (oEvent) {
         var self = this;
         var sKey = oEvent.getParameter("selectedItem").getProperty("key"),
-            sType = oEvent.getSource().data("type");            
+            sType = oEvent.getParameters().selectedItem.data("type");
 
         self.getModel("Ticket").setProperty("/config/ticketType", sType);
         

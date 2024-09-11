@@ -58,8 +58,47 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       });
     },
 
+    _resolveTicket: function(oTicket) {
+      return {
+        // "ID": "",
+        "Codice_BP": oTicket.account,
+        "Cognome": oTicket.contact_surname,
+        "Nome": oTicket.contact_name,
+        "Email": oTicket.contact,
+        "Telefono": null,
+        "Classificazione": null,
+        "Dettaglio": null,
+        "Descrizione_Problema": oTicket.description,
+        "Data_Apertura": null, //new Date(),
+        "Data_Chiusura": null, 
+        "stato_ticket_ID": 1 
+    };
+    },
+
     send: function (self, oTicket) {
       //TODO: implementazione della logica
+      var sMethod = "odata/v4/log/Ticket";
+      var oTicketResolved = this._resolveTicket(oTicket);
+      var oSettings = {
+        url: this._getUrl(self, sMethod),
+        method: "POST",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(oTicketResolved),
+      };
+      return new Promise(async function (resolve, reject) {
+        $.ajax(oSettings)
+          .done(function (response) {
+            console.log(response);
+            resolve(response);
+          })
+          .fail(function (error) {
+            console.log(error)
+            reject(error);
+          });
+      });
     },
 
     _getUrl: function (self, sMethod) {
