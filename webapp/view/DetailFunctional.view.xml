@@ -1,4 +1,4 @@
-<mvc:View controllerName="portaleamministrativo.controller.Detail"
+<mvc:View controllerName="portaleamministrativo.controller.DetailFunctional"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
   xmlns:c="sap.ui.core"
@@ -23,7 +23,7 @@
               type="XML" />
           </IconTabFilter>
           <IconTabFilter key="attachments"
-            text="{i18n>labelAttachments}">
+            text="{i18n>labelAttachments} ({= ${Ticket>/attachments} ? ${Ticket>/attachments}.length : '0'})">
             <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments"
               type="XML" />
           </IconTabFilter>

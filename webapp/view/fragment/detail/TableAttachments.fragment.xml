@@ -12,7 +12,7 @@
           class="removeLineColumn">
           <ui:extension>
             <OverflowToolbar style="Clear">
-              <Title text="{i18n>labelAttachments} ({= ${Ticket>/attachments}.length})"/>
+              <Title text="{i18n>labelAttachments}"/>
               <ToolbarSpacer />
               <Button text="{i18n>labelAttachFile}"
                 type="Ghost"

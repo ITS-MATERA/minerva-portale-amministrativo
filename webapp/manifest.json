@@ -99,9 +99,19 @@
           "target": ["TargetHome"]
         },
         {
-          "name": "Detail",
-          "pattern": "Detail/:Number:",
-          "target": ["Detail"]
+          "name": "DetailFunctional",
+          "pattern": "DetailFunctional/:Number:",
+          "target": ["DetailFunctional"]
+        },
+        {
+          "name": "DetailTechnician",
+          "pattern": "DetailTechnician/:Number:",
+          "target": ["DetailTechnician"]
+        },
+        {
+          "name": "NewTicket",
+          "pattern": "NewTicket/:Number:",
+          "target": ["NewTicket"]
         }
       ],
       "targets": {
@@ -112,12 +122,26 @@
           "viewId": "Home",
           "viewName": "Home"
         },
-        "Detail": {
+        "DetailFunctional": {
           "viewType": "XML",
           "transition": "slide",
           "clearControlAggregation": false,
-          "viewId": "Detail",
-          "viewName": "Detail"
+          "viewId": "DetailFunctional",
+          "viewName": "DetailFunctional"
+        },
+        "DetailTechnician": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "DetailTechnician",
+          "viewName": "DetailTechnician"
+        },
+        "NewTicket": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "NewTicket",
+          "viewName": "NewTicket"
         }
       }
     },

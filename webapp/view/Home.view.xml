@@ -12,7 +12,7 @@
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content >
-			<IconTabBar stretchContentHeight="true">
+			<IconTabBar id="HomeTabBar" stretchContentHeight="true">
 				<items >
 					<IconTabFilter key="functional"
 						text="{i18n>labelFunctional}">

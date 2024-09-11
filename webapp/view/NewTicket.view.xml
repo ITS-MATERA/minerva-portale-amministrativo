@@ -1,0 +1,36 @@
+<mvc:View controllerName="portaleamministrativo.controller.NewTicket"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core"
+    xmlns:f="sap.f">
+    <f:DynamicPage showFooter="true" class="sapUiNoContentPadding">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>labelTicket}"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <IconTabBar>
+                <items>
+                    <IconTabFilter key="info" text="{i18n>labelInfo}">
+                        <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.NewTicket.Header" type="XML" />
+                        <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.NewTicket.Info" type="XML" />
+                    </IconTabFilter>
+                    <IconTabFilter key="attachments" text="{i18n>labelAttachments}">
+                        <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments" type="XML" />
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </f:content>
+        <f:footer>
+            <OverflowToolbar>
+                <Button type="Back" text="{i18n>labelBack}" press="onBack" />
+                <ToolbarSpacer />
+                <Button type="Emphasized" text="{i18n>labelSend}" press="onSend" enabled="{Ticket>/config/sendEnabled}"/>
+
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

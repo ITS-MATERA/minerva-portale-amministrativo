@@ -1,6 +1,12 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/core/BusyIndicator", "sap/m/MessageBox", "sap/ui/core/Fragment"],
-  function (Controller, BusyIndicator, MessageBox, Fragment) {
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/core/BusyIndicator",
+    "sap/m/MessageBox",
+    "sap/ui/core/Fragment",
+    "portaleamministrativo/model/constants",
+  ],
+  function (Controller, BusyIndicator, MessageBox, Fragment, constants) {
     "use strict";
 
     return Controller.extend("portaleamministrativo.controller.BaseController", {
@@ -162,6 +168,21 @@ sap.ui.define(
         });
 
         return oFragment;
+      },
+
+      copyWithoutRef: function (oArray) {
+        function json_deserialize_helper(key, value) {
+          if (typeof value === "string") {
+            var regexp;
+            regexp = /^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d.\d\d\dZ$/.exec(value);
+            if (regexp) {
+              return new Date(value);
+            }
+          }
+          return value;
+        }
+
+        return JSON.parse(JSON.stringify(oArray), json_deserialize_helper);
       },
 
       // fnGetEntitySet: async function (sService, sEntity, oExpand = {}, aFilter = [], nSkip = 0, nTop = 0) {

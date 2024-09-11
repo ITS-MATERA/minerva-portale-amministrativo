@@ -81,6 +81,29 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       });
     },
 
+    send: function (self, oTicket) {
+      var sMethod = "api/sn_customerservice/case/btp_fornitori_post";
+      var oSettings = {
+        url: this._getUrl(self, sMethod),
+        method: "POST",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(oTicket),
+      };
+      return new Promise(async function (resolve, reject) {
+        $.ajax(oSettings)
+          .done(function (response) {
+            console.log(response);
+            resolve(response);
+          })
+          .fail(function (error) {
+            reject(error);
+          });
+      });
+    },
+
     _getUrl: function (self, sMethod) {
       var sAppId = self.getOwnerComponent().getMetadata().getManifest()["sap.app"].id;
       var sUrl;

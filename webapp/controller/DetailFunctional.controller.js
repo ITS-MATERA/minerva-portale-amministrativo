@@ -9,10 +9,10 @@ sap.ui.define(
   function (BaseController, JSONModel, MessageBox, serviceNow, BusyIndicator) {
     "use strict";
 
-    return BaseController.extend("portaleamministrativo.controller.Detail", {
+    return BaseController.extend("portaleamministrativo.controller.DetailFunctional", {
       serviceNow: new serviceNow(),
       onInit: function () {
-        this.getRouter().getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
+        this.getRouter().getRoute("DetailFunctional").attachPatternMatched(this._onObjectMatched, this);
 
         var oModelSelect = {
           ItilClassification: [{ Key: "SERVICE REQUEST", Text: "SERVICE REQUEST" }],

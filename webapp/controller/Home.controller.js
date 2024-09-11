@@ -5,9 +5,10 @@ sap.ui.define(
     "portaleamministrativo/externalServices/serviceNow/library",
     "portaleamministrativo/externalServices/serviceTech/library",
     "sap/m/library",
+    "portaleamministrativo/model/constants",
   ],
 
-  function (BaseController, JSONModel, serviceNow, serviceTech, sapMLib) {
+  function (BaseController, JSONModel, serviceNow, serviceTech, sapMLib, constants) {
     "use strict";
 
     const { Text, Button, DialogType, Dialog } = sapMLib;
@@ -61,11 +62,22 @@ sap.ui.define(
       },
 
       onDetail: function (oEvent) {
-        this.getRouter().navTo("Detail", { Number: oEvent.getSource().data("number") });
+        var homeTabBar = this.getView().byId("HomeTabBar");
+        if (homeTabBar.getSelectedKey() === constants.TABBAR_TECHNICIAN_KEY) {
+          this.getRouter().navTo("DetailTechnician", { Number: oEvent.getSource().data("number") });
+        } else {
+          this.getRouter().navTo("DetailFunctional", { Number: oEvent.getSource().data("number") });
+        }
       },
 
       onNewTicket: function () {
-        this.getRouter().navTo("Detail");
+        // var homeTabBar = this.getView().byId("HomeTabBar");
+        // if (homeTabBar.getSelectedKey() === constants.TABBAR_TECHNICIAN_KEY) {
+        //   this.getRouter().navTo("DetailTechnician");
+        // } else {
+        //   this.getRouter().navTo("DetailFunctional");
+        // }
+        this.getRouter().navTo("NewTicket");
       },
 
       onPaginatorChange: async function () {
