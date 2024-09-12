@@ -1,4 +1,5 @@
-sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], function (ManagedObject, BusyIndicator) {
+sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"
+], function (ManagedObject, BusyIndicator) {
   "use strict";
 
   return ManagedObject.extend("portaleamministrativo.externalServices.serviceTech.library", {
@@ -58,7 +59,53 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       });
     },
 
+    uploadFile: function (self, sTicketId, oFile) {
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        var sBase64 = event.target.result.split(",")[1];
+
+        var oPayload = {
+          ID: sTicketId,
+          File_Name: oFile.name,
+          Documento: sBase64,
+          ticket_ID: sTicketId
+        };
+        var settings = {
+          url: this._getUrl(self, "odata/v4/log/Allegati"),
+          method: "POST",
+          timeout: 0,
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          processData: false,
+          data: JSON.stringify(oPayload), 
+        };
+        return new Promise(async function (resolve, reject) {
+          $.ajax(settings)
+            .done(function (response) {
+              resolve(true);
+            })
+            .fail(function (error) {
+              reject(false);
+            });
+        });
+      };
+      reader.readAsDataURL(oFile);
+    },
+
+
     _resolveTicket: function(oTicket) {
+      // var oDate = new sap.ui.model.type.Date({
+      //   pattern: "yyyy/MM/dd"
+      // });
+
+      // var oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
+      //   format: "yyyyMMdd"
+      // });
+      // oDateFormat.format(UI5Date.getInstance());
+
       return {
         // "ID": "",
         "Codice_BP": oTicket.account,
@@ -72,11 +119,10 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
         "Data_Apertura": null, //new Date(),
         "Data_Chiusura": null, 
         "stato_ticket_ID": 1 
-    };
+      };
     },
 
     send: function (self, oTicket) {
-      //TODO: implementazione della logica
       var sMethod = "odata/v4/log/Ticket";
       var oTicketResolved = this._resolveTicket(oTicket);
       var oSettings = {

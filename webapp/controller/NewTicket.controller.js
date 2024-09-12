@@ -143,16 +143,17 @@ sap.ui.define(
         if(sType === constants.TABBAR_TECHNICIAN_KEY){
           await self.serviceTech.send(self, oTicketWithouAttachments).then(
             async (response) => {
-              //TODO:da decommentare e da creare per serviceTech
-              // oTicket.sys_id = response.sys_id;
-              // console.log(response);
-              // await Promise.all(
-              //     oTicket.attachments?.map(
-              //       async function (x) {
-              //         self.serviceNow.uploadFile(self, oTicket.sys_id, x.file);
-              //       }.bind(this)
-              //     )
-              //   );
+              //TODO:da decommentare serviceTech
+              oTicket.ID = response.ID;
+              console.log(response);
+              console.log("id", response.ID);
+              await Promise.all(
+                  oTicket.attachments?.map(
+                    async function (x) {
+                      self.serviceTech.uploadFile(self, oTicket.ID, x.file);
+                    }.bind(this)
+                  )
+                );
               BusyIndicator.hide();
               MessageBox.success(self.getResourceBundle().getText("msgTicketSended"), {
                 onClose: function () {
