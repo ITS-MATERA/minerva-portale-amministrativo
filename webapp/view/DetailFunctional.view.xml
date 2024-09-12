@@ -40,9 +40,9 @@
           text="{i18n>labelBack}"
           press="onBack" />
         <ToolbarSpacer />
-        <Button type="Emphasized"
+        <!-- <Button type="Emphasized"
           text="{i18n>labelSend}"
-          press="onSend" />
+          press="onSend" /> -->
 
       </OverflowToolbar>
     </f:footer>

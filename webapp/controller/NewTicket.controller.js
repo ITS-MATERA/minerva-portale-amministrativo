@@ -8,7 +8,7 @@ sap.ui.define(
     "sap/ui/core/BusyIndicator",
     "portaleamministrativo/model/constants",
   ],
-  function (BaseController, JSONModel, MessageBox, serviceNow, serviceTech, BusyIndicator, constants ) {
+  function (BaseController, JSONModel, MessageBox, serviceNow, serviceTech, BusyIndicator, constants) {
     "use strict";
 
     return BaseController.extend("portaleamministrativo.controller.NewTicket", {
@@ -60,38 +60,18 @@ sap.ui.define(
         this.setModel(new JSONModel(oModelSelect), "Select");
       },
 
-      _initTicket: function () {
-        var self = this;
-        return {
-          company: null, //"Trenitalia Treni Per Emilia Romagna",società da mdg
-          category: null, //"Certificazione unica",
-          priority: null, //"3", bassa normale alta critica(emergency) 18n
-          short_description: null, //"test case 30/08 Certificazione unica società in service", oggetto
-          description: null, //"test case 30/08 corpo", descrizione
-          application_code: "", //"test", da non passare quindi non input
-          account: null, //"0100002118", lifnr preso da mdg
-          contact: null, //"nuovocontatto3@test.tt", mail fornitore preso da mdg
-          contact_name: null, //"Mario", presi da mdg
-          contact_surname: null,
-          attachments: [],
-          config:{
-            sendEnabled:false,
-            ticketType:null
-          }
-
-        };
-      },
-
       _onObjectMatched: async function (oEvent) {
         var self = this;
         var oArguments = oEvent.getParameter("arguments");
+        var sNumber = oArguments.Number;
         var lifnr = "0100000002"; //TODO:Da canc
 
         var oSupplier = await self._getSupplier(lifnr);
         self.setModel(new JSONModel(oSupplier), "Supplier");
         self.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
 
-        self.setModel(new JSONModel(self._initTicket()), "Ticket");
+        self.setModel(new JSONModel(self.initTicket()), "Ticket");
+        self.getModel("Ticket").setProperty("/config/edit", sNumber ? false : true);
       },
 
       _getSupplier: async function (sCodiceBP) {
@@ -108,8 +88,10 @@ sap.ui.define(
         return oSupplier.data;
       },
 
-      onBack: function () {
-        this.getRouter().navTo("Home");
+      onBack: function (oEvent) {
+        var self = this;
+        self.setModel(new JSONModel(self.initTicket()), "Ticket");
+        self.getRouter().navTo("Home");
       },
 
       onSend: async function (oEvent) {
@@ -133,27 +115,24 @@ sap.ui.define(
           return false;
         }
 
-        var sType = self.getModel("Ticket").getProperty("/config/ticketType");    
-        var oTicketWithouAttachments = self.copyWithoutRef(oTicket);  
+        var sType = self.getModel("Ticket").getProperty("/config/ticketType");
+        var oTicketWithouAttachments = self.copyWithoutRef(oTicket);
         BusyIndicator.show(0);
-        console.log(oTicket); //TODO:Da canc
         delete oTicketWithouAttachments.attachments;
-        delete oTicketWithouAttachments.config;   
-        
-        if(sType === constants.TABBAR_TECHNICIAN_KEY){
+        delete oTicketWithouAttachments.config;
+
+        if (sType === constants.TABBAR_TECHNICIAN_KEY) {
+          oTicketWithouAttachments.dataStart = self.formatter.formatDate(new Date());
           await self.serviceTech.send(self, oTicketWithouAttachments).then(
             async (response) => {
-              //TODO:da decommentare serviceTech
               oTicket.ID = response.ID;
-              console.log(response);
-              console.log("id", response.ID);
               await Promise.all(
-                  oTicket.attachments?.map(
-                    async function (x) {
-                      self.serviceTech.uploadFile(self, oTicket.ID, x.file);
-                    }.bind(this)
-                  )
-                );
+                oTicket.attachments?.map(
+                  async function (x) {
+                    self.serviceTech.uploadFile(self, oTicket.ID, x.file);
+                  }.bind(this)
+                )
+              );
               BusyIndicator.hide();
               MessageBox.success(self.getResourceBundle().getText("msgTicketSended"), {
                 onClose: function () {
@@ -172,6 +151,8 @@ sap.ui.define(
             }
           );
         } else {
+          delete oTicketWithouAttachments.dataStart;
+          delete oTicketWithouAttachments.dataEnd;
           await self.serviceNow.send(self, oTicketWithouAttachments).then(
             async (response) => {
               //TODO:da decommentare
@@ -207,10 +188,10 @@ sap.ui.define(
       onCategorySelect: function (oEvent) {
         var self = this;
         var sKey = oEvent.getParameter("selectedItem").getProperty("key"),
-            sType = oEvent.getParameters().selectedItem.data("type");
+          sType = oEvent.getParameters().selectedItem.data("type");
 
         self.getModel("Ticket").setProperty("/config/ticketType", sType);
-        
+
         self.getModel("Ticket").setProperty("/category", null);
         if (sKey === "FATT-BLO" || sKey === "ENTR-MER" || sKey === "QUES-NAT") {
           self.getModel("Ticket").setProperty("/config/sendEnabled", false);
@@ -218,7 +199,7 @@ sap.ui.define(
           return false;
         }
         self.getModel("Ticket").setProperty("/config/sendEnabled", true);
-        self.getModel("Ticket").setProperty("/category", oEvent.getParameter("selectedItem").getProperty("text"));        
+        self.getModel("Ticket").setProperty("/category", oEvent.getParameter("selectedItem").getProperty("text"));
       },
 
       onPrioritySelect: function (oEvent) {
@@ -231,7 +212,6 @@ sap.ui.define(
         var self = this;
         var sCompany = oEvent.getParameter("selectedItem").getProperty("text");
         self.getModel("Ticket").setProperty("/company", !sCompany ? null : sCompany);
-        self.getModel("Ticket").setProperty("/company", "Trenitalia Treni Per Emilia Romagna");
       },
 
       onAttachManager: async function (oEvent) {

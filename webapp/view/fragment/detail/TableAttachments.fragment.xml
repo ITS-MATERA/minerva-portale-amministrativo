@@ -17,6 +17,7 @@
               <Button text="{i18n>labelAttachFile}"
                 type="Ghost"
                 press="onAttachManager"
+                visible="{Ticket>/config/edit}"
                 app:button="Open" />
             </OverflowToolbar>
           </ui:extension>

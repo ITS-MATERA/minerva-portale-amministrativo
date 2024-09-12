@@ -2,14 +2,14 @@
 	xmlns:c="sap.ui.core"
 	xmlns:l="sap.ui.layout">
 	<l:Grid>
-		<VBox>
+		<!-- <VBox>
 			<Label text="{i18n>labelAccount}"/>
 			<Input value="{Ticket>/account}"
 				editable="{Item>/Edit}"/>
 			<layoutData>
 				<l:GridData span="XL3 L4 M6"/>
 			</layoutData>
-		</VBox>
+		</VBox> -->
 		<VBox>
 			<Label text="{i18n>labelCategory}"/>
 			<Input value="{Ticket>/category}"

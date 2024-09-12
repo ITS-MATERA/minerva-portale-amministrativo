@@ -1,5 +1,4 @@
-sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"
-], function (ManagedObject, BusyIndicator) {
+sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], function (ManagedObject, BusyIndicator) {
   "use strict";
 
   return ManagedObject.extend("portaleamministrativo.externalServices.serviceTech.library", {
@@ -60,34 +59,36 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"
     },
 
     uploadFile: function (self, sTicketId, oFile) {
+      var that = this;
       var reader = new FileReader();
 
       reader.onload = function (event) {
         var sBase64 = event.target.result.split(",")[1];
-
+        console.log(oFile);
         var oPayload = {
-          ID: sTicketId,
           File_Name: oFile.name,
           Documento: sBase64,
-          ticket_ID: sTicketId
+          ticket_ID: sTicketId,
         };
         var settings = {
-          url: this._getUrl(self, "odata/v4/log/Allegati"),
+          url: that._getUrl(self, "odata/v4/log/Allegati"),
           method: "POST",
           timeout: 0,
           headers: {
             "Content-Type": "application/json",
-            Accept: "application/json"
+            Accept: "application/json",
           },
           processData: false,
-          data: JSON.stringify(oPayload), 
+          data: JSON.stringify(oPayload),
         };
         return new Promise(async function (resolve, reject) {
           $.ajax(settings)
             .done(function (response) {
+              console.log(response);
               resolve(true);
             })
             .fail(function (error) {
+              console.log(error);
               reject(false);
             });
         });
@@ -95,8 +96,7 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"
       reader.readAsDataURL(oFile);
     },
 
-
-    _resolveTicket: function(oTicket) {
+    _resolveTicket: function (oTicket) {
       // var oDate = new sap.ui.model.type.Date({
       //   pattern: "yyyy/MM/dd"
       // });
@@ -108,17 +108,17 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"
 
       return {
         // "ID": "",
-        "Codice_BP": oTicket.account,
-        "Cognome": oTicket.contact_surname,
-        "Nome": oTicket.contact_name,
-        "Email": oTicket.contact,
-        "Telefono": null,
-        "Classificazione": null,
-        "Dettaglio": null,
-        "Descrizione_Problema": oTicket.description,
-        "Data_Apertura": null, //new Date(),
-        "Data_Chiusura": null, 
-        "stato_ticket_ID": 1 
+        Codice_BP: oTicket.account,
+        Cognome: oTicket.contact_surname,
+        Nome: oTicket.contact_name,
+        Email: oTicket.contact,
+        Telefono: null,
+        Classificazione: null,
+        Dettaglio: null,
+        Descrizione_Problema: oTicket.description,
+        Data_Apertura: oTicket.dataStart ? oTicket.dataStart : null,
+        Data_Chiusura: oTicket.dataEnd ? oTicket.dataEnd : null,
+        stato_ticket_ID: 1,
       };
     },
 
@@ -141,7 +141,7 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"
             resolve(response);
           })
           .fail(function (error) {
-            console.log(error)
+            console.log(error);
             reject(error);
           });
       });
