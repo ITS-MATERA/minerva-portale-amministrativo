@@ -211,7 +211,9 @@ sap.ui.define(
       onCompanyChange: function (oEvent) {
         var self = this;
         var sCompany = oEvent.getParameter("selectedItem").getProperty("text");
-        self.getModel("Ticket").setProperty("/company", !sCompany ? null : sCompany);
+        self.getModel("Ticket").setProperty("/company", null); 
+        self.getModel("Ticket").setProperty("/company", sCompany);
+        // self.getModel("Ticket").setProperty("/company", !sCompany ? null : sCompany);
       },
 
       onAttachManager: async function (oEvent) {

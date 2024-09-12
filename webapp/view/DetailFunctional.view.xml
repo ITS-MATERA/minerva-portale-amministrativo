@@ -29,7 +29,19 @@
           </IconTabFilter>
           <IconTabFilter key="comments"
             text="{i18n>labelComments}">
-            <Text text="{Ticket>/comments}"/>
+            <!-- <Text text="{Ticket>/comments}"/> -->
+            <FeedInput
+              post="onPostComments"
+              class="sapUiSmallMarginBottom" />
+            	<List
+                showSeparators="Inner"
+                items="{Ticket>/comments}" >
+                <FeedListItem
+                  sender="{Ticket>Author}" 
+                  timestamp="{Ticket>Date}"
+                  text="{Ticket>/comments}"
+                  convertLinksToAnchorTags="All"/>
+              </List>
           </IconTabFilter>
         </items>
       </IconTabBar>
