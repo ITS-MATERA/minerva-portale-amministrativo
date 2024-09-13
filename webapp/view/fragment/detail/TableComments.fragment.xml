@@ -6,6 +6,11 @@
   xmlns:l="sap.ui.layout">
   <VBox>
     <l:Grid>
+      <FeedInput post="onPostComments" class="sapUiSmallMarginTopBottom">
+        <layoutData>
+          <l:GridData span="XL12 L12 M12" />
+        </layoutData>
+      </FeedInput>
       <VBox height="50%">
         <List showSeparators="Inner" items="{Ticket>/commentResults}">
           <FeedListItem text="{Ticket>Comment}"/>
@@ -14,12 +19,6 @@
           <l:GridData span="XL12 L12 M12" />
         </layoutData>
       </VBox>
-
-      <FeedInput post="onPostComments" class="sapUiSmallMarginTopBottom">
-        <layoutData>
-          <l:GridData span="XL12 L12 M12" />
-        </layoutData>
-      </FeedInput>      
     </l:Grid>
   </VBox>
 </c:FragmentDefinition>

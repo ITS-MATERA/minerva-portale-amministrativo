@@ -187,7 +187,6 @@ sap.ui.define(
         var results = [];
         var array = oTicket.results[0].comments.split("\n\n");
         array?.map((x, index) => {
-          console.log(x);
           if (x && x !== "") {
             results.push({
               Comment: x,
@@ -216,19 +215,44 @@ sap.ui.define(
         var self = this,
           oModel = self.getModel("Ticket"),
           sValue = oEvent.getParameter("value");
+          console.log(oModel);
 
         var id = oModel.getProperty("/sys_id");
         var data = {
           comments: sValue.trimStart().trimEnd(),
         };
 
-        if(self.serviceNow.postComments(self, data, id)){
+        // if(self.serviceNow.postComments(self, data, id)){
+        //   MessageToast.show(self.getResourceBundle().getText("msgCommentPostSuccess"));
+        //   //TODO entrare per ticket-id e ricaricare solo i comments
+        //   self.serviceNow.getTicketComments(self,id)
+        //   oModel.getProperty("/comments");
+        //   // oModel.setProperty("/comments", comments);
+        // }
+        // else{
+        //   MessageToast.show(self.getResourceBundle().getText("msgCommentPostFailure"));
+        // }
+
+        //modificata perchè le chiamate venivano effettuate quasi in contemporanea
+        //la get non prendeva il nuovo commento
+        // non mi ritorna i commenti dalla funzione
+        self.serviceNow.postComments(self, data, id).then(function () {
           MessageToast.show(self.getResourceBundle().getText("msgCommentPostSuccess"));
-          //TODO entrare oper ticket guid e ricaricare solo i comments
-        }
-        else{
+          self.serviceNow.getTicketComments(self, id).then(function (result) {
+            var comments = self._formatComments(result.comments)
+            console.log("resultupdate", result)
+            console.log("format", comments )
+            oModel.setProperty("/commentResults", comments);
+            oModel.refresh(true);
+          }).catch(function (error) {
+            MessageToast.show(self.getResourceBundle().getText("msgErrorUpdatedData"));
+          });
+      
+        }).catch(function () {
           MessageToast.show(self.getResourceBundle().getText("msgCommentPostFailure"));
-        }
+        });
+        
+        
       },
     });
   }
