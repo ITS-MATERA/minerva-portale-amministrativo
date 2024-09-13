@@ -1,0 +1,25 @@
+<c:FragmentDefinition xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+  xmlns:rowmodes="sap.ui.table.rowmodes"
+  xmlns:ui="sap.ui.table"
+  xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+  xmlns:l="sap.ui.layout">
+  <VBox>
+    <l:Grid>
+      <VBox height="50%">
+        <List showSeparators="Inner" items="{Ticket>/commentResults}">
+          <FeedListItem text="{Ticket>Comment}"/>
+        </List>
+        <layoutData>
+          <l:GridData span="XL12 L12 M12" />
+        </layoutData>
+      </VBox>
+
+      <FeedInput post="onPostComments" class="sapUiSmallMarginTopBottom">
+        <layoutData>
+          <l:GridData span="XL12 L12 M12" />
+        </layoutData>
+      </FeedInput>      
+    </l:Grid>
+  </VBox>
+</c:FragmentDefinition>

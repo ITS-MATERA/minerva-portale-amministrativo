@@ -133,7 +133,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
     postComments: function(self, oData, id) {
       var sMethod = "api/sn_customerservice/case/btp_fornitori_put/" + id;
       var oSettings = {
-        // url: "api/sn_customerservice/case/btp_fornitori_put/" + id,
         url: this._getUrl(self, sMethod),
         method: "PUT",
         timeout: 0,
@@ -146,10 +145,10 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
         $.ajax(oSettings)
           .done(function (response) {
             console.log(response);
-            resolve(response);
+            resolve(true);
           })
           .fail(function (error) {
-            reject(error);
+            reject(false);
           });
       });
     }

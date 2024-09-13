@@ -5,9 +5,9 @@ sap.ui.define(
     "sap/m/MessageBox",
     "portaleamministrativo/externalServices/serviceNow/library",
     "sap/ui/core/BusyIndicator",
-    "sap/ui/core/format/DateFormat",
+    "sap/m/MessageToast"
   ],
-  function (BaseController, JSONModel, MessageBox, serviceNow, BusyIndicator, DateFormat) {
+  function (BaseController, JSONModel, MessageBox, serviceNow, BusyIndicator, MessageToast) {
     "use strict";
 
     return BaseController.extend("portaleamministrativo.controller.DetailFunctional", {
@@ -45,14 +45,6 @@ sap.ui.define(
         console.log(self.getModel("Ticket").getProperty("/config/edit"));
 
         this._sNumber = oArguments.Number;
-
-        // this.setModel(
-        //   new JSONModel({
-        //     Edit: this._sNumber ? false : true,
-        //   }),
-        //   "Item"
-        // );
-
         if (!this._sNumber) {
           return;
         }
@@ -60,6 +52,7 @@ sap.ui.define(
         //Recupero i dati del Ticket
         var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + this._sNumber);
         oTicket.results[0].attachments = this._formatAttachments(oTicket);
+        oTicket.results[0].commentResults = this._formatComments(oTicket);
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
         //Recupero i dati dell'utente
         if (oTicket?.results[0]?.accountId) {
@@ -190,6 +183,21 @@ sap.ui.define(
         return aAttachments;
       },
 
+      _formatComments: function (oTicket) {
+        var results = [];
+        var array = oTicket.results[0].comments.split("\n\n");
+        array?.map((x, index) => {
+          console.log(x);
+          if (x && x !== "") {
+            results.push({
+              Comment: x,
+            });
+          }
+        });
+
+        return results;
+      },
+
       _getSupplier: async function (sCodiceBP) {
         var oSupplier = await this.getEntity(
           "/GeneralDataSet",
@@ -200,46 +208,28 @@ sap.ui.define(
           "BankDetailSet,CompanyDataSet"
         );
 
-        console.log("oSupplier",oSupplier.data);
+        console.log("oSupplier", oSupplier.data);
         return oSupplier.data;
       },
 
-      onPostComments: function(oEvent) {
-        var self = this;
-        var oFormat = DateFormat.getDateTimeInstance({ pattern: "dd-MM-yyyy HH:mm:ss", style: "medium" });
-        var oDate = new Date();
-        var sDate = oFormat.format(oDate);
+      onPostComments: function (oEvent) {
+        var self = this,
+          oModel = self.getModel("Ticket"),
+          sValue = oEvent.getParameter("value");
 
-        var sValue = oEvent.getParameter("value");
-        var oModel = self.getModel("Ticket");
-        console.log(oModel);
-
-        var aEntries = oModel.getProperty("/comments");
-        var author = oModel.getProperty("/contact");
         var id = oModel.getProperty("/sys_id");
-
-        var aComments = aEntries.split("\n").filter(function(comment) {
-          return comment.trim() !== "";
-        });
-
-        // var oEntry = sDate + " - " + author + ": " + sValue;
-        var oEntry = sDate + " - " + "BTP User" + ": " + sValue;
-
-        var oEntrySend = author + ": " + sValue + "\n";
-        console.log("oEntry", oEntry);
-
-        aComments.unshift(oEntry);
-        oModel.setProperty("/comments", aComments.join("\n"));
-
         var data = {
-          comments: sValue
+          comments: sValue.trimStart().trimEnd(),
         };
-        console.log("data",data)
-        // this.serviceNow.postComments(self, data, id)
 
-      }
-
-
+        if(self.serviceNow.postComments(self, data, id)){
+          MessageToast.show(self.getResourceBundle().getText("msgCommentPostSuccess"));
+          //TODO entrare oper ticket guid e ricaricare solo i comments
+        }
+        else{
+          MessageToast.show(self.getResourceBundle().getText("msgCommentPostFailure"));
+        }
+      },
     });
   }
 );

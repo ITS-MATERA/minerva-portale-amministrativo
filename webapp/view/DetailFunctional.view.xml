@@ -29,18 +29,8 @@
           </IconTabFilter>
           <IconTabFilter key="comments"
             text="{i18n>labelComments}">
-            <FeedInput
-              post="onPostComments"
-              class="sapUiSmallMarginTopBottom" />
-            <Text text="{Ticket>/comments}"/> 
-            
-            	<!-- <List
-                showSeparators="Inner"
-                items="{Ticket>/comments}" >
-                <FeedListItem
-                  timestamp="{dateTime}"
-                  text="{text}"/>
-              </List> -->
+            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableComments"
+              type="XML" />            	
           </IconTabFilter>
         </items>
       </IconTabBar>
