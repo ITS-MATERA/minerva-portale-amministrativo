@@ -17,6 +17,13 @@
       "csrfProtection": false
     },
     {
+      "source": "^/sap/opu/odata/sap/(.*)$",
+      "target": "sap/opu/odata/sap/$1",
+      "destination": "MDS_CENTRALIZZATO_100",
+      "authenticationType": "xsuaa",
+      "csrfProtection": false
+    },
+    {
       "source": "^/resources/(.*)$",
       "target": "/resources/$1",
       "authenticationType": "none",

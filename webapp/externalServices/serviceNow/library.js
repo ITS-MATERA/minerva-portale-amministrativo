@@ -152,28 +152,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
           });
       });
     },
-//non si riesce a filtrare per id
-//ho dovuto farla nella response
-    getTicketComments: function (self, sId) {
-      var sMethod = `api/sn_customerservice/case/btp_fornitori_get?sys_id${sId}`;
-      var oSettings = {
-        url: this._getUrl(self, sMethod),
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      return new Promise(function (resolve, reject) {
-        $.ajax(oSettings)
-        .done(function (response) {
-          var ticket = response.result.find(ticket => ticket.sys_id === sId);
-          resolve(ticket);
-        })
-        .fail(function (error) {
-          reject(error);
-        });;
-      });
-    }
 
   });
 });

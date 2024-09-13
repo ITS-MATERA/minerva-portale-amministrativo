@@ -54,7 +54,7 @@
             templateShareable: false
           }" forceSelection="false"
           change="onCompanyChange">
-        <c:Item key="{Select>ID}" text="{Select>Butxt}"/>
+        <c:Item key="{Select>Societa}" text="{Select>Butxt}"/>
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>

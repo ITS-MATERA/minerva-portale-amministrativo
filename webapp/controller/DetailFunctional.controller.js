@@ -5,7 +5,7 @@ sap.ui.define(
     "sap/m/MessageBox",
     "portaleamministrativo/externalServices/serviceNow/library",
     "sap/ui/core/BusyIndicator",
-    "sap/m/MessageToast"
+    "sap/m/MessageToast",
   ],
   function (BaseController, JSONModel, MessageBox, serviceNow, BusyIndicator, MessageToast) {
     "use strict";
@@ -211,48 +211,27 @@ sap.ui.define(
         return oSupplier.data;
       },
 
-      onPostComments: function (oEvent) {
+      onPostComments: async function (oEvent) {
         var self = this,
           oModel = self.getModel("Ticket"),
+          _sNumber = oModel.getProperty("/number"),
           sValue = oEvent.getParameter("value");
-          console.log(oModel);
+        console.log(oModel);
 
         var id = oModel.getProperty("/sys_id");
         var data = {
           comments: sValue.trimStart().trimEnd(),
         };
 
-        // if(self.serviceNow.postComments(self, data, id)){
-        //   MessageToast.show(self.getResourceBundle().getText("msgCommentPostSuccess"));
-        //   //TODO entrare per ticket-id e ricaricare solo i comments
-        //   self.serviceNow.getTicketComments(self,id)
-        //   oModel.getProperty("/comments");
-        //   // oModel.setProperty("/comments", comments);
-        // }
-        // else{
-        //   MessageToast.show(self.getResourceBundle().getText("msgCommentPostFailure"));
-        // }
-
-        //modificata perchè le chiamate venivano effettuate quasi in contemporanea
-        //la get non prendeva il nuovo commento
-        // non mi ritorna i commenti dalla funzione
-        self.serviceNow.postComments(self, data, id).then(function () {
+        if (self.serviceNow.postComments(self, data, id)) {
           MessageToast.show(self.getResourceBundle().getText("msgCommentPostSuccess"));
-          self.serviceNow.getTicketComments(self, id).then(function (result) {
-            var comments = self._formatComments(result.comments)
-            console.log("resultupdate", result)
-            console.log("format", comments )
-            oModel.setProperty("/commentResults", comments);
-            oModel.refresh(true);
-          }).catch(function (error) {
-            MessageToast.show(self.getResourceBundle().getText("msgErrorUpdatedData"));
-          });
-      
-        }).catch(function () {
+          //TODO entrare per ticket-id e ricaricare solo i comments
+          var oTicket = await self.serviceNow.getTickets(self, "0", "number=" + _sNumber);
+          self.getView().getModel("Ticket").setProperty("/commentResults", self._formatComments(oTicket));
+        } else {
           MessageToast.show(self.getResourceBundle().getText("msgCommentPostFailure"));
-        });
-        
-        
+        }
+
       },
     });
   }

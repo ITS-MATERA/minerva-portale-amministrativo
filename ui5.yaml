@@ -24,10 +24,11 @@ server:
             url: https://fsh-dev-minervaacq-minerva-portale-amministrativo-srv.cfapps.eu10-004.hana.ondemand.com
             pathPrefix: /
             destination: Informazioni_Utili_Data
-          - path: /sap
+          - path: /sap/opu/odata/sap/ZMDG_ADMIN_PORTAL_SRV/
             url: http://mds:44300
             client: "100"
             destination: MDS_CENTRALIZZATO_100
+            authenticationType: BasicAuthentication
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

@@ -29,6 +29,7 @@ server:
       afterMiddleware: compression
       configuration:
         ignoreCertError: true # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        backend: []
     - name: fiori-tools-preview
       afterMiddleware: fiori-tools-appreload
       configuration:
