@@ -35,11 +35,13 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function (oEvent) {
-        var oArguments = oEvent.getParameter("arguments");
-        this.setModel(new JSONModel(this.initTicket()), "Ticket");
-        this.setModel(new JSONModel({}), "Supplier");
-        this.getModel("Ticket").setProperty("/config/edit", oArguments.Number ? false : true);
-        console.log(this.getModel("Ticket").getProperty("/config/edit"));
+        var self = this,
+          oArguments = oEvent.getParameter("arguments");
+
+        self.setModel(new JSONModel(this.initTicket()), "Ticket");
+        self.setModel(new JSONModel({}), "Supplier");
+        self.getModel("Ticket").setProperty("/config/edit", oArguments.Number ? false : true);
+        console.log(self.getModel("Ticket").getProperty("/config/edit"));
 
         this._sNumber = oArguments.Number;
 

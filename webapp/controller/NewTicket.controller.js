@@ -210,7 +210,7 @@ sap.ui.define(
 
       onCompanyChange: function (oEvent) {
         var self = this;
-        var sCompany = oEvent.getParameter("selectedItem").getProperty("text");
+        var sCompany = oEvent.getParameter("selectedItem").getProperty("key");
         self.getModel("Ticket").setProperty("/company", !sCompany ? null : sCompany);
       },
 
