@@ -205,6 +205,11 @@ sap.ui.define(
       },
 
       onPostComments: function(oEvent) {
+
+        // splittare array comments
+
+
+
         var self = this;
         var oFormat = DateFormat.getDateTimeInstance({ style: "medium" });
         var oDate = new Date();
