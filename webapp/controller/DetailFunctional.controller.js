@@ -205,32 +205,41 @@ sap.ui.define(
       },
 
       onPostComments: function(oEvent) {
-
-        // splittare array comments
-
-
-
         var self = this;
-        var oFormat = DateFormat.getDateTimeInstance({ style: "medium" });
+        var oFormat = DateFormat.getDateTimeInstance({ pattern: "dd-MM-yyyy HH:mm:ss", style: "medium" });
         var oDate = new Date();
         var sDate = oFormat.format(oDate);
 
         var sValue = oEvent.getParameter("value");
+        var oModel = self.getModel("Ticket");
+        console.log(oModel);
 
-        var oEntry = {
-          Author: "Alfio", //Nome,
-          Date: "" + sDate,
+        var aEntries = oModel.getProperty("/comments");
+        var author = oModel.getProperty("/contact");
+        var id = oModel.getProperty("/sys_id");
+
+        var aComments = aEntries.split("\n").filter(function(comment) {
+          return comment.trim() !== "";
+        });
+
+        // var oEntry = sDate + " - " + author + ": " + sValue;
+        var oEntry = sDate + " - " + "BTP User" + ": " + sValue;
+
+        var oEntrySend = author + ": " + sValue + "\n";
+        console.log("oEntry", oEntry);
+
+        aComments.unshift(oEntry);
+        oModel.setProperty("/comments", aComments.join("\n"));
+
+        var data = {
           comments: sValue
         };
+        console.log("data",data)
+        // this.serviceNow.postComments(self, data, id)
 
-        var oModel = self.getModel("Ticket");
-        var aEntries = oModel.getProperty("/comments") || [];
-        console.log("aEntries",aEntries);
-
-        aEntries.unshift(oEntry);
-        oModel.setProperty("/comments", aEntries);
-        oModel.refresh();
       }
+
+
     });
   }
 );

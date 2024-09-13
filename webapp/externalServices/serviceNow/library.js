@@ -109,6 +109,7 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       var sUrl;
       var sLocation = window.location;
       var sBaseUrl = sLocation.href;
+      console.log(sBaseUrl)
       var sUrl = jQuery.sap.getModulePath(sAppId + "/service-now");
       var sFlpDestinationurl = jQuery.sap.getModulePath(sAppId + "/service-now" + "/");
 
@@ -125,7 +126,33 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       sUrl = sLocation.protocol + "//" + sLocation.hostname + sLocation.pathname;
       sUrl = sUrl.replace("index.html", "");
       sUrl = sUrl + "service-now" + "/" + sMethod;
+      console.log("sUrl",sUrl )
       return sUrl;
     },
+
+    postComments: function(self, oData, id) {
+      var sMethod = "api/sn_customerservice/case/btp_fornitori_put/" + id;
+      var oSettings = {
+        // url: "api/sn_customerservice/case/btp_fornitori_put/" + id,
+        url: this._getUrl(self, sMethod),
+        method: "PUT",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: JSON.stringify(oData),
+      };
+      return new Promise(async function (resolve, reject) {
+        $.ajax(oSettings)
+          .done(function (response) {
+            console.log(response);
+            resolve(response);
+          })
+          .fail(function (error) {
+            reject(error);
+          });
+      });
+    }
+
   });
 });
