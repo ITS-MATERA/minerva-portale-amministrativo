@@ -5,8 +5,9 @@ sap.ui.define(
     "sap/m/MessageBox",
     "portaleamministrativo/externalServices/serviceNow/library",
     "sap/ui/core/BusyIndicator",
+    "sap/ui/core/format/DateFormat",
   ],
-  function (BaseController, JSONModel, MessageBox, serviceNow, BusyIndicator) {
+  function (BaseController, JSONModel, MessageBox, serviceNow, BusyIndicator, DateFormat) {
     "use strict";
 
     return BaseController.extend("portaleamministrativo.controller.DetailFunctional", {
@@ -60,7 +61,6 @@ sap.ui.define(
         var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + this._sNumber);
         oTicket.results[0].attachments = this._formatAttachments(oTicket);
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
-
         //Recupero i dati dell'utente
         if (oTicket?.results[0]?.accountId) {
           this.setModel(new JSONModel(await this._getSupplier(oTicket.results[0]?.accountId)), "Supplier");
@@ -200,9 +200,32 @@ sap.ui.define(
           "BankDetailSet,CompanyDataSet"
         );
 
-        console.log(oSupplier.data);
+        console.log("oSupplier",oSupplier.data);
         return oSupplier.data;
       },
+
+      onPostComments: function(oEvent) {
+        var self = this;
+        var oFormat = DateFormat.getDateTimeInstance({ style: "medium" });
+        var oDate = new Date();
+        var sDate = oFormat.format(oDate);
+
+        var sValue = oEvent.getParameter("value");
+
+        var oEntry = {
+          Author: "Alfio", //Nome,
+          Date: "" + sDate,
+          comments: sValue
+        };
+
+        var oModel = self.getModel("Ticket");
+        var aEntries = oModel.getProperty("/comments") || [];
+        console.log("aEntries",aEntries);
+
+        aEntries.unshift(oEntry);
+        oModel.setProperty("/comments", aEntries);
+        oModel.refresh();
+      }
     });
   }
 );
