@@ -8,7 +8,8 @@
           <l:GridData span="XL1 L3 M6"/>
         </layoutData>
       </Label>
-      <Input editable="false" value="{Supplier>/RagioneSociale}">
+      <!-- <Input editable="false" value="{Supplier>/RagioneSociale}"> -->
+      <Input editable="{Item>/Edit}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
@@ -18,7 +19,7 @@
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
-      <Input editable="false" value="{Supplier>/ID}">
+      <Input editable="{Item>/Edit}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
@@ -28,7 +29,7 @@
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
-      <Input editable="false" value="{Supplier>/Nome}">
+      <Input editable="{Item>/Edit}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
@@ -38,7 +39,7 @@
           <l:GridData span="XL1 L3 M6"/>
         </layoutData>
       </Label>
-      <Input editable="false" value="{Supplier>/Telefono}">
+      <Input editable="{Item>/Edit}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
@@ -64,7 +65,7 @@
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
-      <Input editable="false" value="{Supplier>/Località}">
+      <Input editable="{Item>/Edit}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
@@ -74,7 +75,7 @@
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
-      <Input editable="false" value="{Supplier>/PIVA}">
+      <Input editable="{Item>/Edit}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
@@ -84,7 +85,7 @@
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
-      <Input editable="false" value="{Supplier>/CodiceFiscale}">
+      <Input editable="{Item>/Edit}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
@@ -94,7 +95,7 @@
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
-      <Input editable="false" value="{Supplier>/Email}">
+      <Input editable="{Item>/Edit}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
@@ -104,7 +105,7 @@
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
-      <Input editable="false" value="{Supplier>/EmailAmministrativa}">
+      <Input editable="{Item>/Edit}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>

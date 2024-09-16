@@ -6,7 +6,8 @@
   xmlns:l="sap.ui.layout">
   <VBox>
     <l:Grid>
-      <FeedInput post="onPostComments" class="sapUiSmallMarginTopBottom">
+      <FeedInput post="onPostComments" class="sapUiSmallMarginTopBottom"
+       visible="{= ${Ticket>/state} === 'Chiuso' ? false : true}" >
         <layoutData>
           <l:GridData span="XL12 L12 M12" />
         </layoutData>

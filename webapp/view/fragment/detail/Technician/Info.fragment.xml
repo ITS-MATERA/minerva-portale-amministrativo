@@ -2,7 +2,7 @@
   xmlns:c="sap.ui.core"
   xmlns:l="sap.ui.layout">
   <l:Grid>
-    <VBox>
+    <!-- <VBox>
       <Label text="{i18n>labelApplication}"
         required="true"/>
       <Select width="100%"
@@ -164,13 +164,13 @@
       <layoutData>
         <l:GridData span="XL2 L3 M6"/>
       </layoutData>
-    </VBox>
+    </VBox> -->
     <VBox>
       <Label text="{i18n>labelProblemDescription}"
         required="true"/>
       <TextArea width="100%"
         rows="5"
-        editable="{Item>/Edit}"/>
+        editable="{= ${Ticket>/stato_ticket_ID>/DESC} === 'Chiuso' ? false : ${Item>/Edit} }"/>
       <layoutData>
         <l:GridData span="XL12 L12 M12"
           linebreak="true"/>

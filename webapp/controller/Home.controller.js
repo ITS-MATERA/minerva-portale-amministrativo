@@ -71,12 +71,6 @@ sap.ui.define(
       },
 
       onNewTicket: function () {
-        // var homeTabBar = this.getView().byId("HomeTabBar");
-        // if (homeTabBar.getSelectedKey() === constants.TABBAR_TECHNICIAN_KEY) {
-        //   this.getRouter().navTo("DetailTechnician");
-        // } else {
-        //   this.getRouter().navTo("DetailFunctional");
-        // }
         this.getRouter().navTo("NewTicket");
       },
 

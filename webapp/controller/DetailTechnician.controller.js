@@ -3,14 +3,14 @@ sap.ui.define(
     "./BaseController",
     "sap/ui/model/json/JSONModel",
     "sap/m/MessageBox",
-    "portaleamministrativo/externalServices/serviceNow/library",
+    "portaleamministrativo/externalServices/serviceTech/library",
     "sap/ui/core/BusyIndicator",
   ],
-  function (BaseController, JSONModel, MessageBox, serviceNow, BusyIndicator) {
+  function (BaseController, JSONModel, MessageBox, serviceTech, BusyIndicator) {
     "use strict";
 
     return BaseController.extend("portaleamministrativo.controller.DetailTechnician", {
-      serviceNow: new serviceNow(),
+      serviceTech: new serviceTech(),
       onInit: function () {
         this.getRouter().getRoute("DetailTechnician").attachPatternMatched(this._onObjectMatched, this);
 
@@ -53,7 +53,8 @@ sap.ui.define(
         }
 
         //Recupero i dati del Ticket
-        var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + this._sNumber);
+        var oTicket = await this.serviceTech.getTickets(this, "0", "number=" + this._sNumber);
+        console.log("oTicket",oTicket )
         oTicket.results[0].attachments = this._formatAttachments(oTicket);
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
 

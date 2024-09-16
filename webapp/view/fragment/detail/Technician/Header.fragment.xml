@@ -84,7 +84,7 @@
         </layoutData>
       </Label>
       <FlexBox>
-        <Input editable="{Item>/Edit}">
+        <Input editable="{= ${Ticket>/stato_ticket_ID>/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
           <layoutData>
             <FlexItemData growFactor="100" />
           </layoutData>
@@ -103,7 +103,7 @@
           <l:GridData span="XL1 L3 M6" linebreak="true"/>
         </layoutData>
       </Label>
-      <Input editable="{Item>/Edit}">
+      <Input editable="{= ${Ticket>/stato_ticket_ID>/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
@@ -114,7 +114,7 @@
         </layoutData>
       </Label>
       <FlexBox>
-        <Input editable="{Item>/Edit}">
+        <Input editable="{= ${Ticket>/stato_ticket_ID>/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
           <layoutData>
             <FlexItemData growFactor="100" />
           </layoutData>
@@ -128,7 +128,7 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </FlexBox>
-      <Label text="{i18n>labelAutoMail}" class="sapUiTinyMarginTop">
+      <!-- <Label text="{i18n>labelAutoMail}" class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
@@ -137,7 +137,7 @@
         <layoutData>
           <l:GridData span="XL1 L1 M1 S1" />
         </layoutData>
-      </CheckBox>
+      </CheckBox> -->
     </l:Grid>
   </VBox>
 </c:FragmentDefinition>

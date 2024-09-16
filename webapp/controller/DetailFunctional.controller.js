@@ -42,7 +42,6 @@ sap.ui.define(
         self.setModel(new JSONModel(this.initTicket()), "Ticket");
         self.setModel(new JSONModel({}), "Supplier");
         self.getModel("Ticket").setProperty("/config/edit", oArguments.Number ? false : true);
-        console.log(self.getModel("Ticket").getProperty("/config/edit"));
 
         this._sNumber = oArguments.Number;
         if (!this._sNumber) {
@@ -54,6 +53,7 @@ sap.ui.define(
         oTicket.results[0].attachments = this._formatAttachments(oTicket);
         oTicket.results[0].commentResults = this._formatComments(oTicket);
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
+        
         //Recupero i dati dell'utente
         if (oTicket?.results[0]?.accountId) {
           this.setModel(new JSONModel(await this._getSupplier(oTicket.results[0]?.accountId)), "Supplier");
@@ -223,11 +223,12 @@ sap.ui.define(
           comments: sValue.trimStart().trimEnd(),
         };
 
-        if (self.serviceNow.postComments(self, data, id)) {
+        if (await self.serviceNow.postComments(self, data, id)) {
           MessageToast.show(self.getResourceBundle().getText("msgCommentPostSuccess"));
           //TODO entrare per ticket-id e ricaricare solo i comments
           var oTicket = await self.serviceNow.getTickets(self, "0", "number=" + _sNumber);
           self.getView().getModel("Ticket").setProperty("/commentResults", self._formatComments(oTicket));
+          
         } else {
           MessageToast.show(self.getResourceBundle().getText("msgCommentPostFailure"));
         }
