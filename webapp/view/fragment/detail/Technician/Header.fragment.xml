@@ -78,13 +78,14 @@
   <Toolbar height="1px"/> -->
   <VBox class="sapUiSmallMarginTop">
     <l:Grid>
-      <Label text="{i18n>labelCaller}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelCaller}" class="sapUiTinyMarginTop"
+      required="true">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
       <FlexBox>
-        <Input editable="{= ${Ticket>/stato_ticket_ID>/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
+        <Input editable="{= ${Ticket>stato_ticket_ID/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
           <layoutData>
             <FlexItemData growFactor="100" />
           </layoutData>
@@ -98,23 +99,25 @@
           <l:GridData span="XL3 L3 M6" />
         </layoutData>
       </FlexBox>
-      <Label text="{i18n>labelPhone}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelPhone}" class="sapUiTinyMarginTop"
+      required="true">
         <layoutData>
           <l:GridData span="XL1 L3 M6" linebreak="true"/>
         </layoutData>
       </Label>
-      <Input editable="{= ${Ticket>/stato_ticket_ID>/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
+      <Input editable="{= ${Ticket>stato_ticket_ID/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelEmail}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelEmail}" class="sapUiTinyMarginTop"
+      required="true">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
       <FlexBox>
-        <Input editable="{= ${Ticket>/stato_ticket_ID>/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
+        <Input editable="{= ${Ticket>stato_ticket_ID/DESC} === 'Chiuso' ? false : ${Item>/Edit} }" >
           <layoutData>
             <FlexItemData growFactor="100" />
           </layoutData>

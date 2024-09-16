@@ -13,31 +13,32 @@ sap.ui.define(
       serviceTech: new serviceTech(),
       onInit: function () {
         this.getRouter().getRoute("DetailTechnician").attachPatternMatched(this._onObjectMatched, this);
+        
+        // var oModelSelect = {
+        //   ItilClassification: [{ Key: "SERVICE REQUEST", Text: "SERVICE REQUEST" }],
+        //   Conduction: [{ Key: "Tecnica", Text: "Tecnica" }],
+        //   Environment: [{ Key: "Produzione", Text: "Produzione" }],
+        //   RequestType: [{ Key: "Supporto specialistisco", Text: "Supporto specialistisco" }],
+        //   Type: [{ Key: "ASSISTENZA SW", Text: "ASSISTENZA SW" }],
+        //   Application: [
+        //     { Key: "MALF-POR", Text: "Malfunzionamento Portale" },
+        //     { Key: "RICH-INF", Text: "Richiesta di informazioni su Ordine di Pagamento" },
+        //     { Key: "CERT-UNI", Text: "Certificazione unica" },
+        //     { Key: "ALTRO", Text: "Altro non specificato in elenco" },
+        //     { Key: "FATT-BLO", Text: "Fattura bloccata al pagamento" },
+        //     { Key: "ENTR-MER", Text: "Entrata Merci non presente al portale" },
+        //     { Key: "QUES-NAT", Text: "Quesito di natura contrattuale/negoziale" },
+        //   ],
+        // };
 
-        var oModelSelect = {
-          ItilClassification: [{ Key: "SERVICE REQUEST", Text: "SERVICE REQUEST" }],
-          Conduction: [{ Key: "Tecnica", Text: "Tecnica" }],
-          Environment: [{ Key: "Produzione", Text: "Produzione" }],
-          RequestType: [{ Key: "Supporto specialistisco", Text: "Supporto specialistisco" }],
-          Type: [{ Key: "ASSISTENZA SW", Text: "ASSISTENZA SW" }],
-          Application: [
-            { Key: "MALF-POR", Text: "Malfunzionamento Portale" },
-            { Key: "RICH-INF", Text: "Richiesta di informazioni su Ordine di Pagamento" },
-            { Key: "CERT-UNI", Text: "Certificazione unica" },
-            { Key: "ALTRO", Text: "Altro non specificato in elenco" },
-            { Key: "FATT-BLO", Text: "Fattura bloccata al pagamento" },
-            { Key: "ENTR-MER", Text: "Entrata Merci non presente al portale" },
-            { Key: "QUES-NAT", Text: "Quesito di natura contrattuale/negoziale" },
-          ],
-        };
-
-        this.setModel(new JSONModel(oModelSelect), "Select");
+        // this.setModel(new JSONModel(oModelSelect), "Select");
       },
 
       _onObjectMatched: async function (oEvent) {
-        var oArguments = oEvent.getParameter("arguments");
-        this.setModel(new JSONModel({}), "Ticket");
-        this.setModel(new JSONModel({}), "Supplier");
+        var self = this,
+            oArguments = oEvent.getParameter("arguments");
+            self.setModel(new JSONModel({}), "Ticket");
+            self.setModel(new JSONModel({}), "Supplier");
 
         this._sNumber = oArguments.Number;
 
@@ -54,7 +55,6 @@ sap.ui.define(
 
         //Recupero i dati del Ticket
         var oTicket = await this.serviceTech.getTickets(this, "0", "number=" + this._sNumber);
-        console.log("oTicket",oTicket )
         oTicket.results[0].attachments = this._formatAttachments(oTicket);
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
 

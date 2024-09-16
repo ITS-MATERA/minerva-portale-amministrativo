@@ -170,7 +170,7 @@
         required="true"/>
       <TextArea width="100%"
         rows="5"
-        editable="{= ${Ticket>/stato_ticket_ID>/DESC} === 'Chiuso' ? false : ${Item>/Edit} }"/>
+        editable="{= ${Ticket>stato_ticket_ID/DESC} === 'Chiuso' ? false : ${Item>/Edit} }"/>
       <layoutData>
         <l:GridData span="XL12 L12 M12"
           linebreak="true"/>
