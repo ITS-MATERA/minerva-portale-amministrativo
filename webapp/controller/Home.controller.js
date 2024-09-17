@@ -18,12 +18,35 @@ sap.ui.define(
       serviceTech: new serviceTech(),
 
       onInit: function () {
+        var oBundle = this.getResourceBundle();
         this._sQuery = "";
+
+        var oModelSelect = {
+          Priorities: [
+            { Key: "", Text: "" },
+            { Key: "4", Text: oBundle.getText("labelPriorityLow") },
+            { Key: "3", Text: oBundle.getText("labelPriorityNormal") },
+            { Key: "2", Text: oBundle.getText("labelPriorityHigh") },
+            { Key: "1", Text: oBundle.getText("labelPriorityCritical") },
+          ],
+          State: [
+            { Key: "", Text: "" },
+            { Key: "1", Text: oBundle.getText("labelNew") },
+            { Key: "10", Text: oBundle.getText("labelOpen") },
+            { Key: "18", Text: oBundle.getText("labelAwaitingInfo") },
+            { Key: "6", Text: oBundle.getText("labelResolved") },
+            { Key: "3", Text: oBundle.getText("labelClosed") },
+          ],
+        };
+
+        this.setModel(new JSONModel(oModelSelect), "Select");
 
         var oModelFilters = {
           Account: "",
           Contact: "",
           Number: "",
+          Priority: "",
+          State: "",
         };
 
         this.setModel(new JSONModel(oModelFilters), "TicketFilters");
@@ -114,6 +137,8 @@ sap.ui.define(
         sQuery = oFilters.Number ? sQuery + "number=" + oFilters.Number + "^" : sQuery + "";
         sQuery = oFilters.Account ? sQuery + "account.name=" + oFilters.Account + "^" : sQuery + "";
         sQuery = oFilters.Contact ? sQuery + "contact.name=" + oFilters.Contact + "^" : sQuery + "";
+        sQuery = oFilters.Priority ? sQuery + "priority=" + oFilters.Priority + "^" : sQuery + "";
+        sQuery = oFilters.State ? sQuery + "state=" + oFilters.State + "^" : sQuery + "";
 
         this._sQuery = sQuery;
 

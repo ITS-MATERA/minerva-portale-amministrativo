@@ -6,21 +6,53 @@
       <Label text="{i18n>labelAccount}" />
       <Input value="{TicketFilters>/Account}"/>
       <layoutData>
-        <l:GridData span="XL3 L4 M6" />
+        <l:GridData span="XL2 L3 M4" />
       </layoutData>
     </VBox>
     <VBox>
       <Label text="{i18n>labelContact}" />
       <Input value="{TicketFilters>/Contact}"/>
       <layoutData>
-        <l:GridData span="XL3 L4 M6" />
+        <l:GridData span="XL2 L3 M4" />
       </layoutData>
     </VBox>
     <VBox>
       <Label text="{i18n>labelNumber}" />
       <Input value="{TicketFilters>/Number}"/>
       <layoutData>
-        <l:GridData span="XL3 L4 M6" />
+        <l:GridData span="XL2 L3 M4" />
+      </layoutData>
+    </VBox>
+    <VBox>
+      <Label text="{i18n>labelPriority}" />
+      <Select width="100%"
+        items="{
+            path: 'Select>/Priorities',
+            templateShareable: false
+          }"
+        forceSelection="false"
+        selectedKey="{TicketFilters>/Priority}">
+        <c:Item key="{Select>Key}"
+          text="{Select>Text}"/>
+      </Select >
+      <layoutData>
+        <l:GridData span="XL2 L3 M4" />
+      </layoutData>
+    </VBox>
+    <VBox>
+      <Label text="{i18n>labelState}" />
+      <Select width="100%"
+        items="{
+            path: 'Select>/State',
+            templateShareable: false
+          }"
+        forceSelection="false"
+        selectedKey="{TicketFilters>/State}">
+        <c:Item key="{Select>Key}"
+          text="{Select>Text}"/>
+      </Select >
+      <layoutData>
+        <l:GridData span="XL2 L3 M4" />
       </layoutData>
     </VBox>
     <VBox>
@@ -28,7 +60,7 @@
       <Button text="{i18n>labelStart}"
         press="onStart"/>
       <layoutData>
-        <l:GridData span="XL3 L4 M6" />
+        <l:GridData span="XL2 L3 M4" />
       </layoutData>
     </VBox>
 

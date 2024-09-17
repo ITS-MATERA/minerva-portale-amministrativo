@@ -30,7 +30,7 @@
           <IconTabFilter key="comments"
             text="{i18n>labelComments}">
             <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableComments"
-              type="XML" />            	
+              type="XML" />
           </IconTabFilter>
         </items>
       </IconTabBar>
@@ -41,9 +41,9 @@
           text="{i18n>labelBack}"
           press="onBack" />
         <ToolbarSpacer />
-        <!-- <Button type="Emphasized"
+        <Button type="Emphasized"
           text="{i18n>labelSend}"
-          press="onSend" /> -->
+          press="onSend" />
 
       </OverflowToolbar>
     </f:footer>

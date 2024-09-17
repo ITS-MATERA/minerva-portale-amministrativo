@@ -17,7 +17,7 @@
               <Button text="{i18n>labelAttachFile}"
                 type="Ghost"
                 press="onAttachManager"
-                visible="{= !!${Ticket>/config/edit} }"
+                visible="{= ${Ticket>/stateId} === '3' || ${Ticket>/stateId} === '6' ? false : true}"
                 app:button="Open" />
             </OverflowToolbar>
           </ui:extension>
@@ -54,7 +54,8 @@
                   type="Transparent"
                   app:id="{Ticket>id}"
                   app:button="Delete"
-                  press="onAttachManager" />
+                  press="onAttachManager"
+                  visible="{= !${Ticket>file_url} }" />
               </ui:template>
             </ui:Column>
           </ui:columns>

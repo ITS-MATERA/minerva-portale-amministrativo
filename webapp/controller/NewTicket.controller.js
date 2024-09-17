@@ -21,10 +21,10 @@ sap.ui.define(
         var oModelSelect = {
           Companies: [],
           Priorities: [
-            { Key: "1", Text: oBundle.getText("labelPriorityLow") }, //tecnico
-            { Key: "2", Text: oBundle.getText("labelPriorityNormal") },
-            { Key: "3", Text: oBundle.getText("labelPriorityHigh") },
-            { Key: "4", Text: oBundle.getText("labelPriorityCritical") },
+            { Key: "4", Text: oBundle.getText("labelPriorityLow") }, //tecnico
+            { Key: "3", Text: oBundle.getText("labelPriorityNormal") },
+            { Key: "2", Text: oBundle.getText("labelPriorityHigh") },
+            { Key: "1", Text: oBundle.getText("labelPriorityCritical") },
           ],
           Categories: [
             { Text: oBundle.getText("labelCatMalfPor"), Type: constants.TABBAR_TECHNICIAN_KEY }, //tecnico

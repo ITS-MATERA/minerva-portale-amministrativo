@@ -2,14 +2,17 @@ sap.ui.define(
   [
     "./BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/m/MessageBox",
     "portaleamministrativo/externalServices/serviceNow/library",
-    "sap/m/MessageToast",
     "portaleamministrativo/model/constants",
     "portaleamministrativo/model/formatter",
+    "sap/ui/core/BusyIndicator",
+    "sap/m/library",
+    "sap/ui/core/Element",
   ],
-  function (BaseController, JSONModel, MessageBox, serviceNow, MessageToast, constants, formatter) {
+  function (BaseController, JSONModel, serviceNow, constants, formatter, BusyIndicator, sapMLib, Element) {
     "use strict";
+
+    const { TextArea, Button, DialogType, Dialog, ButtonType, MessageToast, MessageBox } = sapMLib;
 
     return BaseController.extend("portaleamministrativo.controller.DetailFunctional", {
       serviceNow: new serviceNow(),
@@ -34,12 +37,11 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function (oEvent) {
-        var self = this,
-          oArguments = oEvent.getParameter("arguments");
+        var oArguments = oEvent.getParameter("arguments");
 
-        self.setModel(new JSONModel(this.initTicket()), "Ticket");
-        self.setModel(new JSONModel({}), "Supplier");
-        self.getModel("Ticket").setProperty("/config/edit", oArguments.Number ? false : true);
+        this.setModel(new JSONModel(this.initTicket()), "Ticket");
+        this.setModel(new JSONModel({}), "Supplier");
+        this.getModel("Ticket").setProperty("/config/edit", oArguments.Number ? false : true);
 
         this._sNumber = oArguments.Number;
         if (!this._sNumber) {
@@ -52,6 +54,8 @@ sap.ui.define(
         oTicket.results[0].commentResults = formatter.formatComments(oTicket);
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
 
+        console.log(oTicket.results[0]);
+
         //Recupero i dati dell'utente
         if (oTicket?.results[0]?.accountId) {
           this.setModel(new JSONModel(await this.getSupplier(oTicket.results[0]?.accountId)), "Supplier");
@@ -60,6 +64,31 @@ sap.ui.define(
 
       onBack: function () {
         this.getRouter().navTo("Home");
+      },
+
+      onSend: async function () {
+        var oTicket = this.getModel("Ticket").getData();
+
+        console.log(oTicket);
+
+        //Caricamento allegati
+        BusyIndicator.show(0);
+        await Promise.all(
+          oTicket.attachments?.map(
+            async function (x) {
+              if (!x.file_id) {
+                this.serviceNow.uploadFile(this, oTicket.sys_id, x.file);
+              }
+            }.bind(this)
+          )
+        );
+        BusyIndicator.hide();
+
+        MessageBox.success(this.getResourceBundle().getText("msgTicketSended"), {
+          onClose: function () {
+            this.getRouter().navTo("Home");
+          }.bind(this),
+        });
       },
 
       onAttachManager: async function (oEvent) {
@@ -154,10 +183,9 @@ sap.ui.define(
         oModelTicket.setProperty("/commentResults", formatter.formatComments(oTicket));
       },
 
-      onRemoveContact: async function (oEvent) {
+      onRemoveContact: async function () {
         var oModelTicket = this.getModel("Ticket");
         var oTicket = oModelTicket.getData();
-        var sValue = oEvent.getParameter("value");
 
         var oData = {
           comments:
@@ -172,6 +200,62 @@ sap.ui.define(
         MessageToast.show(this.getResourceBundle().getText("msgCommentPostSuccess"));
         var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oTicket.number);
         oModelTicket.setProperty("/commentResults", formatter.formatComments(oTicket));
+      },
+
+      onReopenTicket: async function () {
+        this._oDialogTextArea = new Dialog({
+          title: this.getResourceBundle().getText("labelMessage"),
+          type: DialogType.Message,
+          content: [
+            new TextArea("textArea", {
+              width: "100%",
+              cols: 100,
+              rows: 4,
+              value: null,
+            }),
+          ],
+          beginButton: new Button({
+            type: ButtonType.Emphasized,
+            text: this.getResourceBundle().getText("labelSave"),
+            press: async function () {
+              var oModelTicket = this.getModel("Ticket");
+              var oTicket = oModelTicket.getData();
+              var sValue = Element.getElementById("textArea").getValue();
+
+              this._oDialogTextArea.destroy();
+              this._oDialogTextArea = undefined;
+
+              var oData = {
+                comments: sValue,
+              };
+
+              if (!(await this.serviceNow.postComments(this, oData, oTicket.sys_id))) {
+                MessageToast.show(this.getResourceBundle().getText("msgCommentPostFailure"));
+                return;
+              }
+
+              oData.comments = this.getResourceBundle().getText("msgReopenTicket");
+
+              if (!(await this.serviceNow.postComments(this, oData, oTicket.sys_id))) {
+                MessageToast.show(this.getResourceBundle().getText("msgCommentPostFailure"));
+                return;
+              }
+
+              MessageToast.show(this.getResourceBundle().getText("msgCommentPostSuccess"));
+              var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oTicket.number);
+              oModelTicket.setProperty("/commentResults", formatter.formatComments(oTicket));
+            }.bind(this),
+          }),
+          endButton: new Button({
+            text: this.getResourceBundle().getText("labelClose"),
+            press: function () {
+              this._oDialogTextArea.destroy();
+              this._oDialogTextArea = undefined;
+            }.bind(this),
+          }),
+        });
+
+        this._oDialogTextArea.open();
       },
     });
   }
