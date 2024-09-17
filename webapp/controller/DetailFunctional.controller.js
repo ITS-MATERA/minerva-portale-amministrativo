@@ -240,7 +240,7 @@ sap.ui.define(
                   }
                   oData.comments = sValue;
 
-                  await this.serviceNow.postComments(this, oData, oTicket.sys_id);
+                  this.serviceNow.postComments(this, oData, oTicket.sys_id);
 
                   MessageToast.show(this.getResourceBundle().getText("msgCommentPostSuccess"));
                   oTicket = await this.serviceNow.getTickets(this, "0", "number=" + this._sNumber);
