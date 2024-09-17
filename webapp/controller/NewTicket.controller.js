@@ -20,11 +20,6 @@ sap.ui.define(
 
         var oModelSelect = {
           Companies: [],
-          // ItilClassification: [{ Key: "SERVICE REQUEST", Text: "SERVICE REQUEST" }],
-          // Conduction: [{ Key: "Tecnica", Text: "Tecnica" }],
-          // Environment: [{ Key: "Produzione", Text: "Produzione" }],
-          // RequestType: [{ Key: "Supporto specialistisco", Text: "Supporto specialistisco" }],
-          // Type: [{ Key: "ASSISTENZA SW", Text: "ASSISTENZA SW" }],
           Priorities: [
             { Key: "1", Text: oBundle.getText("labelPriorityLow") }, //tecnico
             { Key: "2", Text: oBundle.getText("labelPriorityNormal") },
@@ -46,17 +41,16 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function (oEvent) {
-        var self = this;
         var oArguments = oEvent.getParameter("arguments");
         var sNumber = oArguments.Number;
         var lifnr = "0100000002"; //TODO:Da canc
 
-        var oSupplier = await self.getSupplier(lifnr);
-        self.setModel(new JSONModel(oSupplier), "Supplier");
-        self.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
+        var oSupplier = await this.getSupplier(lifnr);
+        this.setModel(new JSONModel(oSupplier), "Supplier");
+        this.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
 
-        self.setModel(new JSONModel(self.initTicket()), "Ticket");
-        self.getModel("Ticket").setProperty("/config/edit", sNumber ? false : true);
+        this.setModel(new JSONModel(this.initTicket()), "Ticket");
+        this.getModel("Ticket").setProperty("/config/edit", sNumber ? false : true);
       },
 
       onBack: function (oEvent) {

@@ -82,8 +82,7 @@
           <ui:template>
             <Text text="{
                   path: 'TicketsTech>Data_Apertura',
-                  formatter: '.formatter.formatStringToDateString',
-                  type: 'sap.ui.model.type.text'
+                  formatter: '.formatter.formatStringToDateString'
                 }" />
             <!-- <Text text="{
                   path: 'TicketsTech>Data_Apertura',
