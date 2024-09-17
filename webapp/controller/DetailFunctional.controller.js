@@ -243,8 +243,10 @@ sap.ui.define(
                   await this.serviceNow.postComments(this, oData, oTicket.sys_id);
 
                   MessageToast.show(this.getResourceBundle().getText("msgCommentPostSuccess"));
-                  var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oTicket.number);
-                  oModelTicket.setProperty("/commentResults", formatter.formatComments(oTicket));
+                  oTicket = await this.serviceNow.getTickets(this, "0", "number=" + this._sNumber);
+                  oTicket.results[0].attachments = formatter.formatAttachments(oTicket);
+                  oTicket.results[0].commentResults = formatter.formatComments(oTicket);
+                  this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
                 }.bind(this)
               );
             }.bind(this),
