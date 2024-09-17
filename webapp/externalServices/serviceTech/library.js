@@ -26,7 +26,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
           .fail(function (error) {
             BusyIndicator.hide();
             reject([]);
-            console.log(error);
           });
       });
     },
@@ -53,7 +52,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
           .fail(function (error) {
             BusyIndicator.hide();
             reject(null);
-            console.log(error);
           });
       });
     },
@@ -64,7 +62,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
 
       reader.onload = function (event) {
         var sBase64 = event.target.result.split(",")[1];
-        console.log(oFile);
         var oPayload = {
           File_Name: oFile.name,
           Documento: sBase64,
@@ -84,11 +81,9 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
         return new Promise(async function (resolve, reject) {
           $.ajax(settings)
             .done(function (response) {
-              console.log(response);
               resolve(true);
             })
             .fail(function (error) {
-              console.log(error);
               reject(false);
             });
         });
@@ -137,11 +132,9 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       return new Promise(async function (resolve, reject) {
         $.ajax(oSettings)
           .done(function (response) {
-            console.log(response);
             resolve(response);
           })
           .fail(function (error) {
-            console.log(error);
             reject(error);
           });
       });

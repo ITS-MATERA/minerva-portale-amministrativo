@@ -106,8 +106,6 @@ sap.ui.define(
             var oTicket = oModelTicket.getData();
             var oAttach = oTicket.attachments.filter((x) => x.id === iId)[0];
 
-            console.log(oTicket.attachments);
-
             if (oAttach.new) {
               var aNoDeleted = oTicket.attachments.filter((x) => x.id !== iId);
 

@@ -59,12 +59,20 @@
             linebreak="true"/>
         </layoutData>
       </Label>
-      <Input editable="false"
-        value="{Supplier>/CompanyDataSet/results/0/Butxt}">
+      <Select width="100%"
+        items="{
+            path: 'Select>/Companies',
+            templateShareable: false
+          }"
+        forceSelection="false"
+        selectedKey="{Ticket>/company}"
+        editable="false">
+        <c:Item key="{Select>Societa}"
+          text="{Select>Butxt}"/>
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
-      </Input>
+      </Select >
       <Label text="{i18n>labelSite}"
         class="sapUiTinyMarginTop">
         <layoutData>

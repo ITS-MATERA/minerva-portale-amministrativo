@@ -22,6 +22,7 @@ sap.ui.define(
         this.getRouter().getRoute("DetailFunctional").attachPatternMatched(this._onObjectMatched, this);
 
         var oModelSelect = {
+          Companies: [],
           Categories: [
             { Text: oBundle.getText("labelCatMalfPor"), Type: constants.TABBAR_TECHNICIAN_KEY }, //tecnico
             { Text: oBundle.getText("labelCatRichInf"), Type: constants.TABBAR_FUNCTIONAL_KEY },
@@ -41,6 +42,7 @@ sap.ui.define(
 
         this.setModel(new JSONModel(this.initTicket()), "Ticket");
         this.setModel(new JSONModel({}), "Supplier");
+
         this.getModel("Ticket").setProperty("/config/edit", oArguments.Number ? false : true);
 
         this._sNumber = oArguments.Number;
@@ -58,7 +60,9 @@ sap.ui.define(
 
         //Recupero i dati dell'utente
         if (oTicket?.results[0]?.accountId) {
-          this.setModel(new JSONModel(await this.getSupplier(oTicket.results[0]?.accountId)), "Supplier");
+          var oSupplier = await this.getSupplier(oTicket.results[0]?.accountId);
+          this.setModel(new JSONModel(oSupplier), "Supplier");
+          this.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
         }
       },
 
@@ -68,8 +72,6 @@ sap.ui.define(
 
       onSend: async function () {
         var oTicket = this.getModel("Ticket").getData();
-
-        console.log(oTicket);
 
         //Caricamento allegati
         BusyIndicator.show(0);
@@ -145,8 +147,6 @@ sap.ui.define(
             var oModelTicket = this.getModel("Ticket");
             var oTicket = oModelTicket.getData();
             var oAttach = oTicket.attachments.filter((x) => x.id === iId)[0];
-
-            console.log(oTicket.attachments);
 
             if (oAttach.new) {
               var aNoDeleted = oTicket.attachments.filter((x) => x.id !== iId);

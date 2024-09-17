@@ -23,7 +23,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
         $.ajax(oSettings)
           .done(function (response, status, header) {
             BusyIndicator.hide();
-            console.log();
             resolve({
               results: response.result,
               count: parseInt(header.getAllResponseHeaders().split("x-total-count: ")[1].split("\r")[0]),
@@ -32,7 +31,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
           .fail(function (error) {
             BusyIndicator.hide();
             reject([]);
-            console.log(error);
           });
       });
     },
@@ -95,7 +93,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       return new Promise(async function (resolve, reject) {
         $.ajax(oSettings)
           .done(function (response) {
-            console.log(response);
             resolve(response);
           })
           .fail(function (error) {
@@ -109,7 +106,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       var sUrl;
       var sLocation = window.location;
       var sBaseUrl = sLocation.href;
-      console.log(sBaseUrl)
       var sUrl = jQuery.sap.getModulePath(sAppId + "/service-now");
       var sFlpDestinationurl = jQuery.sap.getModulePath(sAppId + "/service-now" + "/");
 
@@ -126,11 +122,10 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       sUrl = sLocation.protocol + "//" + sLocation.hostname + sLocation.pathname;
       sUrl = sUrl.replace("index.html", "");
       sUrl = sUrl + "service-now" + "/" + sMethod;
-      console.log("sUrl",sUrl )
       return sUrl;
     },
 
-    postComments: function(self, oData, id) {
+    postComments: function (self, oData, id) {
       var sMethod = "api/sn_customerservice/case/btp_fornitori_put/" + id;
       var oSettings = {
         url: this._getUrl(self, sMethod),
@@ -144,7 +139,6 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
       return new Promise(async function (resolve, reject) {
         $.ajax(oSettings)
           .done(function (response) {
-            console.log(response);
             resolve(true);
           })
           .fail(function (error) {
@@ -152,6 +146,5 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
           });
       });
     },
-
   });
 });

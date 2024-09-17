@@ -48,6 +48,7 @@ sap.ui.define(
         var oSupplier = await this.getSupplier(lifnr);
         this.setModel(new JSONModel(oSupplier), "Supplier");
         this.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
+        console.log(oSupplier.CompanyDataSet.results);
 
         this.setModel(new JSONModel(this.initTicket()), "Ticket");
         this.getModel("Ticket").setProperty("/config/edit", sNumber ? false : true);
@@ -111,7 +112,6 @@ sap.ui.define(
             },
             (error) => {
               BusyIndicator.hide();
-              console.log(error);
               var errorText = error.responseJSON?.error?.detail;
               MessageBox.error(
                 !errorText ? self.getResourceBundle().getText("msgGenericErrorOnSednServiceNow") : errorText
@@ -131,7 +131,6 @@ sap.ui.define(
               await Promise.all(
                 oTicket.attachments?.map(
                   async function (x) {
-                    console.log(oTicket.sys_id);
                     this.serviceNow.uploadFile(this, oTicket.sys_id, x.file);
                   }.bind(this)
                 )
@@ -145,7 +144,6 @@ sap.ui.define(
             },
             (error) => {
               BusyIndicator.hide();
-              console.log(error);
               var errorText = error.responseJSON?.error?.detail;
               MessageBox.error(
                 !errorText ? self.getResourceBundle().getText("msgGenericErrorOnSednServiceNow") : errorText
@@ -230,8 +228,6 @@ sap.ui.define(
             var oModelTicket = this.getModel("Ticket");
             var oTicket = oModelTicket.getData();
             var oAttach = oTicket.attachments.filter((x) => x.id === iId)[0];
-
-            console.log(oTicket.attachments);
 
             if (oAttach.new) {
               var aNoDeleted = oTicket.attachments.filter((x) => x.id !== iId);

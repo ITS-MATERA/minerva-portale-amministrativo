@@ -79,8 +79,6 @@ sap.ui.define(
           List: oTicketTech.results,
         };
 
-        console.log(oTicketTech.results);
-
         this.setModel(new JSONModel(oModelTicketTech), "TicketsTech");
       },
 
@@ -100,8 +98,6 @@ sap.ui.define(
       onPaginatorChange: async function () {
         var oModelTickets = this.getModel("Tickets");
         var oTickets = await this.serviceNow.getTickets(this, oModelTickets.getProperty("/Skip"), this._sQuery);
-
-        console.log(oTickets.results);
 
         oModelTickets.setProperty("/List", oTickets.results);
         oModelTickets.setProperty("/Records", oTickets.count);
