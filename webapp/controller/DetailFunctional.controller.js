@@ -225,25 +225,28 @@ sap.ui.define(
               this._oDialogTextArea.destroy();
               this._oDialogTextArea = undefined;
 
-              var oData = {
-                comments: sValue,
-              };
-
-              if (!(await this.serviceNow.postComments(this, oData, oTicket.sys_id))) {
-                MessageToast.show(this.getResourceBundle().getText("msgCommentPostFailure"));
-                return;
-              }
+              var oData = { comments: "" };
 
               oData.comments = this.getResourceBundle().getText("msgReopenTicket");
 
-              if (!(await this.serviceNow.postComments(this, oData, oTicket.sys_id))) {
-                MessageToast.show(this.getResourceBundle().getText("msgCommentPostFailure"));
-                return;
-              }
+              await this.serviceNow.postComments(this, oData, oTicket.sys_id).then(
+                async function (response) {
+                  //Ridefinisco oTicket perchè non me lo vedo, non so il perchè :-(
+                  var oTicket = oModelTicket.getData();
 
-              MessageToast.show(this.getResourceBundle().getText("msgCommentPostSuccess"));
-              var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oTicket.number);
-              oModelTicket.setProperty("/commentResults", formatter.formatComments(oTicket));
+                  if (!response) {
+                    MessageToast.show(this.getResourceBundle().getText("msgCommentPostFailure"));
+                    return;
+                  }
+                  oData.comments = sValue;
+
+                  await this.serviceNow.postComments(this, oData, oTicket.sys_id);
+
+                  MessageToast.show(this.getResourceBundle().getText("msgCommentPostSuccess"));
+                  var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oTicket.number);
+                  oModelTicket.setProperty("/commentResults", formatter.formatComments(oTicket));
+                }.bind(this)
+              );
             }.bind(this),
           }),
           endButton: new Button({
