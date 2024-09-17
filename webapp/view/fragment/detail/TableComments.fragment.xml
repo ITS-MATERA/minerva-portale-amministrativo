@@ -16,7 +16,7 @@
         <Button type="Reject"
           text="{i18n>labelRemoveContact}"
           press="onRemoveContact"
-          visible="{= ${Ticket>/stateId} === '3' ? false : true}">
+          visible="{= ${Ticket>/stateId} === '3' || ${Ticket>/stateId} === '6' ? false : true}">
           <layoutData>
             <OverflowToolbarLayoutData priority="NeverOverflow" />
           </layoutData>
