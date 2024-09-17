@@ -3,7 +3,9 @@
   xmlns:l="sap.ui.layout">
   <Panel class="sapUiMediumMarginBottom">
     <l:Grid>
-      <Label text="{i18n>labelBusinessName}/{i18n>labelSurname}" class="sapUiTinyMarginTop" wrapping="true">
+      <Label text="{i18n>labelBusinessName}/{i18n>labelSurname}"
+        class="sapUiTinyMarginTop"
+        wrapping="true">
         <layoutData>
           <l:GridData span="XL1 L3 M6"/>
         </layoutData>
@@ -14,7 +16,8 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelId}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelId}"
+        class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
@@ -24,7 +27,8 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelName}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelName}"
+        class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
@@ -34,7 +38,8 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelPhone}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelPhone}"
+        class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6"/>
         </layoutData>
@@ -44,23 +49,29 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelSociety}" class="sapUiTinyMarginTop"  required="true">
+      <Label text="{i18n>labelSociety}"
+        class="sapUiTinyMarginTop"
+        required="true">
         <layoutData>
-          <l:GridData span="XL1 L3 M6" linebreak="true"/>
+          <l:GridData span="XL1 L3 M6"
+            linebreak="true"/>
         </layoutData>
       </Label>
-      <Select width="100%" 
-          items="{
+      <Select width="100%"
+        items="{
             path: 'Select>/Companies',
             templateShareable: false
-          }" forceSelection="false"
-          change="onCompanyChange">
-        <c:Item key="{Select>Societa}" text="{Select>Butxt}"/>
+          }"
+        forceSelection="false"
+        selectedKey="{Ticket>/company}">
+        <c:Item key="{Select>Societa}"
+          text="{Select>Butxt}"/>
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Select >
-      <Label text="{i18n>labelSite}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelSite}"
+        class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
@@ -70,7 +81,8 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelVatNumber}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelVatNumber}"
+        class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
@@ -80,7 +92,8 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelFiscalCode}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelFiscalCode}"
+        class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
@@ -90,7 +103,8 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelEmail}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelEmail}"
+        class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
@@ -100,7 +114,8 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelEmailAmministrativa}" class="sapUiTinyMarginTop">
+      <Label text="{i18n>labelEmailAmministrativa}"
+        class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>

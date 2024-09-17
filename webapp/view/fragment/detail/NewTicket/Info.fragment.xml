@@ -11,12 +11,19 @@
 			</layoutData>
 		</VBox> -->
     <VBox>
-      <Label text="{i18n>labelCategory}" required="true"/>
-      <Select width="100%" items="{
+      <Label text="{i18n>labelCategory}"
+        required="true"/>
+      <Select width="100%"
+        items="{
             path: 'Select>/Categories',
             templateShareable: false
-          }" forceSelection="false" change="onCategorySelect">
-        <c:Item key="{Select>Key}" text="{Select>Text}" app:type="{Select>Type}"/>
+          }"
+        forceSelection="false"
+        selectedKey="{Ticket>/category}"
+        change="onCategoryChange">
+        <c:Item key="{Select>Text}"
+          text="{Select>Text}"
+          app:type="{Select>Type}"/>
       </Select >
       <layoutData>
         <l:GridData span="XL3 L4 M6"/>
@@ -37,12 +44,17 @@
 			</layoutData>
 		</VBox> -->
     <VBox>
-      <Label text="{i18n>labelPriority}" required="true"/>
-      <Select width="100%" items="{
+      <Label text="{i18n>labelPriority}"
+        required="true"/>
+      <Select width="100%"
+        items="{
             path: 'Select>/Priorities',
             templateShareable: false
-          }" forceSelection="false" change="onPrioritySelect">
-        <c:Item key="{Select>Key}" text="{Select>Text}"/>
+          }"
+        forceSelection="false"
+        selectedKey="{Ticket>/priority}">
+        <c:Item key="{Select>Key}"
+          text="{Select>Text}"/>
       </Select >
       <layoutData>
         <l:GridData span="XL2 L3 M4"/>
@@ -57,23 +69,26 @@
 			</layoutData>
 		</VBox> -->
     <VBox>
-      <Label text="{i18n>labelShortDescription}" required="true"/>
-      <Input value="{Ticket>/short_description}" editable="{Item>/Edit}"/>
+      <Label text="{i18n>labelShortDescription}"
+        required="true"/>
+      <Input value="{Ticket>/short_description}"
+        editable="{Item>/Edit}"/>
       <layoutData>
-        <l:GridData span="XL6 L12 M12" linebreak="true"/>
+        <l:GridData span="XL6 L12 M12"
+          linebreak="true"/>
       </layoutData>
     </VBox>
     <VBox>
-      <Label text="{i18n>labelDescription}" required="true"/>
-      <TextArea width="100%" rows="3" value="{Ticket>/description}" editable="{Item>/Edit}"/>
+      <Label text="{i18n>labelDescription}"
+        required="true"/>
+      <TextArea width="100%"
+        rows="3"
+        value="{Ticket>/description}"
+        editable="{Item>/Edit}"/>
       <layoutData>
-        <l:GridData span="XL9 L12 M12" linebreak="true"/>
+        <l:GridData span="XL9 L12 M12"
+          linebreak="true"/>
       </layoutData>
     </VBox>
-
-
-
-
-
   </l:Grid>
 </c:FragmentDefinition>

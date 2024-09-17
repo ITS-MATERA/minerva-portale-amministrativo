@@ -15,6 +15,7 @@ sap.ui.define(
       serviceNow: new serviceNow(),
       serviceTech: new serviceTech(),
       onInit: function () {
+        var oBundle = this.getResourceBundle();
         this.getRouter().getRoute("NewTicket").attachPatternMatched(this._onObjectMatched, this);
 
         var oModelSelect = {
@@ -25,35 +26,19 @@ sap.ui.define(
           // RequestType: [{ Key: "Supporto specialistisco", Text: "Supporto specialistisco" }],
           // Type: [{ Key: "ASSISTENZA SW", Text: "ASSISTENZA SW" }],
           Priorities: [
-            { Key: "1", Text: this.getResourceBundle().getText("labelPriorityLow") }, //tecnico
-            { Key: "2", Text: this.getResourceBundle().getText("labelPriorityNormal") },
-            { Key: "3", Text: this.getResourceBundle().getText("labelPriorityHigh") },
-            { Key: "4", Text: this.getResourceBundle().getText("labelPriorityCritical") },
+            { Key: "1", Text: oBundle.getText("labelPriorityLow") }, //tecnico
+            { Key: "2", Text: oBundle.getText("labelPriorityNormal") },
+            { Key: "3", Text: oBundle.getText("labelPriorityHigh") },
+            { Key: "4", Text: oBundle.getText("labelPriorityCritical") },
           ],
           Categories: [
-            {
-              Key: "MALF-POR",
-              Text: this.getResourceBundle().getText("labelCatMalfPor"),
-              Type: constants.TABBAR_TECHNICIAN_KEY,
-            }, //tecnico
-            {
-              Key: "RICH-INF",
-              Text: this.getResourceBundle().getText("labelCatRichInf"),
-              Type: constants.TABBAR_FUNCTIONAL_KEY,
-            },
-            {
-              Key: "CERT-UNI",
-              Text: this.getResourceBundle().getText("labelCatCertUni"),
-              Type: constants.TABBAR_FUNCTIONAL_KEY,
-            },
-            {
-              Key: "ALTRO",
-              Text: this.getResourceBundle().getText("labelCatAltro"),
-              Type: constants.TABBAR_FUNCTIONAL_KEY,
-            },
-            { Key: "FATT-BLO", Text: this.getResourceBundle().getText("labelCatFattBlo"), Type: "" }, //no ticket + messaggio "contattare referente contrattuale"
-            { Key: "ENTR-MER", Text: this.getResourceBundle().getText("labelCatEntrMerc"), Type: "" }, //no ticket + messaggio "contattare referente contrattuale"
-            { Key: "QUES-NAT", Text: this.getResourceBundle().getText("labelCatQuesNat"), Type: "" }, //no ticket + messaggio "contattare referente contrattuale"
+            { Text: oBundle.getText("labelCatMalfPor"), Type: constants.TABBAR_TECHNICIAN_KEY }, //tecnico
+            { Text: oBundle.getText("labelCatRichInf"), Type: constants.TABBAR_FUNCTIONAL_KEY },
+            { Text: oBundle.getText("labelCatCertUni"), Type: constants.TABBAR_FUNCTIONAL_KEY },
+            { Text: oBundle.getText("labelCatAltro"), Type: constants.TABBAR_FUNCTIONAL_KEY },
+            { Text: oBundle.getText("labelCatFattBlo"), Type: "" }, //no ticket + messaggio "contattare referente contrattuale"
+            { Text: oBundle.getText("labelCatEntrMerc"), Type: "" }, //no ticket + messaggio "contattare referente contrattuale"
+            { Text: oBundle.getText("labelCatQuesNat"), Type: "" }, //no ticket + messaggio "contattare referente contrattuale"
           ],
         };
 
@@ -66,26 +51,12 @@ sap.ui.define(
         var sNumber = oArguments.Number;
         var lifnr = "0100000002"; //TODO:Da canc
 
-        var oSupplier = await self._getSupplier(lifnr);
+        var oSupplier = await self.getSupplier(lifnr);
         self.setModel(new JSONModel(oSupplier), "Supplier");
         self.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
 
         self.setModel(new JSONModel(self.initTicket()), "Ticket");
         self.getModel("Ticket").setProperty("/config/edit", sNumber ? false : true);
-      },
-
-      _getSupplier: async function (sCodiceBP) {
-        var oSupplier = await this.getEntity(
-          "/GeneralDataSet",
-          "ZMDG_ADMIN_PORTAL_SRV",
-          { ID: sCodiceBP },
-          {},
-          true,
-          "BankDetailSet,CompanyDataSet"
-        );
-
-        console.log(oSupplier.data);
-        return oSupplier.data;
       },
 
       onBack: function (oEvent) {
@@ -151,25 +122,27 @@ sap.ui.define(
             }
           );
         } else {
+          //Ticket Funzionali
+
           delete oTicketWithouAttachments.dataStart;
           delete oTicketWithouAttachments.dataEnd;
-          await self.serviceNow.send(self, oTicketWithouAttachments).then(
+
+          await this.serviceNow.send(this, oTicketWithouAttachments).then(
             async (response) => {
-              //TODO:da decommentare
-              // oTicket.sys_id = response.sys_id;
-              // console.log(response);
-              // await Promise.all(
-              //     oTicket.attachments?.map(
-              //       async function (x) {
-              //         self.serviceNow.uploadFile(self, oTicket.sys_id, x.file);
-              //       }.bind(this)
-              //     )
-              //   );
+              oTicket.sys_id = response.result.sys_id;
+              await Promise.all(
+                oTicket.attachments?.map(
+                  async function (x) {
+                    console.log(oTicket.sys_id);
+                    this.serviceNow.uploadFile(this, oTicket.sys_id, x.file);
+                  }.bind(this)
+                )
+              );
               BusyIndicator.hide();
-              MessageBox.success(self.getResourceBundle().getText("msgTicketSended"), {
+              MessageBox.success(this.getResourceBundle().getText("msgTicketSended"), {
                 onClose: function () {
-                  self.getRouter().navTo("Home");
-                }.bind(self),
+                  this.getRouter().navTo("Home");
+                }.bind(this),
               });
             },
             (error) => {
@@ -185,33 +158,24 @@ sap.ui.define(
         }
       },
 
-      onCategorySelect: function (oEvent) {
-        var self = this;
-        var sKey = oEvent.getParameter("selectedItem").getProperty("key"),
-          sType = oEvent.getParameters().selectedItem.data("type");
+      onCategoryChange: function (oEvent) {
+        var oModelTicket = this.getModel("Ticket");
+        var sKey = oEvent.getParameter("selectedItem").getProperty("key");
+        var sType = oEvent.getParameters().selectedItem.data("type");
 
-        self.getModel("Ticket").setProperty("/config/ticketType", sType);
+        oModelTicket.setProperty("/config/ticketType", sType);
 
-        self.getModel("Ticket").setProperty("/category", null);
-        if (sKey === "FATT-BLO" || sKey === "ENTR-MER" || sKey === "QUES-NAT") {
-          self.getModel("Ticket").setProperty("/config/sendEnabled", false);
+        if (
+          sKey === this.getResourceBundle().getText("labelCatFattBlo") ||
+          sKey === this.getResourceBundle().getText("labelCatEntrMerc") ||
+          sKey === this.getResourceBundle().getText("labelCatQuesNat")
+        ) {
+          oModelTicket.setProperty("/config/sendEnabled", false);
           MessageBox.warning(this.getResourceBundle().getText("msgContactContracualReferent"));
           return false;
         }
-        self.getModel("Ticket").setProperty("/config/sendEnabled", true);
-        self.getModel("Ticket").setProperty("/category", oEvent.getParameter("selectedItem").getProperty("text"));
-      },
 
-      onPrioritySelect: function (oEvent) {
-        var self = this;
-        var sKey = oEvent.getParameter("selectedItem").getProperty("key");
-        self.getModel("Ticket").setProperty("/priority", !sKey ? null : sKey);
-      },
-
-      onCompanyChange: function (oEvent) {
-        var self = this;
-        var sCompany = oEvent.getParameter("selectedItem").getProperty("key");
-        self.getModel("Ticket").setProperty("/company", !sCompany ? null : sCompany);
+        oModelTicket.setProperty("/config/sendEnabled", true);
       },
 
       onAttachManager: async function (oEvent) {
@@ -235,7 +199,6 @@ sap.ui.define(
               .then(
                 async function () {
                   var oModelTicket = this.getModel("Ticket");
-                  // var oTicket = oModelTicket.getData("Ticket");
                   var oTicket = oModelTicket.getData();
 
                   var oAttach = {
@@ -286,23 +249,6 @@ sap.ui.define(
             this.serviceNow.downloadFile(this, sFileId, sFileName);
             break;
         }
-      },
-
-      _formatAttachments: function (oTicket) {
-        var aAttachments = [];
-
-        oTicket.results[0].attachments?.map((x, index) => {
-          aAttachments.push({
-            id: index,
-            file_id: x.file_id,
-            file_name: x.file_name,
-            file_url: x.file_url,
-            file_uploader: null,
-            new: false,
-          });
-        });
-
-        return aAttachments;
       },
     });
   }

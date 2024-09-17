@@ -24,7 +24,6 @@
       </ui:rowActionTemplate>
       <ui:columns>
         <ui:Column autoResizable="true"
-          
           filterProperty="Codice_BP"
           sortProperty="Codice_BP">
           <Label text="{i18n>labelCodiceBP}" />
@@ -32,26 +31,19 @@
             <Text text="{TicketsTech>Codice_BP}" />
           </ui:template>
         </ui:Column>
-        <!-- <ui:Column autoResizable="true"
-          
-          filterProperty="Classificazione"
-          sortProperty="Classificazione">
+        <!-- <ui:Column autoResizable="true" filterProperty="Classificazione" sortProperty="Classificazione">
           <Label text="{i18n>labelClassification}" />
           <ui:template>
             <Text text="{TicketsTech>Classificazione}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          
-          filterProperty="Dettaglio"
-          sortProperty="Dettaglio">
+        <ui:Column autoResizable="true" filterProperty="Dettaglio" sortProperty="Dettaglio">
           <Label text="{i18n>labelDetail}" />
           <ui:template>
             <Text text="{TicketsTech>Dettaglio}" />
           </ui:template>
         </ui:Column> -->
         <ui:Column autoResizable="true"
-          
           filterProperty="Cognome"
           sortProperty="Cognome">
           <Label text="{i18n>labelSurname}" />
@@ -60,7 +52,6 @@
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
-          
           filterProperty="Nome"
           sortProperty="Nome">
           <Label text="{i18n>labelName}" />
@@ -68,29 +59,25 @@
             <Text text="{TicketsTech>Nome}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          >
+        <ui:Column autoResizable="true">
           <Label text="{i18n>labelEmail}" />
           <ui:template>
             <Text text="{TicketsTech>Email}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          >
+        <ui:Column autoResizable="true">
           <Label text="{i18n>labelPhone}" />
           <ui:template>
             <Text text="{TicketsTech>Telefono}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          >
+        <ui:Column autoResizable="true">
           <Label text="{i18n>labelState}" />
           <ui:template>
             <Text text="{TicketsTech>stato_ticket/DESC}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          >
+        <ui:Column autoResizable="true">
           <Label text="{i18n>labelDataApertura}" />
           <ui:template>
             <Text text="{
@@ -107,8 +94,7 @@
                 }" /> -->
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          >
+        <ui:Column autoResizable="true">
           <Label text="{i18n>labelDataChiusura}" />
           <ui:template>
             <Text text="{
@@ -120,8 +106,7 @@
                 }" />
           </ui:template>
         </ui:Column>
-        <!-- <ui:Column autoResizable="true"
-          width="40rem">
+        <!-- <ui:Column autoResizable="true" width="40rem">
           <Label text="{i18n>labelDescription}" />
           <ui:template>
             <Text text="{TicketsTech>Descrizione_Problema}" />

@@ -188,7 +188,6 @@ sap.ui.define(
       },
 
       initTicket: function () {
-        var self = this;
         return {
           company: null, //"Trenitalia Treni Per Emilia Romagna",società da mdg
           category: null, //"Certificazione unica",
@@ -209,6 +208,20 @@ sap.ui.define(
             ticketType: null,
           },
         };
+      },
+
+      getSupplier: async function (sCodiceBP) {
+        var oSupplier = await this.getEntity(
+          "/GeneralDataSet",
+          "ZMDG_ADMIN_PORTAL_SRV",
+          { ID: sCodiceBP },
+          {},
+          true,
+          "BankDetailSet,CompanyDataSet"
+        );
+
+        console.log("oSupplier", oSupplier.data);
+        return oSupplier.data;
       },
 
       // fnGetEntitySet: async function (sService, sEntity, oExpand = {}, aFilter = [], nSkip = 0, nTop = 0) {
