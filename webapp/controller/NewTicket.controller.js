@@ -64,9 +64,13 @@ sap.ui.define(
           oSupplier = self.getModel("Supplier").getData();
 
         self.getModel("Ticket").setProperty("/account", oSupplier.ID);
-        self.getModel("Ticket").setProperty("/contact", oSupplier.Email); //"nuovocontatto3@test.tt", mail fornitore preso da mdg
-        self.getModel("Ticket").setProperty("/contact_name", oSupplier.Nome); //"Mario", presi da mdg
-        self.getModel("Ticket").setProperty("/contact_surname", oSupplier.RagioneSociale);
+        // self.getModel("Ticket").setProperty("/contact", oSupplier.Email); //"nuovocontatto3@test.tt", mail fornitore preso da mdg
+        // self.getModel("Ticket").setProperty("/contact_name", oSupplier.Nome); //"Mario", presi da mdg
+        // self.getModel("Ticket").setProperty("/contact_surname", oSupplier.RagioneSociale);
+        //TODO:da recupare in base all'utente loggato
+        self.getModel("Ticket").setProperty("/contact", "gianni.lecci@innovatesapp.com"); //"nuovocontatto3@test.tt", mail fornitore preso da mdg
+        self.getModel("Ticket").setProperty("/contact_name", "Gianni");
+        self.getModel("Ticket").setProperty("/contact_surname", "Lecci");
 
         var oTicket = self.getModel("Ticket").getData();
         if (

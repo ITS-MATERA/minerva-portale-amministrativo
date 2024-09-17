@@ -6,16 +6,32 @@
   xmlns:l="sap.ui.layout">
   <VBox>
     <l:Grid>
-      <FeedInput post="onSaveComment"
-        class="sapUiSmallMarginTopBottom"
-        visible="{= ${Ticket>/state} === 'Chiuso' ? false : true}">
+      <OverflowToolbar style="Clear">
+        <ToolbarSpacer/>
+        <Button type="Accept" text="{i18n>labelReopenTicket}" press="onReopenTicket">
+          <layoutData>
+            <OverflowToolbarLayoutData priority="NeverOverflow" />
+          </layoutData>
+        </Button>
+        <Button type="Reject" text="{i18n>labelRemoveContact}" press="onRemoveContact">
+          <layoutData>
+            <OverflowToolbarLayoutData priority="NeverOverflow" />
+          </layoutData>
+        </Button>
+        <layoutData>
+          <l:GridData span="XL12 L12 M12" />
+        </layoutData>
+      </OverflowToolbar>
+
+
+
+      <FeedInput post="onSaveComment" class="sapUiSmallMarginTopBottom" visible="{= ${Ticket>/state} === 'Chiuso' ? false : true}">
         <layoutData>
           <l:GridData span="XL12 L12 M12" />
         </layoutData>
       </FeedInput>
       <VBox height="50%">
-        <List showSeparators="Inner"
-          items="{Ticket>/commentResults}">
+        <List showSeparators="Inner" items="{Ticket>/commentResults}">
           <FeedListItem text="{Ticket>Comment}"/>
         </List>
         <layoutData>

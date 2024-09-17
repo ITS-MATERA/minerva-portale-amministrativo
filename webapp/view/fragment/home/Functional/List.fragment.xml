@@ -5,9 +5,7 @@
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
   xmlns:my="portaleamministrativo.controls">
   <VBox height="100%">
-    <ui:Table rows="{Tickets>/List}"
-      selectionMode="None"
-      rowActionCount="1">
+    <ui:Table rows="{Tickets>/List}" selectionMode="None" rowActionCount="1">
       <ui:rowMode>
         <rowmodes:Auto rowContentHeight="50"/>
       </ui:rowMode>
@@ -16,87 +14,67 @@
       </ui:layoutData>
       <ui:rowActionTemplate>
         <ui:RowAction>
-          <ui:RowActionItem type="Navigation"
-            icon="sap-icon://display"
-            press="onDetail"
-            app:number="{Tickets>number}" />
+          <ui:RowActionItem type="Navigation" icon="sap-icon://display" press="onDetail" app:number="{Tickets>number}" />
         </ui:RowAction>
       </ui:rowActionTemplate>
       <ui:columns>
-        <ui:Column autoResizable="true"
-          width="12rem"
-          filterProperty="account"
-          sortProperty="account">
+        <ui:Column autoResizable="true" width="12rem" filterProperty="account" sortProperty="account">
           <Label text="{i18n>labelAccount}" />
           <ui:template>
             <Text text="{Tickets>account}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          width="17rem"
-          filterProperty="category"
-          sortProperty="category">
+        <ui:Column autoResizable="true" width="17rem" filterProperty="category" sortProperty="category">
           <Label text="{i18n>labelCategory}" />
           <ui:template>
             <Text text="{Tickets>category}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          width="12rem">
+        <ui:Column autoResizable="true" width="12rem">
           <Label text="{i18n>labelComments}" />
           <ui:template>
-            <Button icon="sap-icon://group"
-              app:comments="{Tickets>comments}"
-              press="onComments"
-              visible="{= ${Tickets>comments} ? true : false}"/>
+            <Button icon="sap-icon://group" app:comments="{Tickets>comments}" press="onComments" visible="{= ${Tickets>comments} ? true : false}"/>
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          width="10rem"
-          filterProperty="contact"
-          sortProperty="contact">
+        <ui:Column autoResizable="true" width="10rem" filterProperty="contact" sortProperty="contact">
           <Label text="{i18n>labelContact}" />
           <ui:template>
             <Text text="{Tickets>contact}" />
           </ui:template>
         </ui:Column>
 
-        <ui:Column autoResizable="true"
-          width="7rem"
-          filterProperty="number"
-          sortProperty="number">
+        <ui:Column autoResizable="true" width="7rem" filterProperty="number" sortProperty="number">
           <Label text="{i18n>labelNumber}" />
           <ui:template>
             <Text text="{Tickets>number}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          width="7rem"
-          filterProperty="priority"
-          sortProperty="priority">
+        <!-- filterProperty="sys_created_on" sortProperty="sys_created_on" -->
+        <ui:Column autoResizable="true" width="7rem">
+          <Label text="{i18n>labelDataApertura}" />
+          <ui:template>
+            <Text text="{Tickets>sys_created_on}" />
+          </ui:template>
+        </ui:Column>
+        <ui:Column autoResizable="true" width="7rem" filterProperty="priority" sortProperty="priority">
           <Label text="{i18n>labelPriority}" />
           <ui:template>
             <Text text="{Tickets>priority}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          width="30rem">
+        <ui:Column autoResizable="true" width="30rem">
           <Label text="{i18n>labelShortDescription}" />
           <ui:template>
             <Text text="{Tickets>short_description}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          width="7rem"
-          filterProperty="state"
-          sortProperty="state">
+        <ui:Column autoResizable="true" width="7rem" filterProperty="state" sortProperty="state">
           <Label text="{i18n>labelSate}" />
           <ui:template>
             <Text text="{Tickets>state}" />
           </ui:template>
         </ui:Column>
-        <ui:Column autoResizable="true"
-          width="40rem">
+        <ui:Column autoResizable="true" width="40rem">
           <Label text="{i18n>labelDescription}" />
           <ui:template>
             <Text text="{Tickets>description}" />
@@ -104,11 +82,7 @@
         </ui:Column>
       </ui:columns>
       <ui:footer>
-        <my:Paginator id="tblPaginatorFun"
-          top="{Tickets>/Top}"
-          skip="{Tickets>/Skip}"
-          records="{Tickets>/Records}"
-          press="onPaginatorChange" />
+        <my:Paginator id="tblPaginatorFun" top="{Tickets>/Top}" skip="{Tickets>/Skip}" records="{Tickets>/Records}" press="onPaginatorChange" />
       </ui:footer>
     </ui:Table>
   </VBox>

@@ -7,29 +7,23 @@
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title text="{i18n>labelHome}"/>
+					<Title text="{i18n>labelTitle}"/>
 				</f:heading>
 			</f:DynamicPageTitle>
 		</f:title>
 		<f:content >
 			<IconTabBar id="HomeTabBar" stretchContentHeight="true">
 				<items >
-					<IconTabFilter key="functional"
-						text="{i18n>labelFunctional}">
+					<IconTabFilter key="functional" text="{i18n>labelFunctional}">
 						<VBox height="100%">
-							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Functional.Filters"
-								type="XML" />
-							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Functional.List"
-								type="XML" />
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Functional.Filters" type="XML" />
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Functional.List" type="XML" />
 						</VBox>
 					</IconTabFilter>
-					<IconTabFilter key="technician"
-						text="{i18n>labelTechnician}">
+					<IconTabFilter key="technician" text="{i18n>labelTechnician}">
 						<VBox height="100%">
-							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Technician.Filters"
-								type="XML" />
-							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Technician.List"
-								type="XML" />
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Technician.Filters" type="XML" />
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Technician.List" type="XML" />
 						</VBox>
 					</IconTabFilter>
 				</items>
@@ -38,9 +32,7 @@
 		<f:footer>
 			<OverflowToolbar>
 				<ToolbarSpacer />
-				<Button type="Emphasized"
-					text="{i18n>labelNewTicket}"
-					press="onNewTicket" />
+				<Button type="Emphasized" text="{i18n>labelNewTicket}" press="onNewTicket" />
 			</OverflowToolbar>
 		</f:footer>
 	</f:DynamicPage>

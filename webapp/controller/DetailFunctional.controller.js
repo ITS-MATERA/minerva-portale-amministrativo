@@ -153,6 +153,26 @@ sap.ui.define(
         var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oTicket.number);
         oModelTicket.setProperty("/commentResults", formatter.formatComments(oTicket));
       },
+
+      onRemoveContact: async function (oEvent) {
+        var oModelTicket = this.getModel("Ticket");
+        var oTicket = oModelTicket.getData();
+        var sValue = oEvent.getParameter("value");
+
+        var oData = {
+          comments:
+            "Commento generato da BTP: utente eliminato, le comunicazioni vanno inviate al contatto del fornitore generico",
+        };
+
+        if (!(await this.serviceNow.postComments(this, oData, oTicket.sys_id))) {
+          MessageToast.show(this.getResourceBundle().getText("msgCommentPostFailure"));
+          return;
+        }
+
+        MessageToast.show(this.getResourceBundle().getText("msgCommentPostSuccess"));
+        var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + oTicket.number);
+        oModelTicket.setProperty("/commentResults", formatter.formatComments(oTicket));
+      },
     });
   }
 );
