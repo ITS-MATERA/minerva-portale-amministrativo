@@ -157,6 +157,25 @@ sap.ui.define(
         oModelTickets.setProperty("/Records", oTickets.count);
         oModelTickets.setProperty("/Skip", 0);
       },
+
+      onRefresh: async function () {
+        var oModelTickets = this.getModel("TicketsFunz");
+        var oModelFilters = this.getModel("TicketFilters");
+
+        oModelFilters.setProperty("/Account", "");
+        oModelFilters.setProperty("/Contact", "");
+        oModelFilters.setProperty("/Number", "");
+        oModelFilters.setProperty("/Priority", "");
+        oModelFilters.setProperty("/State", "");
+
+        this._sQuery = "";
+
+        var oTickets = await this.serviceNow.getTickets(this, "0", this._sQuery);
+
+        oModelTickets.setProperty("/List", oTickets.results);
+        oModelTickets.setProperty("/Records", oTickets.count);
+        oModelTickets.setProperty("/Skip", 0);
+      },
     });
   }
 );

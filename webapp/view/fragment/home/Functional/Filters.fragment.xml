@@ -58,9 +58,18 @@
     <VBox>
       <Label />
       <Button text="{i18n>labelStart}"
-        press="onStart"/>
+        press="onStart"
+        width="100%"/>
       <layoutData>
-        <l:GridData span="XL2 L3 M4" />
+        <l:GridData span="XL1 L2 M2" />
+      </layoutData>
+    </VBox>
+    <VBox>
+      <Label />
+      <Button icon="sap-icon://refresh"
+        press="onRefresh" />
+      <layoutData>
+        <l:GridData span="XL1 L1 M2" />
       </layoutData>
     </VBox>
 
