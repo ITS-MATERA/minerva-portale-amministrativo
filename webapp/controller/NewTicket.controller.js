@@ -40,40 +40,33 @@ sap.ui.define(
         this.setModel(new JSONModel(oModelSelect), "Select");
       },
 
-      _onObjectMatched: async function (oEvent) {
-        var oArguments = oEvent.getParameter("arguments");
-        var sNumber = oArguments.Number;
+      _onObjectMatched: async function () {
         var lifnr = "0100000002"; //TODO:Da canc
 
         var oSupplier = await this.getSupplier(lifnr);
         this.setModel(new JSONModel(oSupplier), "Supplier");
         this.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
-        console.log(oSupplier.CompanyDataSet.results);
 
         this.setModel(new JSONModel(this.initTicket()), "Ticket");
-        this.getModel("Ticket").setProperty("/config/edit", sNumber ? false : true);
       },
 
-      onBack: function (oEvent) {
+      onBack: function () {
+        this.setModel(new JSONModel(this.initTicket()), "Ticket");
+        this.getRouter().navTo("Home");
+      },
+
+      onSend: async function () {
         var self = this;
-        self.setModel(new JSONModel(self.initTicket()), "Ticket");
-        self.getRouter().navTo("Home");
-      },
+        var oSupplier = this.getModel("Supplier").getData();
+        var oModelTicket = this.getModel("Ticket");
+        var oTicket = oModelTicket.getData();
 
-      onSend: async function (oEvent) {
-        var self = this,
-          oSupplier = self.getModel("Supplier").getData();
-
-        self.getModel("Ticket").setProperty("/account", oSupplier.ID);
-        // self.getModel("Ticket").setProperty("/contact", oSupplier.Email); //"nuovocontatto3@test.tt", mail fornitore preso da mdg
-        // self.getModel("Ticket").setProperty("/contact_name", oSupplier.Nome); //"Mario", presi da mdg
-        // self.getModel("Ticket").setProperty("/contact_surname", oSupplier.RagioneSociale);
+        oModelTicket.setProperty("/account", oSupplier.ID);
         //TODO:da recupare in base all'utente loggato
-        self.getModel("Ticket").setProperty("/contact", "gianni.lecci@innovatesapp.com"); //"nuovocontatto3@test.tt", mail fornitore preso da mdg
-        self.getModel("Ticket").setProperty("/contact_name", "Gianni");
-        self.getModel("Ticket").setProperty("/contact_surname", "Lecci");
+        oModelTicket.setProperty("/contact", "gianni.lecci@innovatesapp.com");
+        oModelTicket.setProperty("/contact_name", "Gianni");
+        oModelTicket.setProperty("/contact_surname", "Lecci");
 
-        var oTicket = self.getModel("Ticket").getData();
         if (
           !oTicket.company ||
           !oTicket.category ||
@@ -81,40 +74,41 @@ sap.ui.define(
           !oTicket.description ||
           !oTicket.short_description
         ) {
-          MessageBox.warning(self.getResourceBundle().getText("msgRequiredField"));
-          return false;
+          MessageBox.warning(this.getResourceBundle().getText("msgRequiredField"));
+          return;
         }
 
-        var sType = self.getModel("Ticket").getProperty("/config/ticketType");
-        var oTicketWithouAttachments = self.copyWithoutRef(oTicket);
+        var sType = oModelTicket.getProperty("/config/type");
+        var oTicketWithouAttachments = this.copyWithoutRef(oTicket);
         BusyIndicator.show(0);
         delete oTicketWithouAttachments.attachments;
         delete oTicketWithouAttachments.config;
 
         if (sType === constants.TABBAR_TECHNICIAN_KEY) {
-          oTicketWithouAttachments.dataStart = self.formatter.formatDate(new Date());
-          await self.serviceTech.send(self, oTicketWithouAttachments).then(
+          oTicketWithouAttachments.dataStart = this.formatter.formatDate(new Date());
+
+          await this.serviceTech.send(this, oTicketWithouAttachments).then(
             async (response) => {
               oTicket.ID = response.ID;
               await Promise.all(
                 oTicket.attachments?.map(
                   async function (x) {
-                    self.serviceTech.uploadFile(self, oTicket.ID, x.file);
+                    this.serviceTech.uploadFile(this, oTicket.ID, x.file);
                   }.bind(this)
                 )
               );
               BusyIndicator.hide();
-              MessageBox.success(self.getResourceBundle().getText("msgTicketSended"), {
+              MessageBox.success(this.getResourceBundle().getText("msgTicketSended"), {
                 onClose: function () {
-                  self.getRouter().navTo("Home");
-                }.bind(self),
+                  this.getRouter().navTo("Home");
+                }.bind(this),
               });
             },
             (error) => {
               BusyIndicator.hide();
               var errorText = error.responseJSON?.error?.detail;
               MessageBox.error(
-                !errorText ? self.getResourceBundle().getText("msgGenericErrorOnSednServiceNow") : errorText
+                !errorText ? this.getResourceBundle().getText("msgGenericErrorOnSednServiceNow") : errorText
               );
               return false;
             }
@@ -146,7 +140,7 @@ sap.ui.define(
               BusyIndicator.hide();
               var errorText = error.responseJSON?.error?.detail;
               MessageBox.error(
-                !errorText ? self.getResourceBundle().getText("msgGenericErrorOnSednServiceNow") : errorText
+                !errorText ? this.getResourceBundle().getText("msgGenericErrorOnSednServiceNow") : errorText
               );
               return false;
             }
@@ -159,7 +153,7 @@ sap.ui.define(
         var sKey = oEvent.getParameter("selectedItem").getProperty("key");
         var sType = oEvent.getParameters().selectedItem.data("type");
 
-        oModelTicket.setProperty("/config/ticketType", sType);
+        oModelTicket.setProperty("/config/type", sType);
 
         if (
           sKey === this.getResourceBundle().getText("labelCatFattBlo") ||
@@ -170,8 +164,6 @@ sap.ui.define(
           MessageBox.warning(this.getResourceBundle().getText("msgContactContracualReferent"));
           return false;
         }
-
-        oModelTicket.setProperty("/config/sendEnabled", true);
       },
 
       onAttachManager: async function (oEvent) {
@@ -243,6 +235,29 @@ sap.ui.define(
             this.serviceNow.downloadFile(this, sFileId, sFileName);
             break;
         }
+      },
+
+      initTicket: function () {
+        return {
+          company: null, //"Trenitalia Treni Per Emilia Romagna",società da mdg
+          category: null, //"Certificazione unica",
+          priority: null, //"3", bassa normale alta critica(emergency) 18n
+          short_description: null, //"test case 30/08 Certificazione unica società in service", oggetto
+          description: null, //"test case 30/08 corpo", descrizione
+          application_code: "", //"test", da non passare quindi non input
+          account: null, //"0100002118", lifnr preso da mdg
+          contact: null, //"nuovocontatto3@test.tt", mail fornitore preso da mdg
+          contact_name: null, //"Mario", presi da mdg
+          contact_surname: null,
+          dataStart: null,
+          dataEnd: null,
+          attachments: [],
+          config: {
+            sendEnabled: true,
+            edit: true,
+            type: null,
+          },
+        };
       },
     });
   }

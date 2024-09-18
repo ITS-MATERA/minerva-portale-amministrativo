@@ -3,13 +3,6 @@
   xmlns:l="sap.ui.layout"
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
   <l:Grid>
-    <!-- <VBox>
-			<Label text="{i18n>labelAccount}"/>
-			<Input value="{Ticket>/account}" editable="{Item>/Edit}"/>
-			<layoutData>
-				<l:GridData span="XL3 L4 M6"/>
-			</layoutData>
-		</VBox> -->
     <VBox>
       <Label text="{i18n>labelCategory}"
         required="true"/>
@@ -29,20 +22,6 @@
         <l:GridData span="XL3 L4 M6"/>
       </layoutData>
     </VBox>
-    <!-- <VBox>
-			<Label text="{i18n>labelContact}"/>
-			<Input value="{Ticket>/contact}" editable="{Item>/Edit}"/>
-			<layoutData>
-				<l:GridData span="XL3 L4 M6"/>
-			</layoutData>
-		</VBox> -->
-    <!-- <VBox>
-			<Label text="{i18n>labelNumber}"/>
-			<Input value="{Ticket>/number}" editable="{Item>/Edit}"/>
-			<layoutData>
-				<l:GridData span="XL2 L3 M4" linebreak="true"/>
-			</layoutData>
-		</VBox> -->
     <VBox>
       <Label text="{i18n>labelPriority}"
         required="true"/>
@@ -60,19 +39,10 @@
         <l:GridData span="XL2 L3 M4"/>
       </layoutData>
     </VBox>
-
-    <!-- <VBox>
-			<Label text="{i18n>labelState}"/>
-			<Input value="{Ticket>/state}" editable="{Item>/Edit}"/>
-			<layoutData>
-				<l:GridData span="XL2 L3 M4"/>
-			</layoutData>
-		</VBox> -->
     <VBox>
       <Label text="{i18n>labelShortDescription}"
         required="true"/>
-      <Input value="{Ticket>/short_description}"
-        editable="{Item>/Edit}"/>
+      <Input value="{Ticket>/short_description}"/>
       <layoutData>
         <l:GridData span="XL6 L12 M12"
           linebreak="true"/>
@@ -83,8 +53,7 @@
         required="true"/>
       <TextArea width="100%"
         rows="3"
-        value="{Ticket>/description}"
-        editable="{Item>/Edit}"/>
+        value="{Ticket>/description}"/>
       <layoutData>
         <l:GridData span="XL9 L12 M12"
           linebreak="true"/>

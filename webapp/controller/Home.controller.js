@@ -56,36 +56,41 @@ sap.ui.define(
 
       _onObjectMatched: async function (oEvent) {
         //Gestione Ticket Funzionali
-        var oTickets = await this.serviceNow.getTickets(this, "0", this._sQuery);
+        var oTicketsFunz = await this.serviceNow.getTickets(this, "0", this._sQuery);
 
         var oModelTickets = {
           Top: 200,
           Skip: 0,
-          Records: oTickets.count,
-          List: oTickets.results,
+          Records: oTicketsFunz.count,
+          List: oTicketsFunz.results,
         };
 
-        this.byId("tblPaginatorFun").setVisible(!!oTickets.count);
+        this.byId("tblPaginatorFun").setVisible(!!oTicketsFunz.count);
 
-        this.setModel(new JSONModel(oModelTickets), "Tickets");
+        this.setModel(new JSONModel(oModelTickets), "TicketsFunz");
+        console.log("Funzionali:", this.getModel("TicketsFunz").getData().List);
 
         //Gestione Ticket Tecnici
-        var oTicketTech = await this.serviceTech.getTickets(this);
+        var oTicketsTech = await this.serviceTech.getTickets(this, 0);
+        var iTicketTechCount = await this.serviceTech.getCount(this);
 
         var oModelTicketTech = {
           Top: 200,
           Skip: 0,
-          Records: await this.serviceTech.getCount(this),
-          List: oTicketTech.results,
+          Records: iTicketTechCount,
+          List: oTicketsTech.results,
         };
 
+        this.byId("tblPaginatorTec").setVisible(!!iTicketTechCount);
+
         this.setModel(new JSONModel(oModelTicketTech), "TicketsTech");
+        console.log("Tecnici:", this.getModel("TicketsTech").getData().List);
       },
 
       onDetail: function (oEvent) {
         var homeTabBar = this.getView().byId("HomeTabBar");
         if (homeTabBar.getSelectedKey() === constants.TABBAR_TECHNICIAN_KEY) {
-          this.getRouter().navTo("DetailTechnician", { Number: oEvent.getSource().data("number") });
+          this.getRouter().navTo("DetailTechnician", { Id: oEvent.getSource().data("id") });
         } else {
           this.getRouter().navTo("DetailFunctional", { Number: oEvent.getSource().data("number") });
         }
@@ -95,12 +100,20 @@ sap.ui.define(
         this.getRouter().navTo("NewTicket");
       },
 
-      onPaginatorChange: async function () {
-        var oModelTickets = this.getModel("Tickets");
+      onPaginatorFunzChange: async function () {
+        var oModelTickets = this.getModel("TicketsFunz");
         var oTickets = await this.serviceNow.getTickets(this, oModelTickets.getProperty("/Skip"), this._sQuery);
 
         oModelTickets.setProperty("/List", oTickets.results);
         oModelTickets.setProperty("/Records", oTickets.count);
+      },
+
+      onPaginatorTechChange: async function () {
+        var oModelTickets = this.getModel("TicketsTech");
+        var oTickets = await this.serviceTech.getTickets(this, oModelTickets.getProperty("/Skip"));
+
+        oModelTickets.setProperty("/List", oTickets.results);
+        oModelTickets.setProperty("/Records", await this.serviceTech.getCount(this));
       },
 
       onComments: function (oEvent) {

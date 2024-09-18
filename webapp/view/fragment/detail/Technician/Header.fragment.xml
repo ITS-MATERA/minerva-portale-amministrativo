@@ -1,146 +1,49 @@
 <c:FragmentDefinition xmlns="sap.m"
   xmlns:c="sap.ui.core"
   xmlns:l="sap.ui.layout">
-  <!-- <VBox>
-    <l:Grid> 
-   <Label text="{i18n>labelSurname}" class="sapUiTinyMarginTop">
-        <layoutData>
-          <l:GridData span="XL1 L3 M6" />
-        </layoutData>
-      </Label>
-      <FlexBox>
-        <Input editable="{Item>/Edit}" value="{Supplier>/RagioneSociale}">
-          <layoutData>
-            <FlexItemData growFactor="100" />
-          </layoutData>
-        </Input>
-        <Button icon="sap-icon://search" type="Transparent">
-          <layoutData>
-            <FlexItemData growFactor="1" />
-          </layoutData>
-        </Button>
-        <layoutData>
-          <l:GridData span="XL2 L3 M6" />
-        </layoutData>
-      </FlexBox>
-      <Label text="{i18n>labelCid}" class="sapUiTinyMarginTop">
-        <layoutData>
-          <l:GridData span="XL1 L3 M6" />
-        </layoutData>
-      </Label>
-      <Input editable="{Item>/Edit}">
-        <layoutData>
-          <l:GridData span="XL2 L3 M6" />
-        </layoutData>
-      </Input>
-      <Label text="{i18n>labelName}" class="sapUiTinyMarginTop">
-        <layoutData>
-          <l:GridData span="XL1 L3 M6" />
-        </layoutData>
-      </Label>
-      <Input editable="false" value="{Supplier>/Nome}">
-        <layoutData>
-          <l:GridData span="XL2 L3 M6" />
-        </layoutData>
-      </Input>
-      <Label text="{i18n>labelPhone}" class="sapUiTinyMarginTop">
-        <layoutData>
-          <l:GridData span="XL1 L3 M6" linebreak="true"/>
-        </layoutData>
-      </Label>
-      <Input editable="{Item>/Edit}" value="{Supplier>/Telefono}">
-        <layoutData>
-          <l:GridData span="XL2 L3 M6" />
-        </layoutData>
-      </Input>
-      <Label text="{i18n>labelCustomer}" class="sapUiTinyMarginTop">
-        <layoutData>
-          <l:GridData span="XL1 L3 M6" />
-        </layoutData>
-      </Label>
-      <Input editable="{Item>/Edit}">
-        <layoutData>
-          <l:GridData span="XL2 L3 M6" />
-        </layoutData>
-      </Input>
-      <Label text="{i18n>labelSite}" class="sapUiTinyMarginTop">
-        <layoutData>
-          <l:GridData span="XL1 L3 M6" />
-        </layoutData>
-      </Label>
-      <Input editable="{Item>/Edit}">
-        <layoutData>
-          <l:GridData span="XL2 L3 M6" />
-        </layoutData>
-      </Input>
-    </l:Grid>
-  </VBox>
-  <Toolbar height="1px"/> -->
+
   <VBox class="sapUiSmallMarginTop">
     <l:Grid>
-      <Label text="{i18n>labelCaller}" class="sapUiTinyMarginTop"
-      required="true">
+      <Label text="{i18n>labelCaller}"
+        class="sapUiTinyMarginTop"
+        required="true">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
-      <FlexBox>
-        <Input editable="{= ${Ticket>stato_ticket_ID/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
-          <layoutData>
-            <FlexItemData growFactor="100" />
-          </layoutData>
-        </Input>
-        <Button icon="sap-icon://search" type="Transparent">
-          <layoutData>
-            <FlexItemData growFactor="1" />
-          </layoutData>
-        </Button>
+      <Input editable="false"
+        value="{Supplier>/RagioneSociale}">
         <layoutData>
           <l:GridData span="XL3 L3 M6" />
         </layoutData>
-      </FlexBox>
-      <Label text="{i18n>labelPhone}" class="sapUiTinyMarginTop"
-      required="true">
+      </Input>
+      <Label text="{i18n>labelPhone}"
+        class="sapUiTinyMarginTop"
+        required="true">
         <layoutData>
-          <l:GridData span="XL1 L3 M6" linebreak="true"/>
+          <l:GridData span="XL1 L3 M6"
+            linebreak="true"/>
         </layoutData>
       </Label>
-      <Input editable="{= ${Ticket>stato_ticket_ID/DESC} === 'Chiuso' ? false : ${Item>/Edit} }">
+      <Input editable="false"
+        value="{Supplier>/Telefono}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelEmail}" class="sapUiTinyMarginTop"
-      required="true">
+      <Label text="{i18n>labelEmail}"
+        class="sapUiTinyMarginTop"
+        required="true">
         <layoutData>
           <l:GridData span="XL1 L3 M6" />
         </layoutData>
       </Label>
-      <FlexBox>
-        <Input editable="{= ${Ticket>stato_ticket_ID/DESC} === 'Chiuso' ? false : ${Item>/Edit} }" >
-          <layoutData>
-            <FlexItemData growFactor="100" />
-          </layoutData>
-        </Input>
-        <Button icon="sap-icon://menu2">
-          <layoutData>
-            <FlexItemData growFactor="1" />
-          </layoutData>
-        </Button>
+      <Input editable="false"
+        value="{Supplier>/Email}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
-      </FlexBox>
-      <!-- <Label text="{i18n>labelAutoMail}" class="sapUiTinyMarginTop">
-        <layoutData>
-          <l:GridData span="XL1 L3 M6" />
-        </layoutData>
-      </Label>
-      <CheckBox editable="{Item>/Edit}">
-        <layoutData>
-          <l:GridData span="XL1 L1 M1 S1" />
-        </layoutData>
-      </CheckBox> -->
+      </Input>
     </l:Grid>
   </VBox>
 </c:FragmentDefinition>

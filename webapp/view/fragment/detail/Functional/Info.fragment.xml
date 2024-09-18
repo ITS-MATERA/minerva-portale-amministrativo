@@ -4,8 +4,7 @@
 	<l:Grid>
 		<!-- <VBox>
 			<Label text="{i18n>labelAccount}"/>
-			<Input value="{Ticket>/account}"
-				editable="{Item>/Edit}"/>
+			<Input value="{Ticket>/account}" />
 			<layoutData>
 				<l:GridData span="XL3 L4 M6"/>
 			</layoutData>

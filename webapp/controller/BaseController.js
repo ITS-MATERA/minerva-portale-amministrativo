@@ -187,29 +187,6 @@ sap.ui.define(
         return JSON.parse(JSON.stringify(oArray), json_deserialize_helper);
       },
 
-      initTicket: function () {
-        return {
-          company: null, //"Trenitalia Treni Per Emilia Romagna",società da mdg
-          category: null, //"Certificazione unica",
-          priority: null, //"3", bassa normale alta critica(emergency) 18n
-          short_description: null, //"test case 30/08 Certificazione unica società in service", oggetto
-          description: null, //"test case 30/08 corpo", descrizione
-          application_code: "", //"test", da non passare quindi non input
-          account: null, //"0100002118", lifnr preso da mdg
-          contact: null, //"nuovocontatto3@test.tt", mail fornitore preso da mdg
-          contact_name: null, //"Mario", presi da mdg
-          contact_surname: null,
-          dataStart: null,
-          dataEnd: null,
-          attachments: [],
-          config: {
-            sendEnabled: false,
-            edit: false,
-            ticketType: null,
-          },
-        };
-      },
-
       getSupplier: async function (sCodiceBP) {
         var oSupplier = await this.getEntity(
           "/GeneralDataSet",
@@ -220,7 +197,6 @@ sap.ui.define(
           "BankDetailSet,CompanyDataSet"
         );
 
-        console.log("oSupplier", oSupplier.data);
         return oSupplier.data;
       },
 

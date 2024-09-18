@@ -17,7 +17,12 @@
               <Button text="{i18n>labelAttachFile}"
                 type="Ghost"
                 press="onAttachManager"
-                visible="{= ${Ticket>/stateId} === '3' || ${Ticket>/stateId} === '6' ? false : true}"
+                visible="{= ${Ticket>/stateId} !== '3' &amp;&amp; ${Ticket>/stateId} !== '6' &amp;&amp; ${Ticket>/config/type} === 'functional' ? true : false}"
+                app:button="Open" />
+              <Button text="{i18n>labelAttachFile}"
+                type="Ghost"
+                press="onAttachManager"
+                visible="{= ${Ticket>/config/type} === 'technician' ? true : false}"
                 app:button="Open" />
             </OverflowToolbar>
           </ui:extension>
@@ -43,7 +48,7 @@
                   press="onAttachManager"
                   app:fileId="{Ticket>file_id}"
                   app:fileName="{Ticket>file_name}"
-                  enabled="{= !!${Ticket>file_url} }"
+                  enabled="{= !${Ticket>new} }"
                   app:button="Download"/>
               </ui:template>
             </ui:Column>
@@ -55,7 +60,7 @@
                   app:id="{Ticket>id}"
                   app:button="Delete"
                   press="onAttachManager"
-                  visible="{= !${Ticket>file_url} }" />
+                  visible="{Ticket>new}" />
               </ui:template>
             </ui:Column>
           </ui:columns>

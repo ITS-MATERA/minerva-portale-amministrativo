@@ -1,4 +1,4 @@
-sap.ui.define([], function () {
+sap.ui.define(["./constants"], function (constants) {
   "use strict";
 
   return {
@@ -44,19 +44,36 @@ sap.ui.define([], function () {
       } else return null;
     },
 
-    formatAttachments: function (oTicket) {
+    formatAttachments: function (oTicket, sType) {
       var aAttachments = [];
 
-      oTicket.results[0].attachments?.map((x, index) => {
-        aAttachments.push({
-          id: index,
-          file_id: x.file_id,
-          file_name: x.file_name,
-          file_url: x.file_url,
-          file_uploader: null,
-          new: false,
-        });
-      });
+      switch (sType) {
+        case constants.TABBAR_FUNCTIONAL_KEY:
+          oTicket.results[0].attachments?.map((x, index) => {
+            aAttachments.push({
+              id: index,
+              file_id: x.file_id,
+              file_name: x.file_name,
+              file_url: x.file_url,
+              file_uploader: null,
+              new: false,
+            });
+          });
+          break;
+        case constants.TABBAR_TECHNICIAN_KEY:
+          console.log(oTicket);
+          oTicket.allegato?.map((x, index) => {
+            aAttachments.push({
+              id: index,
+              file_id: x.ID,
+              file_name: x.File_Name,
+              file_url: null,
+              file_uploader: null,
+              new: false,
+            });
+          });
+          break;
+      }
 
       return aAttachments;
     },

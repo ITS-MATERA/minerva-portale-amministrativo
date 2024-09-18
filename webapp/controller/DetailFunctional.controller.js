@@ -40,23 +40,19 @@ sap.ui.define(
       _onObjectMatched: async function (oEvent) {
         var oArguments = oEvent.getParameter("arguments");
 
-        this.setModel(new JSONModel(this.initTicket()), "Ticket");
-        this.setModel(new JSONModel({}), "Supplier");
-
-        this.getModel("Ticket").setProperty("/config/edit", oArguments.Number ? false : true);
-
         this._sNumber = oArguments.Number;
+
         if (!this._sNumber) {
           return;
         }
 
         //Recupero i dati del Ticket
         var oTicket = await this.serviceNow.getTickets(this, "0", "number=" + this._sNumber);
-        oTicket.results[0].attachments = formatter.formatAttachments(oTicket);
+        oTicket.results[0].attachments = formatter.formatAttachments(oTicket, constants.TABBAR_FUNCTIONAL_KEY);
         oTicket.results[0].commentResults = formatter.formatComments(oTicket);
+        oTicket.results[0].config = {};
+        oTicket.results[0].config.type = constants.TABBAR_FUNCTIONAL_KEY;
         this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
-
-        console.log(oTicket.results[0]);
 
         //Recupero i dati dell'utente
         if (oTicket?.results[0]?.accountId) {
@@ -64,6 +60,9 @@ sap.ui.define(
           this.setModel(new JSONModel(oSupplier), "Supplier");
           this.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
         }
+
+        console.log("Ticket:", this.getModel("Ticket").getData());
+        console.log("Supplier:", this.getModel("Supplier").getData());
       },
 
       onBack: function () {
@@ -244,7 +243,10 @@ sap.ui.define(
 
                   MessageToast.show(this.getResourceBundle().getText("msgCommentPostSuccess"));
                   oTicket = await this.serviceNow.getTickets(this, "0", "number=" + this._sNumber);
-                  oTicket.results[0].attachments = formatter.formatAttachments(oTicket);
+                  oTicket.results[0].attachments = formatter.formatAttachments(
+                    oTicket,
+                    constants.TABBAR_FUNCTIONAL_KEY
+                  );
                   oTicket.results[0].commentResults = formatter.formatComments(oTicket);
                   this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
                 }.bind(this)

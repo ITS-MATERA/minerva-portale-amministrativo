@@ -2,8 +2,8 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
   "use strict";
 
   return ManagedObject.extend("portaleamministrativo.externalServices.serviceTech.library", {
-    getTickets: function (self, sOffset = "0", sQuery) {
-      var sMethod = "odata/v4/log/Ticket?$expand=stato_ticket";
+    getTickets: function (self, sSkip) {
+      var sMethod = "odata/v4/log/Ticket?$top=200&$skip=" + sSkip + "&$expand=allegato,stato_ticket";
 
       var oSettings = {
         url: this._getUrl(self, sMethod),
@@ -22,6 +22,32 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
             resolve({
               results: response.value,
             });
+          })
+          .fail(function (error) {
+            BusyIndicator.hide();
+            reject([]);
+          });
+      });
+    },
+
+    getTicket: function (self, sId) {
+      var sMethod = "odata/v4/log/Ticket(" + sId + ")?$expand=allegato,stato_ticket";
+
+      var oSettings = {
+        url: this._getUrl(self, sMethod),
+        method: "GET",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      BusyIndicator.show(0);
+      return new Promise(async function (resolve, reject) {
+        $.ajax(oSettings)
+          .done(function (response, status, header) {
+            BusyIndicator.hide();
+            resolve(response);
           })
           .fail(function (error) {
             BusyIndicator.hide();

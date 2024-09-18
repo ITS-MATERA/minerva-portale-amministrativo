@@ -105,12 +105,12 @@
         },
         {
           "name": "DetailTechnician",
-          "pattern": "DetailTechnician/:Number:",
+          "pattern": "DetailTechnician/:Id:",
           "target": ["DetailTechnician"]
         },
         {
           "name": "NewTicket",
-          "pattern": "NewTicket/:Number:",
+          "pattern": "NewTicket",
           "target": ["NewTicket"]
         }
       ],

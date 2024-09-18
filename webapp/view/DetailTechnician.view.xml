@@ -3,7 +3,8 @@
   xmlns="sap.m"
   xmlns:c="sap.ui.core"
   xmlns:f="sap.f">
-  <f:DynamicPage showFooter="true" class="sapUiNoContentPadding">
+  <f:DynamicPage showFooter="true"
+    class="sapUiNoContentPadding">
     <f:title>
       <f:DynamicPageTitle>
         <f:heading>
@@ -14,21 +15,27 @@
     <f:content>
       <IconTabBar>
         <items>
-          <IconTabFilter key="info" text="{i18n>labelInfo}">
-            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Technician.Header" type="XML" />
-            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Technician.Info" type="XML" />
+          <IconTabFilter key="info"
+            text="{i18n>labelInfo}">
+            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Technician.Header"
+              type="XML" />
+            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.Technician.Info"
+              type="XML" />
           </IconTabFilter>
-          <IconTabFilter key="attachments" text="{i18n>labelAttachments}">
-            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments" type="XML" />
+          <IconTabFilter key="attachments"
+            text="{i18n>labelAttachments}">
+            <c:Fragment fragmentName="portaleamministrativo.view.fragment.detail.TableAttachments"
+              type="XML" />
           </IconTabFilter>
         </items>
       </IconTabBar>
     </f:content>
     <f:footer>
       <OverflowToolbar>
-        <Button type="Back" text="{i18n>labelBack}" press="onBack" />
+        <Button type="Back"
+          text="{i18n>labelBack}"
+          press="onBack" />
         <ToolbarSpacer />
-        <Button type="Emphasized" text="{i18n>labelSend}" press="onSend" />
 
       </OverflowToolbar>
     </f:footer>

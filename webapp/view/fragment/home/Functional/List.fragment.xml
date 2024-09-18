@@ -5,7 +5,7 @@
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
   xmlns:my="portaleamministrativo.controls">
   <VBox height="100%">
-    <ui:Table rows="{Tickets>/List}"
+    <ui:Table rows="{TicketsFunz>/List}"
       selectionMode="None"
       rowActionCount="1">
       <ui:rowMode>
@@ -19,7 +19,7 @@
           <ui:RowActionItem type="Navigation"
             icon="sap-icon://display"
             press="onDetail"
-            app:number="{Tickets>number}" />
+            app:number="{TicketsFunz>number}" />
         </ui:RowAction>
       </ui:rowActionTemplate>
       <ui:columns>
@@ -28,14 +28,14 @@
           sortProperty="account">
           <Label text="{i18n>labelAccount}" />
           <ui:template>
-            <Text text="{Tickets>account}" />
+            <Text text="{TicketsFunz>account}" />
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
           width="17rem">
           <Label text="{i18n>labelCategory}" />
           <ui:template>
-            <Text text="{Tickets>category}" />
+            <Text text="{TicketsFunz>category}" />
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
@@ -43,16 +43,16 @@
           <Label text="{i18n>labelComments}" />
           <ui:template>
             <Button icon="sap-icon://group"
-              app:comments="{Tickets>comments}"
+              app:comments="{TicketsFunz>comments}"
               press="onComments"
-              visible="{= ${Tickets>comments} ? true : false}"/>
+              visible="{= ${TicketsFunz>comments} ? true : false}"/>
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
           width="10rem">
           <Label text="{i18n>labelContact}" />
           <ui:template>
-            <Text text="{Tickets>contact}" />
+            <Text text="{TicketsFunz>contact}" />
           </ui:template>
         </ui:Column>
 
@@ -61,51 +61,51 @@
           sortProperty="number">
           <Label text="{i18n>labelNumber}" />
           <ui:template>
-            <Text text="{Tickets>number}" />
+            <Text text="{TicketsFunz>number}" />
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
           width="7rem">
           <Label text="{i18n>labelDataApertura}" />
           <ui:template>
-            <Text text="{Tickets>sys_created_on}" />
+            <Text text="{TicketsFunz>sys_created_on}" />
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
           width="7rem">
           <Label text="{i18n>labelPriority}" />
           <ui:template>
-            <Text text="{Tickets>priority}" />
+            <Text text="{TicketsFunz>priority}" />
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
           width="30rem">
           <Label text="{i18n>labelShortDescription}" />
           <ui:template>
-            <Text text="{Tickets>short_description}" />
+            <Text text="{TicketsFunz>short_description}" />
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
           width="7rem">
           <Label text="{i18n>labelSate}" />
           <ui:template>
-            <Text text="{Tickets>state}" />
+            <Text text="{TicketsFunz>state}" />
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
           width="40rem">
           <Label text="{i18n>labelDescription}" />
           <ui:template>
-            <Text text="{Tickets>description}" />
+            <Text text="{TicketsFunz>description}" />
           </ui:template>
         </ui:Column>
       </ui:columns>
       <ui:footer>
         <my:Paginator id="tblPaginatorFun"
-          top="{Tickets>/Top}"
-          skip="{Tickets>/Skip}"
-          records="{Tickets>/Records}"
-          press="onPaginatorChange" />
+          top="{TicketsFunz>/Top}"
+          skip="{TicketsFunz>/Skip}"
+          records="{TicketsFunz>/Records}"
+          press="onPaginatorFunzChange" />
       </ui:footer>
     </ui:Table>
   </VBox>

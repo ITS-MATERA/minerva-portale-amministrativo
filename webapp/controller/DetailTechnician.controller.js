@@ -6,8 +6,9 @@ sap.ui.define(
     "portaleamministrativo/externalServices/serviceTech/library",
     "sap/ui/core/BusyIndicator",
     "portaleamministrativo/model/formatter",
+    "portaleamministrativo/model/constants",
   ],
-  function (BaseController, JSONModel, MessageBox, serviceTech, BusyIndicator, formatter) {
+  function (BaseController, JSONModel, MessageBox, serviceTech, BusyIndicator, formatter, constants) {
     "use strict";
 
     return BaseController.extend("portaleamministrativo.controller.DetailTechnician", {
@@ -23,28 +24,27 @@ sap.ui.define(
         self.setModel(new JSONModel({}), "Ticket");
         self.setModel(new JSONModel({}), "Supplier");
 
-        this._sNumber = oArguments.Number;
+        this._sId = oArguments.Id;
 
-        this.setModel(
-          new JSONModel({
-            Edit: this._sNumber ? false : true,
-          }),
-          "Item"
-        );
-
-        if (!this._sNumber) {
+        if (!this._sId) {
           return;
         }
 
         //Recupero i dati del Ticket
-        var oTicket = await this.serviceTech.getTickets(this, "0", "number=" + this._sNumber);
-        oTicket.results[0].attachments = formatter.formatAttachments(oTicket);
-        this.setModel(new JSONModel(oTicket.results[0]), "Ticket");
+        var oTicket = await this.serviceTech.getTicket(this, this._sId);
+        oTicket.attachments = formatter.formatAttachments(oTicket, constants.TABBAR_TECHNICIAN_KEY);
+        oTicket.config = {};
+        oTicket.config.type = constants.TABBAR_TECHNICIAN_KEY;
+        oTicket.config.edit = false;
+        this.setModel(new JSONModel(oTicket), "Ticket");
 
         //Recupero i dati dell'utente
-        if (oTicket?.results[0]?.accountId) {
-          this.setModel(new JSONModel(await this.getSupplier(oTicket.results[0]?.accountId)), "Supplier");
+        if (oTicket.Codice_BP) {
+          this.setModel(new JSONModel(await this.getSupplier(oTicket.Codice_BP)), "Supplier");
         }
+
+        console.log("Ticket:", this.getModel("Ticket").getData());
+        console.log("Supplier:", this.getModel("Supplier").getData());
       },
 
       onBack: function () {
@@ -117,7 +117,9 @@ sap.ui.define(
             var sFileId = oEvent.getSource().data("fileId");
             var sFileName = oEvent.getSource().data("fileName");
 
-            this.serviceNow.downloadFile(this, sFileId, sFileName);
+            // this.serviceNow.downloadFile(this, sFileId, sFileName);
+
+            MessageBox.warning("Funzionalita da implementare");
             break;
         }
       },

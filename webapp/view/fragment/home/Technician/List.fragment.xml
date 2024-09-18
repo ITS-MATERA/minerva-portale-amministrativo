@@ -19,7 +19,7 @@
           <ui:RowActionItem type="Navigation"
             icon="sap-icon://display"
             press="onDetail"
-            app:number="{TicketsTech>number}" />
+            app:id="{TicketsTech>ID}" />
         </ui:RowAction>
       </ui:rowActionTemplate>
       <ui:columns>
@@ -31,18 +31,6 @@
             <Text text="{TicketsTech>Codice_BP}" />
           </ui:template>
         </ui:Column>
-        <!-- <ui:Column autoResizable="true" filterProperty="Classificazione" sortProperty="Classificazione">
-          <Label text="{i18n>labelClassification}" />
-          <ui:template>
-            <Text text="{TicketsTech>Classificazione}" />
-          </ui:template>
-        </ui:Column>
-        <ui:Column autoResizable="true" filterProperty="Dettaglio" sortProperty="Dettaglio">
-          <Label text="{i18n>labelDetail}" />
-          <ui:template>
-            <Text text="{TicketsTech>Dettaglio}" />
-          </ui:template>
-        </ui:Column> -->
         <ui:Column autoResizable="true"
           filterProperty="Cognome"
           sortProperty="Cognome">
@@ -117,7 +105,7 @@
           top="{TicketsTech>/Top}"
           skip="{TicketsTech>/Skip}"
           records="{TicketsTech>/Records}"
-          press="onPaginatorChange" />
+          press="onPaginatorTechChange" />
       </ui:footer>
     </ui:Table>
   </VBox>
