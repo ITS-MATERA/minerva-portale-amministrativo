@@ -43,8 +43,8 @@
         <ToolbarSpacer />
         <Button type="Emphasized"
           text="{i18n>labelSend}"
-          press="onSend" />
-
+          press="onSend"
+          visible="{= ${Ticket>/stateId} !== '3' &amp;&amp; ${Ticket>/stateId} !== '6' ? true : false}" />
       </OverflowToolbar>
     </f:footer>
   </f:DynamicPage>
