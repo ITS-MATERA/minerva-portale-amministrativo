@@ -138,7 +138,7 @@ sap.ui.define(
       },
 
       onStart: async function () {
-        var oModelTickets = this.getModel("Tickets");
+        var oModelTickets = this.getModel("TicketsFunz");
         var oFilters = this.getModel("TicketFilters").getData();
 
         var sQuery = "";
