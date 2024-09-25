@@ -3,6 +3,11 @@
   "authenticationMethod": "route",
   "routes": [
     {
+      "source": "^/user-api/currentUser$",
+      "target": "/currentUser",
+      "service": "sap-approuter-userapi"
+    },
+    {
       "source": "^/service-now/(.*)$",
       "target": "/$1",
       "destination": "fstech-service-now",
