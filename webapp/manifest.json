@@ -25,6 +25,21 @@
           "odataVersion": "2.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "portaleamministrativo": {
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          },
+          "semanticObject": "portaleamministrativo",
+          "action": "run",
+          "title": "Help Desk",
+          "subTitle": "",
+          "icon": "sap-icon://bbyd-dashboard"
+        }
+      }
     }
   },
   "sap.ui": {
