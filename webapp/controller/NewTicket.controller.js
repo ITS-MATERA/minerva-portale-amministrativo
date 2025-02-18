@@ -41,9 +41,10 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function () {
-        var lifnr = "0100000002"; //TODO:Da canc
+        var oUser = await this.getModel("user");
+        var sBp = oUser.getData().bp;
 
-        var oSupplier = await this.getSupplier(lifnr);
+        var oSupplier = await this.getSupplier(sBp);
         this.setModel(new JSONModel(oSupplier), "Supplier");
         this.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
 
@@ -56,16 +57,15 @@ sap.ui.define(
       },
 
       onSend: async function () {
-        var self = this;
         var oSupplier = this.getModel("Supplier").getData();
         var oModelTicket = this.getModel("Ticket");
         var oTicket = oModelTicket.getData();
+        var oUser = await this.getModel("user");
 
         oModelTicket.setProperty("/account", oSupplier.ID);
-        //TODO:da recupare in base all'utente loggato
-        oModelTicket.setProperty("/contact", "gianni.lecci@innovatesapp.com");
-        oModelTicket.setProperty("/contact_name", "Gianni");
-        oModelTicket.setProperty("/contact_surname", "Lecci");
+        oModelTicket.setProperty("/contact", oUser.email);
+        oModelTicket.setProperty("/contact_name", oUser.firstname);
+        oModelTicket.setProperty("/contact_surname", oUser.lastname);
 
         if (
           !oTicket.company ||

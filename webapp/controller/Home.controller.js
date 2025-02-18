@@ -55,13 +55,6 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function (oEvent) {
-        var sUrl = window.location.href;
-
-        if (!sUrl.includes("workspaces-ws-")) {
-          var oUser = await this.getModel("user");
-          console.log(oUser.getData());
-        }
-
         //Gestione Ticket Funzionali
         var oTicketsFunz = await this.serviceNow.getTickets(this, "0", this._sQuery);
 

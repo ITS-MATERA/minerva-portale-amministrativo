@@ -8,6 +8,13 @@
       "service": "sap-approuter-userapi"
     },
     {
+      "source": "^/cis-manager/(.*)$",
+      "target": "/$1",
+      "destination": "cis-manager",
+      "authenticationType": "none",
+      "csrfProtection": false
+    },
+    {
       "source": "^/service-now/(.*)$",
       "target": "/$1",
       "destination": "fstech-service-now",
