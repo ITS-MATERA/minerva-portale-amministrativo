@@ -14,9 +14,9 @@ sap.ui.define([], function () {
      * Restituisce:
      * {string} - L'URL di destinazione per l'azione/method specificato, in base all'ambiente di esecuzione (SAP Work Zone, FLP, standalone).
      */
-    getDestinationUrl: function (self, sDestinationName, sMethod) {
+    getDestinationUrl: function (sDestinationName, sMethod) {
       // Ottiene l'ID dell'applicazione dal manifesto del componente
-      const sAppId = self.getOwnerComponent().getMetadata().getManifest()["sap.app"].id;
+      const sAppId = "portaleamministrativo";
 
       const sLocation = window.location;
       const sBaseUrl = sLocation.href;

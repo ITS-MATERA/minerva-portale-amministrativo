@@ -25,7 +25,7 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
           })
           .fail(function (error) {
             BusyIndicator.hide();
-            reject([]);
+            reject(error);
           });
       });
     },

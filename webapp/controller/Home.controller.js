@@ -6,9 +6,11 @@ sap.ui.define(
     "portaleamministrativo/externalServices/serviceTech/library",
     "sap/m/library",
     "portaleamministrativo/model/constants",
+    "sap/m/MessageBox",
+    "portaleamministrativo/util/ticketUtils",
   ],
 
-  function (BaseController, JSONModel, serviceNow, serviceTech, sapMLib, constants) {
+  function (BaseController, JSONModel, serviceNow, serviceTech, sapMLib, constants, MessageBox, ticketUtils) {
     "use strict";
 
     const { Text, Button, DialogType, Dialog } = sapMLib;
@@ -17,7 +19,7 @@ sap.ui.define(
       serviceNow: new serviceNow(),
       serviceTech: new serviceTech(),
 
-      onInit: function () {
+      onInit: async function () {
         var oBundle = this.getResourceBundle();
         this._sQuery = "";
 
@@ -55,36 +57,53 @@ sap.ui.define(
       },
 
       _onObjectMatched: async function (oEvent) {
-        //Gestione Ticket Funzionali
-        var oTicketsFunz = await this.serviceNow.getTickets(this, "0", this._sQuery);
+        var oUser = await this.getModel("user");
+        var oModelFilters = this.getModel("TicketFilters");
 
-        var oModelTickets = {
-          Top: 200,
-          Skip: 0,
-          Records: oTicketsFunz.count,
-          List: oTicketsFunz.results,
-        };
+        this.sBp = oUser?.getData()?.bp ?? "";
 
-        this.byId("tblPaginatorFun").setVisible(!!oTicketsFunz.count);
+        if (this.sBp) {
+          this.byId("iptHomeAccount").setEnabled(false);
+          oModelFilters.setProperty("/Account", this.sBp);
+        }
 
-        this.setModel(new JSONModel(oModelTickets), "TicketsFunz");
-        console.log("Funzionali:", this.getModel("TicketsFunz").getData().List);
+        try {
+          this._sQuery = ticketUtils.getQuery(oModelFilters.getData());
 
-        //Gestione Ticket Tecnici
-        var oTicketsTech = await this.serviceTech.getTickets(this, 0);
-        var iTicketTechCount = await this.serviceTech.getCount(this);
+          //Gestione Ticket Funzionali
+          var oTicketsFunz = await this.serviceNow.getTickets(this, "0", this._sQuery);
 
-        var oModelTicketTech = {
-          Top: 200,
-          Skip: 0,
-          Records: iTicketTechCount,
-          List: oTicketsTech.results,
-        };
+          var oModelTickets = {
+            Top: 200,
+            Skip: 0,
+            Records: oTicketsFunz.count,
+            List: oTicketsFunz.results,
+          };
 
-        this.byId("tblPaginatorTec").setVisible(!!iTicketTechCount);
+          this.byId("tblPaginatorFun").setVisible(!!oTicketsFunz.count);
 
-        this.setModel(new JSONModel(oModelTicketTech), "TicketsTech");
-        console.log("Tecnici:", this.getModel("TicketsTech").getData().List);
+          this.setModel(new JSONModel(oModelTickets), "TicketsFunz");
+          console.log("Funzionali:", this.getModel("TicketsFunz").getData().List);
+
+          //Gestione Ticket Tecnici
+          var oTicketsTech = await this.serviceTech.getTickets(this, 0);
+          var iTicketTechCount = await this.serviceTech.getCount(this);
+
+          var oModelTicketTech = {
+            Top: 200,
+            Skip: 0,
+            Records: iTicketTechCount,
+            List: oTicketsTech.results,
+          };
+
+          this.byId("tblPaginatorTec").setVisible(!!iTicketTechCount);
+
+          this.setModel(new JSONModel(oModelTicketTech), "TicketsTech");
+          console.log("Tecnici:", this.getModel("TicketsTech").getData().List);
+        } catch (error) {
+          console.error(error);
+          MessageBox.error(error?.responseText);
+        }
       },
 
       onDetail: function (oEvent) {
@@ -101,19 +120,29 @@ sap.ui.define(
       },
 
       onPaginatorFunzChange: async function () {
-        var oModelTickets = this.getModel("TicketsFunz");
-        var oTickets = await this.serviceNow.getTickets(this, oModelTickets.getProperty("/Skip"), this._sQuery);
+        try {
+          var oModelTickets = this.getModel("TicketsFunz");
+          var oTickets = await this.serviceNow.getTickets(this, oModelTickets.getProperty("/Skip"), this._sQuery);
 
-        oModelTickets.setProperty("/List", oTickets.results);
-        oModelTickets.setProperty("/Records", oTickets.count);
+          oModelTickets.setProperty("/List", oTickets.results);
+          oModelTickets.setProperty("/Records", oTickets.count);
+        } catch (error) {
+          console.error(error);
+          MessageBox.error(error?.responseText);
+        }
       },
 
       onPaginatorTechChange: async function () {
-        var oModelTickets = this.getModel("TicketsTech");
-        var oTickets = await this.serviceTech.getTickets(this, oModelTickets.getProperty("/Skip"));
+        try {
+          var oModelTickets = this.getModel("TicketsTech");
+          var oTickets = await this.serviceTech.getTickets(this, oModelTickets.getProperty("/Skip"));
 
-        oModelTickets.setProperty("/List", oTickets.results);
-        oModelTickets.setProperty("/Records", await this.serviceTech.getCount(this));
+          oModelTickets.setProperty("/List", oTickets.results);
+          oModelTickets.setProperty("/Records", await this.serviceTech.getCount(this));
+        } catch (error) {
+          console.error(error);
+          MessageBox.error(error?.responseText);
+        }
       },
 
       onComments: function (oEvent) {
@@ -138,43 +167,45 @@ sap.ui.define(
       },
 
       onStart: async function () {
-        var oModelTickets = this.getModel("TicketsFunz");
-        var oFilters = this.getModel("TicketFilters").getData();
+        try {
+          var oModelTickets = this.getModel("TicketsFunz");
+          var oFilters = this.getModel("TicketFilters").getData();
 
-        var sQuery = "";
+          this._sQuery = ticketUtils.getQuery(oFilters);
 
-        sQuery = oFilters.Number ? sQuery + "number=" + oFilters.Number + "^" : sQuery + "";
-        sQuery = oFilters.Account ? sQuery + "account.name=" + oFilters.Account + "^" : sQuery + "";
-        sQuery = oFilters.Contact ? sQuery + "contact.name=" + oFilters.Contact + "^" : sQuery + "";
-        sQuery = oFilters.Priority ? sQuery + "priority=" + oFilters.Priority + "^" : sQuery + "";
-        sQuery = oFilters.State ? sQuery + "state=" + oFilters.State + "^" : sQuery + "";
+          var oTickets = await this.serviceNow.getTickets(this, "0", this._sQuery);
 
-        this._sQuery = sQuery;
-
-        var oTickets = await this.serviceNow.getTickets(this, "0", this._sQuery);
-
-        oModelTickets.setProperty("/List", oTickets.results);
-        oModelTickets.setProperty("/Records", oTickets.count);
-        oModelTickets.setProperty("/Skip", 0);
+          oModelTickets.setProperty("/List", oTickets.results);
+          oModelTickets.setProperty("/Records", oTickets.count);
+          oModelTickets.setProperty("/Skip", 0);
+        } catch (error) {
+          console.error(error);
+          MessageBox.error(error?.responseText);
+        }
       },
 
       onRefresh: async function () {
-        var oModelTickets = this.getModel("TicketsFunz");
-        var oModelFilters = this.getModel("TicketFilters");
+        try {
+          var oModelTickets = this.getModel("TicketsFunz");
+          var oModelFilters = this.getModel("TicketFilters");
 
-        oModelFilters.setProperty("/Account", "");
-        oModelFilters.setProperty("/Contact", "");
-        oModelFilters.setProperty("/Number", "");
-        oModelFilters.setProperty("/Priority", "");
-        oModelFilters.setProperty("/State", "");
+          oModelFilters.setProperty("/Account", this.sBp);
+          oModelFilters.setProperty("/Contact", "");
+          oModelFilters.setProperty("/Number", "");
+          oModelFilters.setProperty("/Priority", "");
+          oModelFilters.setProperty("/State", "");
 
-        this._sQuery = "";
+          this._sQuery = ticketUtils.getQuery(oModelFilters.getData());
 
-        var oTickets = await this.serviceNow.getTickets(this, "0", this._sQuery);
+          var oTickets = await this.serviceNow.getTickets(this, "0", this._sQuery);
 
-        oModelTickets.setProperty("/List", oTickets.results);
-        oModelTickets.setProperty("/Records", oTickets.count);
-        oModelTickets.setProperty("/Skip", 0);
+          oModelTickets.setProperty("/List", oTickets.results);
+          oModelTickets.setProperty("/Records", oTickets.count);
+          oModelTickets.setProperty("/Skip", 0);
+        } catch (error) {
+          console.error(error);
+          MessageBox.error(error?.responseText);
+        }
       },
     });
   }

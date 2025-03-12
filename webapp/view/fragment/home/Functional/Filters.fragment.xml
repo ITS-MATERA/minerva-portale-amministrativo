@@ -4,7 +4,8 @@
   <l:Grid>
     <VBox>
       <Label text="{i18n>labelAccount}" />
-      <Input value="{TicketFilters>/Account}"/>
+      <Input id="iptHomeAccount"
+        value="{TicketFilters>/Account}"/>
       <layoutData>
         <l:GridData span="XL2 L3 M4" />
       </layoutData>
