@@ -27,7 +27,7 @@ sap.ui.define(
             { Key: "1", Text: oBundle.getText("labelPriorityCritical") },
           ],
           Categories: [
-            { Text: oBundle.getText("labelCatMalfPor"), Type: constants.TABBAR_TECHNICIAN_KEY }, //tecnico
+            { Text: oBundle.getText("labelCatMalfPor"), Type: constants.TABBAR_FUNCTIONAL_KEY },
             { Text: oBundle.getText("labelCatRichInf"), Type: constants.TABBAR_FUNCTIONAL_KEY },
             { Text: oBundle.getText("labelCatCertUni"), Type: constants.TABBAR_FUNCTIONAL_KEY },
             { Text: oBundle.getText("labelCatAltro"), Type: constants.TABBAR_FUNCTIONAL_KEY },
@@ -57,15 +57,16 @@ sap.ui.define(
       },
 
       onSend: async function () {
-        var oSupplier = this.getModel("Supplier").getData();
+        var oSupplier = this.getModel("Supplier")?.getData();
         var oModelTicket = this.getModel("Ticket");
-        var oTicket = oModelTicket.getData();
+        var oTicket = oModelTicket?.getData();
         var oUser = await this.getModel("user");
+        oUser = oUser?.getData();
 
         oModelTicket.setProperty("/account", oSupplier.ID);
-        oModelTicket.setProperty("/contact", oUser.email);
-        oModelTicket.setProperty("/contact_name", oUser.firstname);
-        oModelTicket.setProperty("/contact_surname", oUser.lastname);
+        oModelTicket.setProperty("/contact", oUser?.email);
+        oModelTicket.setProperty("/contact_name", oUser?.name);
+        oModelTicket.setProperty("/contact_surname", oUser?.lastname);
 
         if (
           !oTicket.company ||

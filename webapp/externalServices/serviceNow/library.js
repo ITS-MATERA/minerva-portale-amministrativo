@@ -3,10 +3,10 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
 
   return ManagedObject.extend("portaleamministrativo.externalServices.serviceNow.library", {
     getTickets: function (self, sOffset = "0", sQuery) {
-      var sMethod = "api/sn_customerservice/case/btp_fornitori_get?sysparm_offset=" + sOffset + "&sysparm_limit=200";
+      var sMethod = `api/sn_customerservice/case/btp_fornitori_get?sysparm_offset=${sOffset}&sysparm_limit=200`;
 
       if (sQuery) {
-        sMethod = "api/sn_customerservice/case/btp_fornitori_get?sysparm_query=" + sQuery;
+        sMethod = `${sMethod}&sysparm_query=${sQuery}`;
       }
 
       var oSettings = {
@@ -23,9 +23,12 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
         $.ajax(oSettings)
           .done(function (response, status, header) {
             BusyIndicator.hide();
+            const headers = header.getAllResponseHeaders();
+            const totalCountMatch = headers.match(/x-total-count:\s*(\d+)/i);
+            const totalCount = totalCountMatch ? parseInt(totalCountMatch[1]) : 0;
             resolve({
               results: response.result,
-              count: parseInt(header.getAllResponseHeaders().split("x-total-count: ")[1].split("\r")[0]),
+              count: totalCount,
             });
           })
           .fail(function (error) {

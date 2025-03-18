@@ -17,7 +17,7 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /service-now
-            url: https://fstechdev.service-now.com
+            # url: https://fstechdev.service-now.com
             pathPrefix: /
             destination: fstech-service-now
           - path: /service-tech
@@ -27,7 +27,7 @@ server:
           - path: /sap/opu/odata/sap/ZMDG_ADMIN_PORTAL_SRV/
             url: http://mds:44300
             client: "100"
-            destination: MDS_CENTRALIZZATO_100
+            destination: MDX_100_PA
             authenticationType: BasicAuthentication
           - path: /cis-manager
             url: https://fsh-dev-minervaacq-cis-api-manager-srv.cfapps.eu10-004.hana.ondemand.com

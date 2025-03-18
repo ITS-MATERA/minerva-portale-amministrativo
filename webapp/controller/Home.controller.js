@@ -85,21 +85,21 @@ sap.ui.define(
           this.setModel(new JSONModel(oModelTickets), "TicketsFunz");
           console.log("Funzionali:", this.getModel("TicketsFunz").getData().List);
 
-          //Gestione Ticket Tecnici
-          var oTicketsTech = await this.serviceTech.getTickets(this, 0);
-          var iTicketTechCount = await this.serviceTech.getCount(this);
+          // //Gestione Ticket Tecnici
+          // var oTicketsTech = await this.serviceTech.getTickets(this, 0);
+          // var iTicketTechCount = await this.serviceTech.getCount(this);
 
-          var oModelTicketTech = {
-            Top: 200,
-            Skip: 0,
-            Records: iTicketTechCount,
-            List: oTicketsTech.results,
-          };
+          // var oModelTicketTech = {
+          //   Top: 200,
+          //   Skip: 0,
+          //   Records: iTicketTechCount,
+          //   List: oTicketsTech.results,
+          // };
 
-          this.byId("tblPaginatorTec").setVisible(!!iTicketTechCount);
+          // // this.byId("tblPaginatorTec").setVisible(!!iTicketTechCount);
 
-          this.setModel(new JSONModel(oModelTicketTech), "TicketsTech");
-          console.log("Tecnici:", this.getModel("TicketsTech").getData().List);
+          // this.setModel(new JSONModel(oModelTicketTech), "TicketsTech");
+          // console.log("Tecnici:", this.getModel("TicketsTech").getData().List);
         } catch (error) {
           console.error(error);
           MessageBox.error(error?.responseText);
@@ -133,16 +133,15 @@ sap.ui.define(
       },
 
       onPaginatorTechChange: async function () {
-        try {
-          var oModelTickets = this.getModel("TicketsTech");
-          var oTickets = await this.serviceTech.getTickets(this, oModelTickets.getProperty("/Skip"));
-
-          oModelTickets.setProperty("/List", oTickets.results);
-          oModelTickets.setProperty("/Records", await this.serviceTech.getCount(this));
-        } catch (error) {
-          console.error(error);
-          MessageBox.error(error?.responseText);
-        }
+        // try {
+        //   var oModelTickets = this.getModel("TicketsTech");
+        //   var oTickets = await this.serviceTech.getTickets(this, oModelTickets.getProperty("/Skip"));
+        //   oModelTickets.setProperty("/List", oTickets.results);
+        //   oModelTickets.setProperty("/Records", await this.serviceTech.getCount(this));
+        // } catch (error) {
+        //   console.error(error);
+        //   MessageBox.error(error?.responseText);
+        // }
       },
 
       onComments: function (oEvent) {

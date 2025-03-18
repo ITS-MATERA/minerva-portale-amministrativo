@@ -3,6 +3,7 @@ sap.ui.define(["sap/ui/base/ManagedObject", "sap/ui/core/BusyIndicator"], functi
 
   return ManagedObject.extend("portaleamministrativo.externalServices.serviceTech.library", {
     getTickets: function (self, sSkip) {
+      return;
       var sMethod = "odata/v4/log/Ticket?$top=200&$skip=" + sSkip + "&$expand=allegato,stato_ticket";
 
       var oSettings = {

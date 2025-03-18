@@ -31,7 +31,7 @@
     {
       "source": "^/sap/opu/odata/sap/(.*)$",
       "target": "sap/opu/odata/sap/$1",
-      "destination": "MDS_CENTRALIZZATO_100",
+      "destination": "MDX_100_PA",
       "authenticationType": "xsuaa",
       "csrfProtection": false
     },
