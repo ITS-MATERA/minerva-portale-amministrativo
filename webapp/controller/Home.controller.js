@@ -206,6 +206,46 @@ sap.ui.define(
           MessageBox.error(error?.responseText);
         }
       },
+
+      onSortPriority: function (oEvent) {
+        var oColumn = oEvent.getParameter("column");
+        var sSortProperty = oColumn.getSortProperty();
+
+        if (sSortProperty !== "priorityId") {
+          return;
+        }
+
+        var oTable = this.byId("tblTicketFunzionali");
+        var oBinding = oTable.getBinding("rows");
+
+        // Rimuovi gli altri ordinamenti
+        oTable.getColumns().forEach(function (column) {
+          if (column.getSortProperty() !== "priorityId") {
+            column.setSorted(false);
+            column.setSortOrder(sap.ui.table.SortOrder.None);
+          }
+        });
+
+        var bDescending = oColumn.getSortOrder() !== "Descending";
+        var newSortOrder = bDescending ? "Descending" : "Ascending";
+
+        // Mappa delle priorità con valori invertiti
+        var priorityOrder = { 1: 3, 2: 2, 3: 1, 4: 0 };
+
+        var oSorter = new sap.ui.model.Sorter("priorityId", false, null, function (a, b) {
+          var valueA = priorityOrder[a] !== undefined ? priorityOrder[a] : 99;
+          var valueB = priorityOrder[b] !== undefined ? priorityOrder[b] : 99;
+
+          return bDescending ? valueA - valueB : valueB - valueA;
+        });
+
+        oBinding.sort(oSorter);
+
+        oColumn.setSorted(true);
+        oColumn.setSortOrder(newSortOrder);
+
+        oEvent.preventDefault();
+      },
     });
   }
 );

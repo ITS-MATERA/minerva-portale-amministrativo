@@ -5,9 +5,13 @@
   xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
   xmlns:my="portaleamministrativo.controls">
   <VBox height="100%">
-    <ui:Table rows="{TicketsFunz>/List}"
+    <ui:Table id="tblTicketFunzionali"
+      rows="{
+          path: 'TicketsFunz>/List'
+      }"
       selectionMode="None"
-      rowActionCount="1">
+      rowActionCount="1"
+      sort="onSortPriority">
       <ui:rowMode>
         <rowmodes:Auto rowContentHeight="50"/>
       </ui:rowMode>
@@ -65,14 +69,16 @@
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
-          width="7rem">
+          width="7rem"
+          sortProperty="sys_created_on">
           <Label text="{i18n>labelDataApertura}" />
           <ui:template>
             <Text text="{TicketsFunz>sys_created_on}" />
           </ui:template>
         </ui:Column>
         <ui:Column autoResizable="true"
-          width="7rem">
+          width="7rem"
+          sortProperty="priorityId">
           <Label text="{i18n>labelPriority}" />
           <ui:template>
             <Text text="{TicketsFunz>priority}" />

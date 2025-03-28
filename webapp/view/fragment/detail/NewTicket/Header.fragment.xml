@@ -54,13 +54,14 @@
       </Input>
       <Label text="{i18n>labelSociety}"
         class="sapUiTinyMarginTop"
-        required="true">
+        required="{= ${Ticket>/category} !== ${i18n>labelCatMalfPor}}">
         <layoutData>
           <l:GridData span="XL1 L3 M6"
             linebreak="true"/>
         </layoutData>
       </Label>
-      <Select width="100%"
+      <Select editable="{= ${Ticket>/category} !== ${i18n>labelCatMalfPor}}"
+        width="100%"
         items="{
             path: 'Select>/Companies',
             templateShareable: false

@@ -1,0 +1,7 @@
+<c:FragmentDefinition xmlns="sap.m"
+  xmlns:c="sap.ui.core">
+  <Text text='Cliccando sul bottone "Download Manuale Utente" è possibile eseguire il download del documento con le istruzioni di utilizzo del Portale Amministrativo.' />
+  <Button text="Download Manuale Utente"
+    icon="sap-icon://download"
+    class="sapUiSmallMarginTop"/>
+</c:FragmentDefinition>

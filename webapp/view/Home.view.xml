@@ -24,6 +24,20 @@
 								type="XML" />
 						</VBox>
 					</IconTabFilter>
+					<IconTabFilter key="faqs"
+						text="{i18n>labelFaqs}">
+						<VBox height="100%">
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Faqs"
+								type="XML" />
+						</VBox>
+					</IconTabFilter>
+					<IconTabFilter key="user_manual"
+						text="{i18n>labelUserManual}">
+						<VBox height="100%">
+							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.UserManual"
+								type="XML" />
+						</VBox>
+					</IconTabFilter>
 					<!-- <IconTabFilter key="technician" text="{i18n>labelTechnician}">
 						<VBox height="100%">
 							<c:Fragment fragmentName="portaleamministrativo.view.fragment.home.Technician.Filters" type="XML" />

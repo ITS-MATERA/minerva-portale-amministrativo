@@ -69,7 +69,7 @@ sap.ui.define(
         oModelTicket.setProperty("/contact_surname", oUser?.lastname);
 
         if (
-          !oTicket.company ||
+          (!oTicket.company && oTicket.category !== this.getResourceBundle().getText("labelCatMalfPor")) ||
           !oTicket.category ||
           !oTicket.priority ||
           !oTicket.description ||
@@ -155,6 +155,10 @@ sap.ui.define(
         var sType = oEvent.getParameters().selectedItem.data("type");
 
         oModelTicket.setProperty("/config/type", sType);
+
+        if (sKey === this.getResourceBundle().getText("labelCatMalfPor")) {
+          oModelTicket.setProperty("/company", null);
+        }
 
         if (
           sKey === this.getResourceBundle().getText("labelCatFattBlo") ||
