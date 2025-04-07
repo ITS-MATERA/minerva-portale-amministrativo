@@ -23,6 +23,8 @@ sap.ui.define(
         var oBundle = this.getResourceBundle();
         this._sQuery = "";
 
+        this.oButtonNewTicket = this.byId("btnNewTicket");
+
         var oModelSelect = {
           Priorities: [
             { Key: "", Text: "" },
@@ -83,7 +85,7 @@ sap.ui.define(
           this.byId("tblPaginatorFun").setVisible(!!oTicketsFunz.count);
 
           this.setModel(new JSONModel(oModelTickets), "TicketsFunz");
-          console.log("Funzionali:", this.getModel("TicketsFunz").getData().List);
+          // console.log("Funzionali:", this.getModel("TicketsFunz").getData().List);
 
           // //Gestione Ticket Tecnici
           // var oTicketsTech = await this.serviceTech.getTickets(this, 0);
@@ -245,6 +247,12 @@ sap.ui.define(
         oColumn.setSortOrder(newSortOrder);
 
         oEvent.preventDefault();
+      },
+
+      onTabChange: function (oEvent) {
+        const sKey = oEvent.getParameter("key");
+
+        this.oButtonNewTicket.setVisible(sKey === "functional");
       },
     });
   }

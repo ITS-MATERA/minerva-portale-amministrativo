@@ -61,8 +61,8 @@ sap.ui.define(
           this.getModel("Select").setProperty("/Companies", oSupplier.CompanyDataSet.results);
         }
 
-        console.log("Ticket:", this.getModel("Ticket").getData());
-        console.log("Supplier:", this.getModel("Supplier").getData());
+        // console.log("Ticket:", this.getModel("Ticket").getData());
+        // console.log("Supplier:", this.getModel("Supplier").getData());
       },
 
       onBack: function () {

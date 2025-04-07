@@ -155,6 +155,7 @@ sap.ui.define(
         var sType = oEvent.getParameters().selectedItem.data("type");
 
         oModelTicket.setProperty("/config/type", sType);
+        oModelTicket.setProperty("/config/sendEnabled", true);
 
         if (sKey === this.getResourceBundle().getText("labelCatMalfPor")) {
           oModelTicket.setProperty("/company", null);

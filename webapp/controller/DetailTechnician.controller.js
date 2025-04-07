@@ -43,8 +43,8 @@ sap.ui.define(
           this.setModel(new JSONModel(await this.getSupplier(oTicket.Codice_BP)), "Supplier");
         }
 
-        console.log("Ticket:", this.getModel("Ticket").getData());
-        console.log("Supplier:", this.getModel("Supplier").getData());
+        // console.log("Ticket:", this.getModel("Ticket").getData());
+        // console.log("Supplier:", this.getModel("Supplier").getData());
       },
 
       onBack: function () {

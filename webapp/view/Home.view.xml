@@ -13,7 +13,8 @@
 		</f:title>
 		<f:content >
 			<IconTabBar id="HomeTabBar"
-				stretchContentHeight="true">
+				stretchContentHeight="true"
+				select="onTabChange">
 				<items >
 					<IconTabFilter key="functional"
 						text="{i18n>labelTickets}">
@@ -50,7 +51,8 @@
 		<f:footer>
 			<OverflowToolbar>
 				<ToolbarSpacer />
-				<Button type="Emphasized"
+				<Button id="btnNewTicket"
+					type="Emphasized"
 					text="{i18n>labelNewTicket}"
 					press="onNewTicket" />
 			</OverflowToolbar>
