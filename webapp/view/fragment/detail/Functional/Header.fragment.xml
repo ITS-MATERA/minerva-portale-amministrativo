@@ -40,18 +40,17 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelPhone}"
-        class="sapUiTinyMarginTop">
+      <!-- <Label text="{i18n>labelPhone}" class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6"/>
         </layoutData>
       </Label>
-      <Input editable="false"
-        value="{Supplier>/Telefono}">
+      <Input editable="false" value="{Supplier>/Telefono}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
-      </Input>
+      </Input> -->
+
       <Label text="{i18n>labelSociety}"
         class="sapUiTinyMarginTop">
         <layoutData>
@@ -85,6 +84,7 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
+
       <Label text="{i18n>labelVatNumber}"
         class="sapUiTinyMarginTop">
         <layoutData>

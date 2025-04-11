@@ -120,6 +120,9 @@ sap.ui.define(
           delete oTicketWithouAttachments.dataStart;
           delete oTicketWithouAttachments.dataEnd;
 
+          //TODO - Da eliminare
+          oTicketWithouAttachments.application_code = "BUCP391";
+
           await this.serviceNow.send(this, oTicketWithouAttachments).then(
             async (response) => {
               oTicket.sys_id = response.result.sys_id;

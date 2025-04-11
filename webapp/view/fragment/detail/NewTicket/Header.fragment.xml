@@ -40,24 +40,23 @@
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
       </Input>
-      <Label text="{i18n>labelPhone}"
-        class="sapUiTinyMarginTop">
+      <!-- <Label text="{i18n>labelPhone}" class="sapUiTinyMarginTop">
         <layoutData>
           <l:GridData span="XL1 L3 M6"/>
         </layoutData>
-      </Label>
-      <Input editable="false"
-        value="{Supplier>/Telefono}">
+      </Label> -->
+      <!-- <Input editable="false" value="{Supplier>/Telefono}">
         <layoutData>
           <l:GridData span="XL2 L3 M6" />
         </layoutData>
-      </Input>
+      </Input> -->
+
       <Label text="{i18n>labelSociety}"
         class="sapUiTinyMarginTop"
         required="{= ${Ticket>/category} !== ${i18n>labelCatMalfPor}}">
         <layoutData>
           <l:GridData span="XL1 L3 M6"
-            linebreak="true"/>
+            linebreak="true" />
         </layoutData>
       </Label>
       <Select editable="{= ${Ticket>/category} !== ${i18n>labelCatMalfPor}}"
