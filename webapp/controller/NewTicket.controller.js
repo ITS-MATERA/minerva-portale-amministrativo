@@ -38,6 +38,14 @@ sap.ui.define(
         };
 
         this.setModel(new JSONModel(oModelSelect), "Select");
+
+        this.oButtonSend = this.byId("btnSend");
+      },
+
+      onTabChange: function (oEvent) {
+        // const sKey = oEvent.getParameter("key");
+
+        // this.oButtonSend.setVisible(sKey === "info");
       },
 
       _onObjectMatched: async function () {

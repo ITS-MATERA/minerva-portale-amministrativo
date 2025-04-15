@@ -35,10 +35,14 @@ sap.ui.define(
         };
 
         this.setModel(new JSONModel(oModelSelect), "Select");
+
+        this.oIconTabBar = this.byId("itbDetail");
       },
 
       _onObjectMatched: async function (oEvent) {
         var oArguments = oEvent.getParameter("arguments");
+
+        this.setModel(new JSONModel({ isInfo: this.oIconTabBar.getSelectedKey() === "info" }), "Utils");
 
         this._sNumber = oArguments.Number;
 
@@ -63,6 +67,12 @@ sap.ui.define(
 
         // console.log("Ticket:", this.getModel("Ticket").getData());
         // console.log("Supplier:", this.getModel("Supplier").getData());
+      },
+
+      onTabChange: function (oEvent) {
+        const sKey = oEvent.getParameter("key");
+
+        this.setModel(new JSONModel({ isInfo: sKey !== "comments" }), "Utils");
       },
 
       onBack: function () {
@@ -187,8 +197,7 @@ sap.ui.define(
         var oTicket = oModelTicket.getData();
 
         var oData = {
-          comments:
-            "Commento generato da BTP: utente eliminato, le comunicazioni vanno inviate al contatto del fornitore generico",
+          comments: this.getResourceBundle().getText("msgDeletedUser"),
         };
 
         if (!(await this.serviceNow.postComments(this, oData, oTicket.sys_id))) {

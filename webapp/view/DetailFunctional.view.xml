@@ -13,7 +13,8 @@
       </f:DynamicPageTitle>
     </f:title>
     <f:content>
-      <IconTabBar>
+      <IconTabBar id="itbDetail"
+        select="onTabChange">
         <items>
           <IconTabFilter key="info"
             text="{i18n>labelInfo}">
@@ -41,10 +42,11 @@
           text="{i18n>labelBack}"
           press="onBack" />
         <ToolbarSpacer />
-        <Button type="Emphasized"
+        <Button id="btnSendDetail"
+          type="Emphasized"
           text="{i18n>labelSend}"
           press="onSend"
-          visible="{= ${Ticket>/stateId} !== '3' &amp;&amp; ${Ticket>/stateId} !== '6' ? true : false}" />
+          visible="{= ${Utils>/isInfo} &amp;&amp; ${Ticket>/stateId} !== '3' &amp;&amp; ${Ticket>/stateId} !== '6' ? true : false}" />
       </OverflowToolbar>
     </f:footer>
   </f:DynamicPage>

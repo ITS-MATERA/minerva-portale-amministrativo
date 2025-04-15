@@ -3,60 +3,51 @@
   <Panel>
     <headerToolbar>
       <OverflowToolbar>
-        <Title text="Gestione Estratto Conto"/>
+        <Title text="{i18n>titleFaq1}"/>
       </OverflowToolbar>
     </headerToolbar>
     <content>
-      <Text text="consente di visualizzare lo stato di avanzamento delle proprie fatture con l'indicazione di quelle
-       REGISTRATE, PAGATE o IN LAVORAZIONE. Nell'esposizione delle fatture PAGATE sarà disponibile il documento relativo
-        alla Disposizione di pagamento;"/>
+      <Text text="{i18n>labelFaq1}"/>
     </content>
   </Panel>
   <Panel class="sapUiSmallMarginTop">
     <headerToolbar>
       <OverflowToolbar>
-        <Title text="Disposizioni di Pagamento"/>
+        <Title text="{i18n>titleFaq2}"/>
       </OverflowToolbar>
     </headerToolbar>
     <content>
-      <Text text="Consente di visualizzare le fatture pagate a partire dal numero di disposizione. La contabile bancaria
-       che andrete a ricevere per il pagamento delle vostre fatture contiene sia l'informazione relativa alla disposizione
-       di pagamento (contraddistinte dal codice che inizia per 58) emessa sia la Società del Gruppo per la quale è stato
-        effettuato il bonifico. Con gli estremi della disposizione di pagamento (58...) potrete individuare agevolmente
-         e visualizzare l'elenco delle fatture pagate. Per le disposizioni ante 2016, i parametri sono mese e anno della
-          contabile bancaria. Il risultato, facendo parte di un archivio storico, sarà inviato via mail."/>
+      <Text text="{i18n>labelFaq2}"/>
     </content>
   </Panel>
   <Panel class="sapUiSmallMarginTop">
     <headerToolbar>
       <OverflowToolbar>
-        <Title text="Visualizzazione Entrate Merci"/>
+        <Title text="{i18n>titleFaq3}"/>
       </OverflowToolbar>
     </headerToolbar>
     <content>
-      <Text text="consente di ricercare e visualizzare lo stato delle Entrate Merci;"/>
+      <Text text="{i18n>labelFaq3}"/>
     </content>
   </Panel>
   <Panel class="sapUiSmallMarginTop">
     <headerToolbar>
       <OverflowToolbar>
-        <Title text="Fatture"/>
+        <Title text="{i18n>titleFaq4}"/>
       </OverflowToolbar>
     </headerToolbar>
     <content>
-      <Text text="consente l'invio delle proprie fatture tramite upload in formato pdf (solo per fornitori esenti dalla 
-      fatturazione tra privati). La visualizzazione è consentita per tutte le fatture trasmesse anche tramite il canale SdI."/>
+      <Text text="{i18n>labelFaq4}"/>
     </content>
   </Panel>
   <Panel class="sapUiSmallMarginTop">
     <headerToolbar>
       <OverflowToolbar>
-        <Title text="Professionisti"/>
+        <Title text="{i18n>titleFaq5}"/>
       </OverflowToolbar>
     </headerToolbar>
     <content>
-      <Text text="consente l'invio delle prenotule da parte dei professionisti e la visualizzazione dei dati utili alla 
-      Certificazione Unica per il lavoro autonomo;"/>
+      <Text text="{i18n>labelFaq5}"/>
     </content>
   </Panel>
 </c:FragmentDefinition>
