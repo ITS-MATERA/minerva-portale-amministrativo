@@ -37,7 +37,7 @@
           "action": "run",
           "title": "Help Desk",
           "subTitle": "",
-          "icon": "sap-icon://sys-help"
+          "icon": "sap-icon://desktop-mobile"
         }
       }
     }
