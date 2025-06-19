@@ -194,10 +194,16 @@ sap.ui.define(
 
       onRemoveContact: async function () {
         var oModelTicket = this.getModel("Ticket");
+        let oUser = await this.getModel("user");
+        oUser = oUser?.getData();
         var oTicket = oModelTicket.getData();
 
         var oData = {
           comments: this.getResourceBundle().getText("msgDeletedUser"),
+          contact: oUser?.email,
+          contact_name: oUser?.name,
+          contact_surname: oUser?.lastname,
+          contact_phone: "",
         };
 
         if (!(await this.serviceNow.postComments(this, oData, oTicket.sys_id))) {

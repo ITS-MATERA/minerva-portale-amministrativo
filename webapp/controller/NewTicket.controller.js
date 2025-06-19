@@ -44,7 +44,6 @@ sap.ui.define(
 
       onTabChange: function (oEvent) {
         // const sKey = oEvent.getParameter("key");
-
         // this.oButtonSend.setVisible(sKey === "info");
       },
 
@@ -129,7 +128,7 @@ sap.ui.define(
           delete oTicketWithouAttachments.dataEnd;
 
           //TODO - Da eliminare
-          oTicketWithouAttachments.application_code = "BUCP391";
+          oTicketWithouAttachments.application_code = "BUCP426";
 
           await this.serviceNow.send(this, oTicketWithouAttachments).then(
             async (response) => {
